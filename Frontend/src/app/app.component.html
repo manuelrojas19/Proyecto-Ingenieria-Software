@@ -1,0 +1,36 @@
+<ng-container *ngIf="signedIn$.getValue()?.isAuthenticated">
+  <nav class="navbar navbar-expand-lg navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">Viaticos</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul *ngIf="signedIn$.getValue()?.employee.profile === 'Empleado'" 
+        class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Viaticos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Solicitudes</a>
+          </li>
+        </ul>
+      </div>
+      <button routerLink="/signout" class="btn btn-outline-secondary">
+        Cerrar sesión
+      </button>
+    </div>
+  </nav>
+</ng-container>
+<router-outlet></router-outlet>
