@@ -1,0 +1,25 @@
+.form
+{
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+}
+
+.form .row
+{
+    margin-left: 0;
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 10rem;
+    padding-bottom: 4rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
