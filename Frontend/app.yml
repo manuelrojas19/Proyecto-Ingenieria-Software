@@ -1,0 +1,17 @@
+# [START runtime]
+runtime: python27
+threadsafe: yes
+# [END runtime]
+
+handlers:
+- url: /(.*\.(gif|png|jpeg|jpg|css|js|ico))$
+  static_files: dist/\1
+  upload: dist/(.*)
+- url: /(.*)
+  static_files: dist/index.html
+  upload: dist/index.html
+
+skip_files:
+  - ^.*node_modules(/.*)?
+  - ^.*json_data(/.*)?
+  - ^.*e2e(/.*)?
