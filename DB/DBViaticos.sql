@@ -136,6 +136,72 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+DROP PROCEDURE IF EXISTS `proc_insert_areas`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_areas` (
+pidAreas int, 
+pDescripcionArea varchar(45),
+pPresupuestoTransporte decimal(11,4), 
+pPresupuestoViatico decimal(11,4)
+)
+BEGIN
+INSERT INTO Areas (idAreas, DescripcionArea, PresupuestoTransporte, PresupuestoViatico) VALUES (pidAreas, pDescripcionArea, pPresupuestoTransporte, pPresupuestoViatico);
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_insert_factura`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_factura` (
+pidFactura int, 
+pDescripcionFactura varchar(45), 
+pFechaEmision varchar(45) ,
+pMontoFactura decimal(11,4)
+)
+BEGIN
+INSERT INTO Factura (idFactura, DescripcionFactura, FechaEmision, MontoFactura) VALUES (pidFactura, pDescripcionFactura, pFechaEmision, pMontoFactura);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_insert_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_comision` (
+pidComision int, 
+pTipoComision varchar(45), 
+pComisionAprobada tinyint, 
+pFechaInicio date, 
+pFechaFin date, 
+pFactura_idFactura int
+)
+BEGIN
+INSERT INTO Comision (idComision, TipoComision, ComisionAprobada, FechaInicio, FechaFin, Factura_idFactura) VALUES (pidComision, pTipoComision, pComisionAprobada, pFechaInicio, pFechaFin, pFactura_idFactura);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_insert_perfiles`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_perfiles` (
+pidPerfiles int, 
+pDescripcionPerfil varchar(45)
+)
+BEGIN
+INSERT INTO Perfiles (idPerfiles, DescripcionPerfil) VALUES (pidPerfiles, pDescripcionPerfil);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_insert_empleado_has_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_empleado_has_comision` (
+pEmpleado_idEmpleado int, 
+pComision_idComision int
+)
+BEGIN
+INSERT INTO Empleado_has_Comision (Empleado_idEmpleado, Comision_idComision) VALUES (pEmpleado_idEmpleado, pComision_idComision);
+END ;;
+DELIMITER ; 
+
 
 DROP PROCEDURE IF EXISTS `proc_insert_empleado`;
 DELIMITER ;;
