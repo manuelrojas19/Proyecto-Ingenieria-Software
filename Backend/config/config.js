@@ -17,6 +17,7 @@ module.exports = {
     'host': DB_HOST_DEV,
     'dialect': 'mysql',
   },
+  
   'test': {
     'username': DB_USERNAME_DEV,
     'password': DB_PASSWORD_DEV,
@@ -25,23 +26,24 @@ module.exports = {
     'dialect': 'mysql',
   },
 
-  // TODO: Comentar en Gcloud
+  // Descomentar en gcloud
   'production': {
     'username': DB_USERNAME_PROD,
     'password': DB_PASSWORD_PROD,
     'database': 'sistema_viaticos_db_prod',
-    'host': DB_HOST_PROD,
+    'host': '/cloudsql/' + DB_HOST_PROD,
     'dialect': 'mysql',
+    'dialectOptions': {
+      'socketPath': '/cloudsql/' + DB_HOST_PROD,
+    },
   },
-  // Descomentar en gcloud
+  
+  // TODO: Comentar en Gcloud
   // 'production': {
-  //   'username': DB_USERNAME_PROD,
-  //   'password': DB_PASSWORD_PROD,
-  //   'database': 'sistema_viaticos_db_prod',
-  //   'host': '/cloudsql/' + DB_HOST_PROD,
-  //   'dialect': 'mysql',
-  //   'dialectOptions': {
-  //     'socketPath': '/cloudsql/' + DB_HOST_PROD,
-  //   },
+  // 'username': DB_USERNAME_PROD,
+  //  'password': DB_PASSWORD_PROD,
+  //  'database': 'sistema_viaticos_db_prod',
+  //  'host': DB_HOST_PROD,
+  //  'dialect': 'mysql',
   // },
 };
