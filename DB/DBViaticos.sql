@@ -83,7 +83,15 @@ CREATE TABLE IF NOT EXISTS `Viaticos`.`Factura` (
   `DescripcionFactura` VARCHAR(45) NULL,
   `FechaEmision` VARCHAR(45) NULL,
   `MontoFactura` DECIMAL(11,4) NOT NULL,
-  PRIMARY KEY (`idFactura`))
+  `Comision_idComision` INT,
+  PRIMARY KEY (`idFactura`), 
+  INDEX `fk_Factura_Comision1_idx` (`Comision_idComision` ASC) VISIBLE,
+  CONSTRAINT `fk_Factura_Comision1`
+    FOREIGN KEY (`Comision_idComision`)
+    REFERENCES `Viaticos`.`Comision` (`idComision`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+    )
 ENGINE = InnoDB;
 
 
@@ -99,13 +107,8 @@ CREATE TABLE IF NOT EXISTS `Viaticos`.`Comision` (
   `FechaInicio` DATE NULL,
   `FechaFin` DATE NULL,
   `Factura_idFactura` INT NOT NULL,
-  PRIMARY KEY (`idComision`),
-  INDEX `fk_Comision_Factura1_idx` (`Factura_idFactura` ASC) VISIBLE,
-  CONSTRAINT `fk_Comision_Factura1`
-    FOREIGN KEY (`Factura_idFactura`)
-    REFERENCES `Viaticos`.`Factura` (`idFactura`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+  PRIMARY KEY (`idComision`)
+  )
 ENGINE = InnoDB;
 
 
