@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'idArea',
+      field: 'idAreas',
     },
     departmentDescription: {
       type: DataTypes.STRING,
@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Department',
     tableName: 'Areas',
+    timestamps: false,
   });
 
   Department.prototype.toJSON = function() {
@@ -44,8 +45,6 @@ module.exports = (sequelize, DataTypes) => {
     delete departmentJson.id;
     delete departmentJson.budgetTransport;
     delete departmentJson.budgetViatic;
-    delete departmentJson.createdAt;
-    delete departmentJson.updatedAt;
     return departmentJson;
   };
 
