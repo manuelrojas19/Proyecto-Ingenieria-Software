@@ -17,7 +17,6 @@ module.exports = {
     'host': DB_HOST_DEV,
     'dialect': 'mysql',
   },
-  
   'test': {
     'username': DB_USERNAME_DEV,
     'password': DB_PASSWORD_DEV,
