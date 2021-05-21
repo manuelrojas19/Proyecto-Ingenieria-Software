@@ -83,7 +83,15 @@ CREATE TABLE IF NOT EXISTS `Viaticos`.`Factura` (
   `DescripcionFactura` VARCHAR(45) NULL,
   `FechaEmision` VARCHAR(45) NULL,
   `MontoFactura` DECIMAL(11,4) NOT NULL,
-  PRIMARY KEY (`idFactura`))
+  `Comision_idComision` INT,
+  PRIMARY KEY (`idFactura`), 
+  INDEX `fk_Factura_Comision1_idx` (`Comision_idComision` ASC) VISIBLE,
+  CONSTRAINT `fk_Factura_Comision1`
+    FOREIGN KEY (`Comision_idComision`)
+    REFERENCES `Viaticos`.`Comision` (`idComision`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+    )
 ENGINE = InnoDB;
 
 
@@ -99,13 +107,8 @@ CREATE TABLE IF NOT EXISTS `Viaticos`.`Comision` (
   `FechaInicio` DATE NULL,
   `FechaFin` DATE NULL,
   `Factura_idFactura` INT NOT NULL,
-  PRIMARY KEY (`idComision`),
-  INDEX `fk_Comision_Factura1_idx` (`Factura_idFactura` ASC) VISIBLE,
-  CONSTRAINT `fk_Comision_Factura1`
-    FOREIGN KEY (`Factura_idFactura`)
-    REFERENCES `Viaticos`.`Factura` (`idFactura`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+  PRIMARY KEY (`idComision`)
+  )
 ENGINE = InnoDB;
 
 
@@ -135,6 +138,72 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+DROP PROCEDURE IF EXISTS `proc_insert_areas`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_areas` (
+pidAreas int, 
+pDescripcionArea varchar(45),
+pPresupuestoTransporte decimal(11,4), 
+pPresupuestoViatico decimal(11,4)
+)
+BEGIN
+INSERT INTO Areas (idAreas, DescripcionArea, PresupuestoTransporte, PresupuestoViatico) VALUES (pidAreas, pDescripcionArea, pPresupuestoTransporte, pPresupuestoViatico);
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_insert_factura`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_factura` (
+pidFactura int, 
+pDescripcionFactura varchar(45), 
+pFechaEmision varchar(45) ,
+pMontoFactura decimal(11,4)
+)
+BEGIN
+INSERT INTO Factura (idFactura, DescripcionFactura, FechaEmision, MontoFactura) VALUES (pidFactura, pDescripcionFactura, pFechaEmision, pMontoFactura);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_insert_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_comision` (
+pidComision int, 
+pTipoComision varchar(45), 
+pComisionAprobada tinyint, 
+pFechaInicio date, 
+pFechaFin date, 
+pFactura_idFactura int
+)
+BEGIN
+INSERT INTO Comision (idComision, TipoComision, ComisionAprobada, FechaInicio, FechaFin, Factura_idFactura) VALUES (pidComision, pTipoComision, pComisionAprobada, pFechaInicio, pFechaFin, pFactura_idFactura);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_insert_perfiles`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_perfiles` (
+pidPerfiles int, 
+pDescripcionPerfil varchar(45)
+)
+BEGIN
+INSERT INTO Perfiles (idPerfiles, DescripcionPerfil) VALUES (pidPerfiles, pDescripcionPerfil);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_insert_empleado_has_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_insert_empleado_has_comision` (
+pEmpleado_idEmpleado int, 
+pComision_idComision int
+)
+BEGIN
+INSERT INTO Empleado_has_Comision (Empleado_idEmpleado, Comision_idComision) VALUES (pEmpleado_idEmpleado, pComision_idComision);
+END ;;
+DELIMITER ; 
 
 
 DROP PROCEDURE IF EXISTS `proc_insert_empleado`;
