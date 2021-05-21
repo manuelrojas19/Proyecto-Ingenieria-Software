@@ -38,7 +38,6 @@ exports.permit = (...permittedRoles) => {
     if (!employee) {
       throw new Error();
     }
-    console.log(employee.profile);
     if (permittedRoles.includes(employee.profile.profileDescription)) {
       next();
     } else {

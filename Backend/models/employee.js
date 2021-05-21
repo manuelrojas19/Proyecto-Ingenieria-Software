@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'department',
       });
       this.belongsToMany(models.Commission, {
-        as: 'commission',
         through: 'Empleado_has_Comision',
+        as: 'commission',
         foreignKey: 'Empleado_idEmpleado',
         otherKey: 'Comision_idComision',
         timestamps: false,
@@ -99,6 +99,7 @@ module.exports = (sequelize, DataTypes) => {
     delete employeeJson.password;
     delete employeeJson.profileId;
     delete employeeJson.departmentId;
+    delete employeeJson.Empleado_has_Comision;
     employeeJson.profile = employeeJson.profile.profileDescription;
     employeeJson.department = employeeJson.department.departmentDescription;
     return employeeJson;
