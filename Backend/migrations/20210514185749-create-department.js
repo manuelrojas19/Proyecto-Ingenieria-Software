@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Areas', {
-      idArea: {
+      idAreas: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -10,20 +10,6 @@ module.exports = {
       },
       DescripcionArea: {
         type: Sequelize.STRING,
-      },
-      PresupuestoTransporte: {
-        type: Sequelize.DOUBLE,
-      },
-      PresupuestoViatico: {
-        type: Sequelize.DOUBLE,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
       },
     });
   },

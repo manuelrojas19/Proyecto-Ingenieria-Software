@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Perfiles', {
-      idPerfil: {
+      idPerfiles: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -10,14 +10,6 @@ module.exports = {
       },
       DescripcionPerfil: {
         type: Sequelize.STRING,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
       },
     });
   },
