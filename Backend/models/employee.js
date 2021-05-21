@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'departmentId',
         as: 'department',
       });
+      this.belongsToMany(models.Commission, {
+        as: 'commission',
+        through: 'Empleado_has_Comision',
+        foreignKey: 'Empleado_idEmpleado',
+        otherKey: 'Comision_idComision',
+        timestamps: false,
+      });
     }
   }
 

@@ -36,15 +36,17 @@ exports.createEmployee = async (employee) => {
   await createdEmployee.setProfile(profile);
   await createdEmployee.setDepartment(department);
 
-  return Employee.findByPk(createdEmployee.id,
-      {include: ['profile', 'department']});
+  return Employee.findByPk(createdEmployee.id, {
+    include: ['profile', 'department'],
+  });
 };
 
 exports.findEmployeeByCredentials = async (credentials) => {
-  return Employee.findByCredentials(
-      credentials.email, credentials.password);
+  return Employee.findByCredentials(credentials.email, credentials.password);
 };
 
 exports.findEmployeeById = async (employeeId) => {
-  return Employee.findByPk(employeeId, {include: ['profile', 'department']});
+  return Employee.findByPk(employeeId, {
+    include: ['profile', 'department', 'commission'],
+  });
 };

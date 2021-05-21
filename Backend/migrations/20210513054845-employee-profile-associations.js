@@ -9,7 +9,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           references: {
             model: 'Perfiles',
-            key: 'idPerfil',
+            key: 'idPerfiles',
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
