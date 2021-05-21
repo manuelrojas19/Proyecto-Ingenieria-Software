@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'idPerfil',
+      field: 'idPerfiles',
     },
     profileDescription: {
       type: DataTypes.STRING,
@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Profile',
     tableName: 'Perfiles',
+    timestamps: false,
   });
 
   Profile.prototype.toJSON = function() {
