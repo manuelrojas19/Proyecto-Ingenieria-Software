@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      field: 'PasswordEmp',
+      field: 'ContraseñaEmp',
     },
     profileId: {
       type: DataTypes.INTEGER,
