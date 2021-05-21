@@ -13,7 +13,7 @@ module.exports = {
   'development': {
     'username': DB_USERNAME_DEV,
     'password': DB_PASSWORD_DEV,
-    'database': 'tems_db_dev',
+    'database': 'Viaticos',
     'host': DB_HOST_DEV,
     'dialect': 'mysql',
   },
