@@ -47,6 +47,6 @@ exports.findEmployeeByCredentials = async (credentials) => {
 
 exports.findEmployeeById = async (employeeId) => {
   return Employee.findByPk(employeeId, {
-    include: ['profile', 'department', 'commission'],
+    include: ['profile', 'department'],
   });
 };

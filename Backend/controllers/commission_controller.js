@@ -1,5 +1,15 @@
 const CommissionService = require('../services/commission_service.js');
 
+exports.findCommissionsByEmployee = async (req, res) => {
+  try {
+    const commissions = await CommissionService.
+        findCommissionsByEmployee(req.employee);
+    res.status(200).json(commissions);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
 exports.createCommission = async (req, res) => {
   const params = Object.keys(req.body);
   const allowParams = ['typeCommission', 'beginDate', 'endDate'];
@@ -12,9 +22,8 @@ exports.createCommission = async (req, res) => {
         req.body,
         req.employee,
     );
-    res.status(200).json({commission: commission});
+    res.status(200).json(commission);
   } catch (e) {
-    console.log(e);
     res.status(400).json({error: e.message});
   }
 };
