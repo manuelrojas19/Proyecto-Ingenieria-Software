@@ -13,4 +13,11 @@ router.post(
     CommissionController.createCommission,
 );
 
+router.get(
+    ROOT_PATH + '/commission',
+    verifyToken,
+    permit('Empleado'),
+    CommissionController.findCommissionsByEmployee,
+);
+
 module.exports = router;

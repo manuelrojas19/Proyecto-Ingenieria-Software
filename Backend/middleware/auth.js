@@ -24,7 +24,6 @@ exports.verifyToken = async (req, res, next) => {
     if (!employee) {
       throw new Error(USER_NOT_FOUND_ERROR);
     }
-
     req.employee = employee;
     next();
   } catch (e) {
