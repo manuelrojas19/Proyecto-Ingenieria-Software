@@ -316,3 +316,73 @@ Perfiles_idPerfiles = pPerfiles_idPerfiles, Areas_idAreas = pAreas_idAreas
 WHERE idEmpleado = pidEmpleado;
 END ;;
 DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_delete_areas`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_delete_areas` (
+pidAreas int
+)
+BEGIN
+DELETE FROM Areas 
+WHERE idAreas = pidAreas;
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_delete_factura`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_delete_factura` (
+pidFactura int
+)
+BEGIN
+DELETE FROM Factura 
+WHERE idFactura = pidFactura;
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_delete_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_delete_comision` (
+pidComision int
+)
+BEGIN
+DELETE FROM Comision  
+WHERE idComision = pidComision;
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_delete_perfiles`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_delete_perfiles` (
+pidPerfiles int
+)
+BEGIN
+DELETE FROM Perfiles 
+WHERE idPerfiles = pidPerfiles;
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_delete_empleado_has_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_delete_empleado_has_comision` (
+pEmpleado_idEmpleado int, 
+pComision_idComision int
+)
+BEGIN
+DELETE FROM Empleado_has_Comision 
+WHERE Empleado_idEmpleado = pEmpleado_idEmpleado AND Comision_idComision = pComision_idComision;
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_delete_empleado`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_delete_empleado` (
+pidEmpleado int
+)
+BEGIN
+DELETE FROM Empleado
+WHERE idEmpleado = pidEmpleado;
+END ;;
+DELIMITER ; 
