@@ -74,6 +74,24 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `Viaticos`.`Comision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Viaticos`.`Comision` ;
+
+CREATE TABLE IF NOT EXISTS `Viaticos`.`Comision` (
+  `idComision` INT NOT NULL,
+  `TipoComision` VARCHAR(45) NOT NULL,
+  `ComisionAprobada` TINYINT NULL,
+  `FechaInicio` DATE NULL,
+  `FechaFin` DATE NULL,
+  `Factura_idFactura` INT NOT NULL,
+  PRIMARY KEY (`idComision`)
+  )
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
 -- Table `Viaticos`.`Factura`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `Viaticos`.`Factura` ;
@@ -94,22 +112,6 @@ CREATE TABLE IF NOT EXISTS `Viaticos`.`Factura` (
     )
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `Viaticos`.`Comision`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Viaticos`.`Comision` ;
-
-CREATE TABLE IF NOT EXISTS `Viaticos`.`Comision` (
-  `idComision` INT NOT NULL,
-  `TipoComision` VARCHAR(45) NOT NULL,
-  `ComisionAprobada` TINYINT NULL,
-  `FechaInicio` DATE NULL,
-  `FechaFin` DATE NULL,
-  `Factura_idFactura` INT NOT NULL,
-  PRIMARY KEY (`idComision`)
-  )
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -222,5 +224,95 @@ BEGIN
 INSERT INTO Empleado (idEmpleado, NombreEmp, ApellidoEmp, TelefonoEmp, CorreoEmp, ContraseñaEmp, 
 Perfiles_idPerfiles, Areas_idAreas) VALUES (pidEmpleado, pNombreEmp, pApellidoEmp, pTelefonoEmp, pCorreoEmp, 
 pContraseñaEmp, pPerfiles_idPerfiles, pAreas_idAreas);
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_update_areas`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_update_areas` (
+pidAreas int, 
+pDescripcionArea varchar(45),
+pPresupuestoTransporte decimal(11,4), 
+pPresupuestoViatico decimal(11,4)
+)
+BEGIN
+UPDATE Areas SET idAreas = pidAreas, DescripcionArea = pDescripcionArea, PresupuestoTransporte = pPresupuestoTransporte, PresupuestoViatico = pPresupuestoViatico
+WHERE idAreas = pidAreas;
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_update_factura`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_update_factura` (
+pidFactura int, 
+pDescripcionFactura varchar(45), 
+pFechaEmision varchar(45) ,
+pMontoFactura decimal(11,4)
+)
+BEGIN
+UPDATE Factura SET idFactura = pidFactura, DescripcionFactura = pDescripcionFactura, FechaEmision = pFechaEmision, MontoFactura = pMontoFactura
+WHERE idFactura = pidFactura;
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_update_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_update_comision` (
+pidComision int, 
+pTipoComision varchar(45), 
+pComisionAprobada tinyint, 
+pFechaInicio date, 
+pFechaFin date, 
+pFactura_idFactura int
+)
+BEGIN
+UPDATE Comision SET idComision = pidComision, TipoComision = pTipoComision, ComisionAprobada = pComisionAprobada, FechaInicio = pFechaInicio, FechaFin = pFechaFin, Factura_idFactura = pFactura_idFactura 
+WHERE idComision = pidComision;
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_update_perfiles`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_update_perfiles` (
+pidPerfiles int, 
+pDescripcionPerfil varchar(45)
+)
+BEGIN
+UPDATE Perfiles SET DescripcionPerfil = pDescripcionPerfil
+WHERE idPerfiles = pidPerfiles;
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_update_empleado_has_comision`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_update_empleado_has_comision` (
+pEmpleado_idEmpleado int, 
+pComision_idComision int
+)
+BEGIN
+UPDATE Empleado_has_Comision SET Empleado_idEmpleado = pEmpleado_idEmpleado, Comision_idComision = pComision_idComision 
+WHERE Empleado_idEmpleado = pEmpleado_idEmpleado AND Comision_idComision = pComision_idComision;
+END ;;
+DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS `proc_update_empleado`;
+DELIMITER ;;
+CREATE PROCEDURE `proc_update_empleado` (
+pidEmpleado int, 
+pNombreEmp varchar(40),
+pApellidoEmp varchar(40), 
+pTelefonoEmp varchar(10),
+pCorreoEmp varchar(45),
+pContraseñaEmp varchar(8), 
+pPerfiles_idPerfiles int,
+pAreas_idAreas int
+)
+BEGIN
+UPDATE Empleado SET idEmpleado = pidEmpleado, NombreEmp = pNombreEmp, ApellidoEmp = pApellidoEmp, TelefonoEmp = pTelefonoEmp, CorreoEmp = pCorreoEmp, ContraseñaEmp = pContraseñaEmp, 
+Perfiles_idPerfiles = pPerfiles_idPerfiles, Areas_idAreas = pAreas_idAreas
+WHERE idEmpleado = pidEmpleado;
 END ;;
 DELIMITER ; 
