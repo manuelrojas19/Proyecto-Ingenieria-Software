@@ -1,0 +1,41 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form row g-3">
+  <div class="col-md-12">
+    <label for="typeCommission" class="form-label">Tipo de comisión</label>
+    <select
+      formControlName="typeCommission"
+      id="typeCommission"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="Transporte">Transporte</option>
+      <option value="Viaticos">Viaticos</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="beginDate" class="form-label">Inicio</label>
+    <input
+      formControlName="beginDate"
+      [ngClass]="
+        authForm.get('beginDate').errors?.requiredField ? 'is-invalid' : ''
+      "
+      class="form-control"
+      type="date"
+      id="beginDate"
+    />
+  </div>
+  <div class="col-md-6">
+    <label for="endDate" class="form-label">Fin</label>
+    <input
+      formControlName="endDate"
+      [ngClass]="
+        authForm.get('endDate').errors?.requiredField ? 'is-invalid' : ''
+      "
+      class="form-control"
+      type="date"
+      id="endDate"
+    />
+  </div>
+  <div class="col-12 mb-2 mt-4">
+    <button type="submit" class="btn btn-outline-primary" >Solicitar</button>
+  </div>
+</form>

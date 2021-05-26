@@ -1,27 +1,58 @@
 <main>
   <div class="container">
     <div class="row justify-content-center">
-      <h2 class="display-5 mt-5">Solicitudes de viaticos</h2>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-hover mt-5">
-        <thead>
-          <tr>
-            <th scope="col">Tipo de comisión</th>
-            <th scope="col">Fecha de inicio</th>
-            <th scope="col">Fecha de termino</th>
-            <th scope="col">Estatus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let commission of commissions">
-            <td>{{ commission.typeCommission }}</td>
-            <td>{{ commission.beginDate }}</td>
-            <td>{{ commission.endDate }}</td>
-            <td>{{ commissions.isApproved ? "Aprobada" : "No aprobada" }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <h1 class="display-5 mt-5 mb-4">Comisiones</h1>
+      <div class="table-responsive mb-4">
+        <button
+          type="button"
+          class="btn btn-outline-primary mt-1"
+          data-bs-toggle="modal"
+          data-bs-target="#reqCommissionModal"
+        >
+          Solicitar comisión
+        </button>
+        <table class="table table-hover mt-4">
+          <thead>
+            <tr>
+              <th scope="col">Tipo de comisión</th>
+              <th scope="col">Fecha de inicio de la comisión</th>
+              <th scope="col">Fecha de termino de la comisión</th>
+              <th scope="col">Estatus</th>
+              <th scope="col">Comprobantes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let commission of commissions">
+              <td>{{ commission.typeCommission }}</td>
+              <td>{{ commission.beginDate }}</td>
+              <td>{{ commission.endDate }}</td>
+              <td
+                [ngClass]="
+                  commission.isApproved ? 'text-success' : 'text-secondary'
+                "
+              >
+                {{ commission.isApproved ? "Aprobada" : "Por aprobar" }}
+              </td>
+              <td class="text-center">
+                <button
+                  [ngClass]="
+                    commission.isApproved
+                      ? 'btn-outline-primary'
+                      : 'disabled btn-outline-secondary'
+                  "
+                  class="btn btn-sm"
+                >
+                  <i class="fa fa-file-code"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </main>
+<app-modal idModal="reqCommissionModal">
+  <h5 modalTitle>Solicitar comisión</h5>
+  <app-commission-form></app-commission-form>
+</app-modal>
