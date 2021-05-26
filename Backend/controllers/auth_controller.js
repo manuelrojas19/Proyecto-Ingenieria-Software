@@ -33,9 +33,9 @@ exports.singIn = async (req, res) => {
     res.status(200).cookie('token', token, {
       httpOnly: true,
       // TODO Set true in deployment
-      secure: false,
-      //secure: true,
-      //sameSite: 'none',
+      // secure: false,
+      secure: true,
+      sameSite: 'none',
     }) .json({message: USER_LOGIN_MESSAGE, employee: employee.toJSON()});
   } catch (e) {
     res.status(400).json({error: e.message});
@@ -73,9 +73,9 @@ exports.signUp = async (req, res) => {
     res.status(200).cookie('token', token, {
       httpOnly: true,
       // TODO Set true in deployment
-       secure: false,
-      //secure: true,
-     // sameSite: 'none',
+      // secure: false,
+      secure: true,
+      sameSite: 'none',
     }).json({
       message: USER_SIGNUP_MESSAGE,
       employee: employee.toJSON(),
@@ -88,9 +88,9 @@ exports.signUp = async (req, res) => {
 exports.logout = async (req, res) => {
   res.status(200).clearCookie('token', {
     httpOnly: true,
-    secure: false,
-    //secure: true,
-    //sameSite: 'none',
+    // secure: false,
+    secure: true,
+    sameSite: 'none',
   }).json({message: USER_LOGOUT_MESSAGE});
 };
 
