@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from './auth/auth.service';
-
-interface AuthData {
-  isAuthenticated: boolean,
-  employee: any,
-}
+import { AuthData } from './auth/interfaces/auth-data';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +10,11 @@ interface AuthData {
 })
 export class AppComponent {
   title = 'tems-frontend';
-  signedIn$: BehaviorSubject<AuthData>;
+  public signedIn$: BehaviorSubject<AuthData>;
   
   constructor(private authService: AuthService) {
     this.signedIn$ = this.authService.signedin$;
+    console.log(this.signedIn$);
   }
 
   ngOnInit() {

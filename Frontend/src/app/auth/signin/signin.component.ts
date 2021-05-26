@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { Profiles } from '../profiles.enum';
+import { AuthService } from '../services/auth.service';
+import { Profiles } from '../models/profiles.enum';
 
 @Component({
   selector: 'app-signin',
@@ -14,14 +14,12 @@ export class SigninComponent implements OnInit {
     email: new FormControl('',
       [
         Validators.required,
-        Validators.minLength(3),
         Validators.maxLength(40),
         Validators.email,
       ]),
     password: new FormControl('',
       [
         Validators.required,
-        Validators.minLength(3),
         Validators.maxLength(40),
       ]),
   });
@@ -31,18 +29,18 @@ export class SigninComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.authForm.invalid) {
+      if (this.authForm.get('email').value === '')
+        this.authForm.get('email').setErrors({ requiredField: true })
+      if (this.authForm.get('password').value === '')
+        this.authForm.get('password').setErrors({ requiredField: true })
       return;
     }
     this.authService.signin(this.authForm.value).subscribe({
       next: res => {
-        console.log(res.employee.profile);
         if (res.employee.profile === Profiles.EMPLOYEE) {
           this.router.navigateByUrl('/employees')
         } else if (res.employee.profile === Profiles.MANAGER) {
@@ -53,9 +51,6 @@ export class SigninComponent implements OnInit {
       },
       error: err => {
         this.authForm.setErrors({ credentials: true })
-        if (!err.status) {
-          this.authForm.setErrors({ noConnection: true })
-        }
       }
     }
     );

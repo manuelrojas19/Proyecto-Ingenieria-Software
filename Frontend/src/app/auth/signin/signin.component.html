@@ -6,40 +6,66 @@
           <div class="card-header">Ingresar al Sistema</div>
           <div class="card-body">
             <form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form">
-              <div *ngIf="authForm.errors" class="alert alert-danger" role="alert">
-                Usuario o contraseña incorrecta
+              <div
+                *ngIf="authForm.errors?.credentials"
+                class="alert alert-danger"
+                role="alert"
+              >
+                Correo electrónico o contraseña incorrecta
               </div>
               <div class="form-group row">
                 <label
                   for="email_address"
-                  class="col-md-5 col-lg-4 col-form-label text-md-right">
+                  class="col-md-5 col-lg-4 col-form-label text-md-right"
+                >
                   Correo Electrónico
                 </label>
                 <div class="col-md-7 col-lg-8">
                   <input
+                    [ngClass]="
+                      authForm.get('email').errors?.requiredField
+                        ? 'is-invalid'
+                        : ''
+                    "
                     formControlName="email"
                     type="text"
                     id="email_address"
                     class="form-control"
                     name="email-address"
                     required
-                    autofocus/>
+                    maxlength="40"
+                    autofocus
+                  />
+                  <div class="invalid-feedback">
+                    Por favor ingrese su correo.
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label
                   for="password"
-                  class="col-md-5 col-lg-4 col-form-label text-md-right">
+                  class="col-md-5 col-lg-4 col-form-label text-md-right"
+                >
                   Contraseña
                 </label>
                 <div class="col-md-7 col-lg-8">
                   <input
+                    [ngClass]="
+                      authForm.get('password').errors?.requiredField
+                        ? 'is-invalid'
+                        : ''
+                    "
                     formControlName="password"
                     type="password"
                     id="password"
                     class="form-control"
                     name="password"
-                    required/>
+                    maxlength="40"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Por favor ingrese su contraseña.
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
