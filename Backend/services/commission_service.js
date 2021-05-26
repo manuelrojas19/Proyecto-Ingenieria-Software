@@ -15,10 +15,19 @@ exports.findCommissionsByEmployee = async (employee) => {
 };
 
 exports.createCommission = async (comissionData, employee) => {
-  const comisssions = await Commission.findAll();
-  comisssions.forEach((comission) => {
-    console.log(comission.beginDate, comission.endDate);
+  const isValid = await Commission.findAll({
+    where: {
+      beginDate: {
+        [Op.between]: [comissionData.beginDate, comissionData.endDate],
+      },
+      endDate: {
+        [Op.between]: [comissionData.beginDate, comissionData.endDate],
+      },
+    },
   });
+  if (isValid.length > 0) {
+    throw new Error('Fechas interlapadas');
+  }
   const commissionCreated = await Commission.create(comissionData);
   await commissionCreated.addEmployee(employee);
   return commissionCreated;
