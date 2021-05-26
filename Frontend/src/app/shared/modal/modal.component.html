@@ -1,0 +1,27 @@
+<div
+  class="modal fade"
+  [id]="idModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <ng-content [id]="idModal" select="[modalTitle]"></ng-content>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          #closeModal
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

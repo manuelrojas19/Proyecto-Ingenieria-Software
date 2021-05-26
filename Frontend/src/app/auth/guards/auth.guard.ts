@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, UrlTree, Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take, skipWhile, tap, map } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
-import { Profiles } from './profiles.enum';
+import { Profiles } from '../models/profiles.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class AuthGuard implements CanLoad, CanActivate {
       skipWhile(value => value === null),
       take(1),
       map(({ isAuthenticated, employee }) => {
+        console.log(employee.profile)
         if (isAuthenticated &&
           employee.profile === route.data.profile) {
           return true;

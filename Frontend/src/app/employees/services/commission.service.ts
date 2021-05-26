@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { Commission } from '../models/commission';
 
 const ROOT_URL = 'http://localhost:3000/api/v1';
 
-interface commission {
-  id: number,
+
+interface CommissionData {
   typeCommission: string,
-  isApproved: boolean,
   beginDate: Date,
   endDate: Date,
 }
@@ -19,6 +20,11 @@ export class CommissionService {
   constructor(private http: HttpClient) { }
 
   getCommissionsByEmployee() {
-    return this.http.get<commission[]>(ROOT_URL + '/commission');
+    return this.http.get<Commission[]>(ROOT_URL + '/commission');
+  }
+
+  createCommission(commissionData: CommissionData) {
+    return this.http.post(environment.API_URL + '/commission', commissionData);
   }
 }
+

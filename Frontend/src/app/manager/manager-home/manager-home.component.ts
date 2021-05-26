@@ -11,5 +11,4 @@ export class ManagerHomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
