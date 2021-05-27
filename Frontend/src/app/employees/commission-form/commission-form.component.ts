@@ -32,7 +32,6 @@ export class CommissionFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.authForm.value);
     if (this.authForm.invalid) {
       if (this.authForm.get('beginDate').value === '')
         this.authForm.get('beginDate').setErrors({ requiredField: true })
@@ -41,9 +40,15 @@ export class CommissionFormComponent implements OnInit {
       return;
     }
 
-    this.commissionService.createCommission(this.authForm.value).subscribe(() => {
-      this.modalComponent.onCloseModal();
-      this.commissionIndexComponent.getCommissions();
+    this.commissionService.createCommission(this.authForm.value).subscribe({
+      next: res => {
+        this.modalComponent.onCloseModal();
+        this.commissionIndexComponent.getCommissions();
+      },
+      error: error => {
+        
+        this.authForm.setErrors({ invalidDate: true })
+      }
     });
 
   }
