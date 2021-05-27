@@ -14,12 +14,12 @@ export class SigninComponent implements OnInit {
     email: new FormControl('',
       [
         Validators.required,
-        Validators.maxLength(40),
+        Validators.maxLength(45),
       ]),
     password: new FormControl('',
       [
         Validators.required,
-        Validators.maxLength(40),
+        Validators.maxLength(8),
       ]),
   });
 
