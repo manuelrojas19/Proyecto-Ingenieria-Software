@@ -88,6 +88,7 @@ exports.signUp = async (req, res) => {
 exports.logout = async (req, res) => {
   res.status(200).clearCookie('token', {
     httpOnly: true,
+    // secure: false,
     secure: true,
     sameSite: 'none',
   }).json({message: USER_LOGOUT_MESSAGE});
