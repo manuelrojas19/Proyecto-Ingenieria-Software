@@ -1,5 +1,12 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form row g-3">
   <div class="col-md-12">
+    <div
+      *ngIf="authForm.errors?.invalidDate"
+      class="alert alert-danger"
+      role="alert"
+    >
+     Fechas seleccionadas para la comisión invalidas.
+    </div>
     <label for="typeCommission" class="form-label">Tipo de comisión</label>
     <select
       formControlName="typeCommission"
@@ -36,6 +43,6 @@
     />
   </div>
   <div class="col-12 mb-2 mt-4">
-    <button type="submit" class="btn btn-outline-primary" >Solicitar</button>
+    <button type="submit" class="btn btn-outline-primary">Solicitar</button>
   </div>
 </form>

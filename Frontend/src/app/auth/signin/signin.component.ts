@@ -15,7 +15,6 @@ export class SigninComponent implements OnInit {
       [
         Validators.required,
         Validators.maxLength(40),
-        Validators.email,
       ]),
     password: new FormControl('',
       [
@@ -52,7 +51,6 @@ export class SigninComponent implements OnInit {
       error: err => {
         this.authForm.setErrors({ credentials: true })
       }
-    }
-    );
+    });
   }
 }
