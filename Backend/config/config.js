@@ -29,7 +29,7 @@ module.exports = {
   'production': {
     'username': DB_USERNAME_PROD,
     'password': DB_PASSWORD_PROD,
-    'database': 'sistema_viaticos_db_prod',
+    'database': 'Viaticos',
     'host': '/cloudsql/' + DB_HOST_PROD,
     'dialect': 'mysql',
     'dialectOptions': {
