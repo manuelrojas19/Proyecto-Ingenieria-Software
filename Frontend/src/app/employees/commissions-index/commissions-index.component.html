@@ -1,53 +1,60 @@
 <main>
+  <div class="p-2 p-md-4">
+    <h1 class="display-4">Comisiones</h1>
+  </div>
   <div class="container">
-    <div class="row justify-content-center">
-      <h1 class="display-5 mt-5 mb-4">Comisiones</h1>
-      <div class="table-responsive mb-4">
-        <button
-          type="button"
-          class="btn btn-outline-primary mt-1"
-          data-bs-toggle="modal"
-          data-bs-target="#reqCommissionModal"
-        >
-          Solicitar comisión
-        </button>
-        <table class="table table-hover mt-4">
-          <thead>
-            <tr>
-              <th scope="col">Tipo de comisión</th>
-              <th scope="col">Fecha de inicio de la comisión</th>
-              <th scope="col">Fecha de termino de la comisión</th>
-              <th scope="col">Estatus</th>
-              <th scope="col">Comprobantes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let commission of commissions">
-              <td>{{ commission.typeCommission }}</td>
-              <td>{{ commission.beginDate }}</td>
-              <td>{{ commission.endDate }}</td>
-              <td
-                [ngClass]="
-                  commission.isApproved ? 'text-success' : 'text-secondary'
-                "
-              >
-                {{ commission.isApproved ? "Aprobada" : "Por aprobar" }}
-              </td>
-              <td class="text-center">
-                <button
+    <button
+      type="button"
+      class="btn btn-outline-red"
+      data-bs-toggle="modal"
+      data-bs-target="#reqCommissionModal"
+    >
+      Solicitar comisión
+    </button>
+    <div class="card mt-4 mb-4">
+      <div class="card-header">
+        <h2 class="h4">Comisiones realizadas</h2>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive mb-4">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Tipo de comisión</th>
+                <th scope="col">Fecha de inicio de la comisión</th>
+                <th scope="col">Fecha de termino de la comisión</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Comprobantes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let commission of commissions">
+                <td>{{ commission.typeCommission }}</td>
+                <td>{{ commission.beginDate }}</td>
+                <td>{{ commission.endDate }}</td>
+                <td
                   [ngClass]="
-                    commission.isApproved
-                      ? 'btn-outline-primary'
-                      : 'disabled btn-outline-secondary'
+                    commission.isApproved ? 'text-success' : 'text-secondary'
                   "
-                  class="btn btn-sm"
                 >
-                  <i class="fa fa-file-code"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  {{ commission.isApproved ? "Aprobada" : "Por aprobar" }}
+                </td>
+                <td class="text-center">
+                  <button
+                    [ngClass]="
+                      commission.isApproved
+                        ? 'btn-outline-primary'
+                        : 'disabled btn-outline-secondary'
+                    "
+                    class="btn btn-sm"
+                  >
+                    <i class="fa fa-file-code"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

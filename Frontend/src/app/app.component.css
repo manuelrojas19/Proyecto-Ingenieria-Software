@@ -1,0 +1,19 @@
+.bg-red {
+    background-color: #6C2343;
+}
+
+.btn-red {
+    background-color: #5F082C;
+    border-color: #5F082C;
+    color: white;
+}
+
+.btn-red:hover {
+    background-color: #A25573;
+    border-color: #A25573;
+}
+
+.btn-user {
+    color: white;
+}
+
