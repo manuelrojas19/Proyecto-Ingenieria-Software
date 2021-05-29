@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+:focus {
+  border-color: #6c2343 !important;
+  box-shadow: 0 0 0 0.25rem rgb(108, 35, 37, 0.45) !important;
+}
+
+.btn-outline-red {
+  border-color: #5f082c !important;
+  color: #5f082c;
+}
+
+.btn-outline-red:hover {
+  border-color: #5f082c !important;
+  background-color: #5f082c;
+  color: white;
+}
+
+.card {
+  border-color: #5f082c !important;
+}
+
+.card-header {
+  background-color: #6c2343 !important;
+  color: white;
+}
+
+
+.card-header-main {
+  border-color: #6c2343 !important;
+  color: white;
+}
+

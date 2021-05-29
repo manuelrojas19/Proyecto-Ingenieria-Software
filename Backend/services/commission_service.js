@@ -1,6 +1,10 @@
 const {Commission} = require('../models/index.js');
 const {Op} = require('sequelize');
 
+const TRASLAPED_DATES_ERROR =
+  'Dates for the commission are in traslaped with another';
+const INVALID_DATES_ERROR = 'Dates for the commission are invalid';
+
 exports.findCommissionsByEmployee = async (employee) => {
   return Commission.findAll({
     include: [
@@ -16,7 +20,15 @@ exports.findCommissionsByEmployee = async (employee) => {
 };
 
 exports.createCommission = async (comissionData, employee) => {
-  const isValid = await Commission.findAll({
+  const today = new Date();
+  const beginDate = new Date(comissionData.beginDate);
+  const endDate = new Date(comissionData.endDate);
+
+  if (beginDate <= today || endDate <= today || endDate < beginDate) {
+    throw new Error(INVALID_DATES_ERROR);
+  }
+
+  const traslapedCommissionExist = await Commission.findOne({
     include: [
       {
         attributes: [],
@@ -27,27 +39,25 @@ exports.createCommission = async (comissionData, employee) => {
       },
     ],
     where: {
-      [Op.or]: [{
-        beginDate: {
-          [Op.between]: [comissionData.beginDate, comissionData.endDate],
+      [Op.or]: [
+        {
+          beginDate: {
+            [Op.between]: [comissionData.beginDate, comissionData.endDate],
+          },
         },
-      }, {
-        endDate: {
-          [Op.between]: [comissionData.beginDate, comissionData.endDate],
+        {
+          endDate: {
+            [Op.between]: [comissionData.beginDate, comissionData.endDate],
+          },
         },
-      },
       ],
     },
   });
-  const today = new Date();
-  const beginDate = new Date(comissionData.beginDate);
-  const endDate = new Date(comissionData.endDate);
-  if (isValid.length > 0 ||
-     beginDate <= today ||
-     endDate <= today ||
-     endDate < beginDate) {
-    throw new Error('Fechas de comisión invalidas');
+
+  if (traslapedCommissionExist) {
+    throw new Error(TRASLAPED_DATES_ERROR);
   }
+
   const commissionCreated = await Commission.create(comissionData);
   await commissionCreated.addEmployee(employee);
   return commissionCreated;
