@@ -1,5 +1,6 @@
 require('dotenv').config();
-const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE} = process.env;
+const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE, NODE_ENV} = process.env;
+const cookieConfig = require('../config/cookie_config')[NODE_ENV];
 
 const jwt = require('jsonwebtoken');
 
@@ -30,13 +31,8 @@ exports.singIn = async (req, res) => {
           expiresIn: ACCESS_TOKEN_LIFE,
         },
     );
-    res.status(200).cookie('token', token, {
-      httpOnly: true,
-      // TODO Set true in deployment
-      // secure: false,
-      secure: true,
-      sameSite: 'none',
-    }) .json({message: USER_LOGIN_MESSAGE, employee: employee.toJSON()});
+    res.status(200).cookie('token', token, cookieConfig,
+    ) .json({message: USER_LOGIN_MESSAGE, employee: employee.toJSON()});
   } catch (e) {
     res.status(400).json({error: e.message});
   }
@@ -70,13 +66,7 @@ exports.signUp = async (req, res) => {
       expiresIn: ACCESS_TOKEN_LIFE,
     });
 
-    res.status(200).cookie('token', token, {
-      httpOnly: true,
-      // TODO Set true in deployment
-      // secure: false,
-      secure: true,
-      sameSite: 'none',
-    }).json({
+    res.status(200).cookie('token', token, cookieConfig).json({
       message: USER_SIGNUP_MESSAGE,
       employee: employee.toJSON(),
     });
@@ -86,12 +76,8 @@ exports.signUp = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.status(200).clearCookie('token', {
-    httpOnly: true,
-    // secure: false,
-    secure: true,
-    sameSite: 'none',
-  }).json({message: USER_LOGOUT_MESSAGE});
+  res.status(200).clearCookie('token',
+      cookieConfig).json({message: USER_LOGOUT_MESSAGE});
 };
 
 exports.check = async (req, res) => {
@@ -121,7 +107,6 @@ exports.check = async (req, res) => {
         message: USER_LOGGED_ERROR,
       });
     }
-
     res.status(200).json({
       authenticated: true,
       message: USER_IS_LOGGEDIN,

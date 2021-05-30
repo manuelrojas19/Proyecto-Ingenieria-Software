@@ -25,7 +25,6 @@ module.exports = {
     'dialect': 'mysql',
   },
 
-  // Descomentar en gcloud
   'production': {
     'username': DB_USERNAME_PROD,
     'password': DB_PASSWORD_PROD,
@@ -36,13 +35,4 @@ module.exports = {
       'socketPath': '/cloudsql/' + DB_HOST_PROD,
     },
   },
-  
-  // TODO: Comentar en Gcloud
-  // 'production': {
-  // 'username': DB_USERNAME_PROD,
-  //  'password': DB_PASSWORD_PROD,
-  //  'database': 'sistema_viaticos_db_prod',
-  //  'host': DB_HOST_PROD,
-  //  'dialect': 'mysql',
-  // },
 };
