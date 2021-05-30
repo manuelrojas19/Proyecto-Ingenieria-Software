@@ -1,9 +1,9 @@
 require('dotenv').config();
 const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE, NODE_ENV} = process.env;
-const cookieConfig = require('../config/cookie_config')[NODE_ENV];
 
 const jwt = require('jsonwebtoken');
 
+const cookieConfig = require('../config/cookie_config')[NODE_ENV];
 const EmployeeService = require('../services/employee_service.js');
 
 const USER_LOGGED_ERROR = 'No employee logged in, please log in.';

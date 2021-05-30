@@ -5,7 +5,7 @@
       class="alert alert-danger"
       role="alert"
     >
-     Fechas seleccionadas para la comisión invalidas.
+     Fechas seleccionadas para la comisión inválidas.
     </div>
     <label for="typeCommission" class="form-label">Tipo de comisión</label>
     <select
@@ -18,7 +18,7 @@
       <option value="Viaticos">Viaticos</option>
     </select>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 form-group">
     <label for="beginDate" class="form-label">Inicio</label>
     <input
       formControlName="beginDate"
@@ -29,8 +29,11 @@
       type="date"
       id="beginDate"
     />
+    <div class="invalid-feedback">
+      Por favor ingrese una fecha.
+    </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 form-group">
     <label for="endDate" class="form-label">Fin</label>
     <input
       formControlName="endDate"
@@ -41,6 +44,9 @@
       type="date"
       id="endDate"
     />
+    <div class="invalid-feedback">
+      Por favor ingrese una fecha.
+    </div>
   </div>
   <div class="col-12 mb-2 mt-4">
     <button type="submit" class="btn btn-outline-red">Solicitar</button>
