@@ -28,7 +28,7 @@ exports.createEmployee = async (employee) => {
     },
   });
 
-  //Si el perfil existe en la BD
+  // Si el perfil existe en la BD
   if (!department) {
     throw new Error(EMPLOYEE_ROLE_ERROR);
   }
