@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const authRouter = require('./routers/auth_router.js');
 const employeeRouter = require('./routers/employee_router.js');
 const commissionRouter = require('./routers/commission_router.js');
+const factureRouter = require('./routers/facture_router.js');
 
 const port = process.env.PORT;
 const app = express();
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use(employeeRouter);
 app.use(commissionRouter);
+app.use(factureRouter);
 
 app.listen(port, () => {
   console.log('App is listening on port ' + port);
