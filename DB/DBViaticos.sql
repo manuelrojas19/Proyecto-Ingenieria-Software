@@ -406,3 +406,33 @@ ALTER TABLE `Viaticos`.`Comision` CHANGE COLUMN  `ComisionAprobada` `ComisionApr
 ALTER TABLE `Viaticos`.`Comision` ADD `ComisionAprobadaFinanzas` TINYINT;
 ALTER TABLE `Viaticos`.`Comision` ADD `MontoAsignado` decimal(11,4);
 ALTER TABLE `Viaticos`.`Comision` ADD `LugarComision` VARCHAR(54);
+
+DROP PROCEDURE IF EXISTS `proc_select_gastos_empleado`; 
+DELIMITER ;;
+CREATE PROCEDURE `proc_select_gastos_empleado` (
+pidEmpleado int
+)
+BEGIN
+SELECT concat_ws(" ", Empleado.NombreEmp, Empleado.ApellidoEmp) AS Empleado, Comision.LugarComision, Comision.MontoAsignado, Factura.DescripcionFactura, Factura.MontoFactura
+FROM Empleado
+INNER JOIN Empleado_has_Comision ON Empleado.idEmpleado=Empleado_has_Comision.Empleado_idEmpleado
+INNER JOIN Comision ON Comision.idComision=Empleado_has_Comision.Comision_idComision
+INNER JOIN Factura ON Comision.idComision=Factura.idFactura
+WHERE idEmpleado = pidEmpleado;
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_select_comisiones_empleado`; 
+DELIMITER ;;
+CREATE PROCEDURE `proc_select_comisiones_empleado` (
+pidEmpleado int
+)
+BEGIN
+SELECT concat_ws(" ", Empleado.NombreEmp, Empleado.ApellidoEmp) AS Empleado, Empleado_has_Comision.Comision_idComision, Comision.TipoComision, Comision.LugarComision
+FROM Empleado
+INNER JOIN Empleado_has_Comision ON Empleado.idEmpleado=Empleado_has_Comision.Empleado_idEmpleado
+INNER JOIN Comision ON Comision.idComision=Empleado_has_Comision.Comision_idComision
+WHERE idEmpleado = pidEmpleado;
+END ;;
+DELIMITER ; 
