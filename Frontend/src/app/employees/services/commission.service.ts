@@ -1,14 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Commission } from '../models/commission';
+import { Commission } from '../../core/interfaces/commission';
 
-
-interface CommissionData {
-  typeCommission: string,
-  beginDate: Date,
-  endDate: Date,
-}
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +15,8 @@ export class CommissionService {
     return this.http.get<Commission[]>(environment.API_URL + '/commission');
   }
 
-  createCommission(commissionData: CommissionData) {
-    return this.http.post(environment.API_URL + '/commission', commissionData);
+  createCommission(commision: Commission) {
+    return this.http.post(environment.API_URL + '/commission', commision);
   }
 }
 

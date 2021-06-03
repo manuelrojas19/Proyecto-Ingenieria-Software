@@ -20,6 +20,9 @@ export class CommissionFormComponent implements OnInit {
     endDate: new FormControl('', [
       Validators.required,
     ]),
+    placeCommission: new FormControl('', [
+      Validators.required,
+    ]),
   });
 
   constructor(
@@ -37,6 +40,8 @@ export class CommissionFormComponent implements OnInit {
         this.authForm.get('beginDate').setErrors({ requiredField: true })
       if (this.authForm.get('endDate').value === '')
         this.authForm.get('endDate').setErrors({ requiredField: true })
+      if (this.authForm.get('placeCommission').value === '')
+        this.authForm.get('placeCommission').setErrors({ requiredField: true })
       return;
     }
 
@@ -46,7 +51,6 @@ export class CommissionFormComponent implements OnInit {
         this.commissionIndexComponent.getCommissions();
       },
       error: error => {
-        
         this.authForm.setErrors({ invalidDate: true })
       }
     });

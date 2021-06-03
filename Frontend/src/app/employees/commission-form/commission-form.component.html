@@ -48,6 +48,21 @@
       Por favor ingrese una fecha.
     </div>
   </div>
+  <div class="col-md-12 form-group">
+    <label for="placeCommission" class="form-label">Lugar de la comisión</label>
+    <input
+      formControlName="placeCommission"
+      [ngClass]="
+        authForm.get('placeCommission').errors?.requiredField ? 'is-invalid' : ''
+      "
+      class="form-control"
+      type="text"
+      id="placeCommission"
+    />
+    <div class="invalid-feedback">
+      Por favor ingrese el lugar de la comisión.
+    </div>
+  </div>
   <div class="col-12 mb-2 mt-4">
     <button type="submit" class="btn btn-outline-red">Solicitar</button>
   </div>
