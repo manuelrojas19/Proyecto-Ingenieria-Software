@@ -1,16 +1,8 @@
-<h1 class="display-5">Comisiones</h1>
+<h1 class="display-5">Solicitudes de comisiones</h1>
 <div class="mt-4">
-  <button
-    type="button"
-    class="btn btn-outline-red"
-    data-bs-toggle="modal"
-    data-bs-target="#reqCommissionModal"
-  >
-    Solicitar comisión
-  </button>
   <div class="card mt-4 mb-4">
     <div class="card-header card-header-main">
-      <h2 class="h5">Comisiones solicitadas</h2>
+      <h2 class="h5">Solicitudes del Área de {{manager?.department}}</h2>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -18,17 +10,21 @@
           <thead>
             <tr>
               <th scope="col">Tipo de comisión</th>
+              <th scope="col">Empleado</th>
               <th scope="col">Fecha de inicio de la comisión</th>
               <th scope="col">Fecha de termino de la comisión</th>
               <th scope="col">Estado de la comisión</th>
               <th scope="col">Monto depositado</th>
-              <th scope="col">Comprobantes</th>
+              <th scope="col">Opciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let commission of commissions">
               <td>{{ commission.typeCommission }}</td>
-              <td>{{ commission.beginDate | date: "dd-MMM-yyyy":'es' }}</td>
+              <td *ngFor="let emp of commission.employee">
+                {{ emp.name + " " + emp.lastName }}
+              </td>
+              <td>{{ commission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
               <td>{{ commission.endDate | date: "dd-MMM-yyyy" }}</td>
               <td>
                 <span
@@ -81,7 +77,3 @@
     </div>
   </div>
 </div>
-<app-modal idModal="reqCommissionModal">
-  <h5 modalTitle>Solicitar comisión</h5>
-  <app-commission-form></app-commission-form>
-</app-modal>

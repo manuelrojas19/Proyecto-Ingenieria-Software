@@ -20,4 +20,12 @@ router.get(
     CommissionController.findCommissionsByEmployee,
 );
 
+router.get(
+    ROOT_PATH + '/manager-commissions',
+    verifyToken,
+    permit('Jefe de Area'),
+    CommissionController.findCommissionsByManager,
+);
+
+
 module.exports = router;

@@ -14,7 +14,6 @@ export class AppComponent {
   
   constructor(private authService: AuthService) {
     this.signedIn$ = this.authService.signedin$;
-    console.log(this.signedIn$);
   }
 
   ngOnInit() {

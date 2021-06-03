@@ -1,4 +1,4 @@
-import { Profiles } from "./profiles.enum";
+import { Profiles } from "../../auth/models/profiles.enum";
 
 export interface Employee {
     id: number,

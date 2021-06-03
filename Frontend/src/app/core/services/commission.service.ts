@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Commission } from '../../core/interfaces/commission';
+import { Commission } from '../models/commission';
 
 
 @Injectable({
@@ -13,6 +13,10 @@ export class CommissionService {
 
   getCommissionsByEmployee() {
     return this.http.get<Commission[]>(environment.API_URL + '/commission');
+  }
+
+  getCommissionsByManager() {
+    return this.http.get<Commission[]>(environment.API_URL + '/manager-commissions');
   }
 
   createCommission(commision: Commission) {

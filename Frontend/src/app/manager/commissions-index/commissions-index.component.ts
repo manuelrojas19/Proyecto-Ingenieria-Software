@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Commission } from 'src/app/core/models/commission';
 import { Employee } from 'src/app/core/models/employee';
+import { CommissionService } from 'src/app/core/services/commission.service';
 import { EmployeeService } from 'src/app/core/services/employee.service';
-import { Commission } from '../../core/models/commission';
-import { CommissionService } from '../../core/services/commission.service';
 
 @Component({
   selector: 'app-commissions-index',
@@ -11,18 +11,30 @@ import { CommissionService } from '../../core/services/commission.service';
 })
 export class CommissionsIndexComponent implements OnInit {
   commissions: Commission[];
+  manager: Employee;
 
-  constructor(private commissionService: CommissionService) {
-   }
+
+
+  constructor(private commissionService: CommissionService,
+    private employeeService: EmployeeService) {
+  }
+
 
   ngOnInit(): void {
     this.getCommissions();
+    this.getManagerInfo();
   }
 
   public getCommissions(): void {
-    this.commissionService.getCommissionsByEmployee().subscribe(commisions => {
+    this.commissionService.getCommissionsByManager().subscribe(commisions => {
       this.commissions = commisions;
     });
+    
   }
 
+  public getManagerInfo(): void {
+    this.employeeService.getEmployeeInfo().subscribe(employee => {
+      this.manager = employee;
+    })
+  }
 }

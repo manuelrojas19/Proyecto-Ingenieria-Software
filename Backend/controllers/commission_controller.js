@@ -11,6 +11,16 @@ exports.findCommissionsByEmployee = async (req, res) => {
   }
 };
 
+exports.findCommissionsByManager = async (req, res) => {
+  try {
+    const commissions =
+      await CommissionService.findCommissionsByManager(req.employee);
+    res.status(200).json(commissions);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
 exports.createCommission = async (req, res) => {
   const params = Object.keys(req.body);
   const allowParams = [
