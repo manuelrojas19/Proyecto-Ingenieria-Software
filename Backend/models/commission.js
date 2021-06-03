@@ -27,10 +27,17 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING,
           field: 'TipoComision',
         },
-        isApproved: {
+        isApprovedByManager: {
           type: DataTypes.BOOLEAN,
-          field: 'ComisionAprobada',
-          defaultValue: false,
+          allowNull: true,
+          defaultValue: null,
+          field: 'ComisionAprobadaJefeArea',
+        },
+        isApprovedByFinances: {
+          allowNull: true,
+          defaultValue: null,
+          type: DataTypes.BOOLEAN,
+          field: 'ComisionAprobadaFinanzas',
         },
         beginDate: {
           type: DataTypes.TIME,
@@ -39,6 +46,14 @@ module.exports = (sequelize, DataTypes) => {
         endDate: {
           type: DataTypes.TIME,
           field: 'FechaFin',
+        },
+        placeCommission: {
+          type: DataTypes.STRING,
+          field: 'LugarComision',
+        },
+        amountAssigned: {
+          type: DataTypes.STRING,
+          field: 'MontoAsignado',
         },
       },
       {

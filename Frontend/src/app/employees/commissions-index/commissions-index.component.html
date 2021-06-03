@@ -23,7 +23,8 @@
                 <th scope="col">Tipo de comisión</th>
                 <th scope="col">Fecha de inicio de la comisión</th>
                 <th scope="col">Fecha de termino de la comisión</th>
-                <th scope="col">Estatus</th>
+                <th scope="col">Estado de la comisión</th>
+                <th scope="col">Monto depositado</th>
                 <th scope="col">Comprobantes</th>
               </tr>
             </thead>
@@ -32,18 +33,43 @@
                 <td>{{ commission.typeCommission }}</td>
                 <td>{{ commission.beginDate }}</td>
                 <td>{{ commission.endDate }}</td>
-                <td
-                  [ngClass]="
-                    commission.isApproved ? 'text-success' : 'text-secondary'
-                  "
-                >
-                  {{ commission.isApproved ? "Aprobada" : "Por aprobar" }}
+                <td>
+                  <span
+                    [ngClass]="
+                      commission.isApprovedByFinances &&
+                      commission.isApprovedByManager
+                        ? 'bg-primary'
+                        : commission.isApprovedByFinances === false ||
+                          commission.isApprovedByManager === false
+                        ? 'bg-danger'
+                        : 'bg-secondary'
+                    "
+                    class="badge rounded-pill"
+                    >{{
+                      commission.isApprovedByFinances &&
+                      commission.isApprovedByManager
+                        ? "Aprobada"
+                        : commission.isApprovedByFinances === false ||
+                          commission.isApprovedByManager === false
+                        ? "No aprobada"
+                        : "Por aprobar"
+                    }}</span
+                  >
+                </td>
+
+                <td>
+                  {{
+                    commission.amountAssigned
+                      ? "$" + (commission.amountAssigned | number:'1.2') + " MXN"
+                      : "Sin depósitos"
+                  }}
                 </td>
                 <td class="text-center">
                   <button
                     [ngClass]="
-                      commission.isApproved
-                        ? 'btn-outline-secondary'
+                      commission.isApprovedByFinances &&
+                      commission.isApprovedByManager
+                        ? 'btn-outline-primary'
                         : 'disabled btn-outline-secondary'
                     "
                     class="btn btn-sm"
