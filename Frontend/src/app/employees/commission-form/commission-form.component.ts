@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { CommissionsIndexComponent } from '../commissions-index/commissions-index.component';
-import { CommissionService } from '../services/commission.service';
+import { CommissionService } from '../../core/services/commission.service';
 
 @Component({
   selector: 'app-commission-form',

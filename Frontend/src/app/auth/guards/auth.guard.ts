@@ -19,7 +19,6 @@ export class AuthGuard implements CanLoad, CanActivate {
       skipWhile(value => value === null),
       take(1),
       map(({ isAuthenticated, employee }) => {
-        console.log(employee.profile)
         if (isAuthenticated &&
           employee.profile === route.data.profile) {
           return true;
@@ -40,7 +39,6 @@ export class AuthGuard implements CanLoad, CanActivate {
         if (!isAuthenticated) {
           return true;
         }
-        console.log(employee.profile)
         if (employee.profile === Profiles.EMPLOYEE) {
           this.router.navigateByUrl('/employees');
         } else if (employee.profile === Profiles.MANAGER) {

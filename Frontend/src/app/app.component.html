@@ -25,6 +25,17 @@
             <a href="employees/commissions" class="nav-link">Comisiones</a>
           </li>
         </ul>
+        <ul
+          *ngIf="signedIn$.getValue()?.employee.profile === 'Jefe de Area'"
+          class="navbar-nav me-auto mb-2 mb-lg-0"
+        >
+          <li class="nav-item">
+            <a href="manager" class="nav-link">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="manager/commissions" class="nav-link">Solicitudes</a>
+          </li>
+        </ul>
         <span class="btn btn-user btn-sm disabled">
           <i class="fa fa-user"></i>
         </span>
@@ -33,10 +44,14 @@
         </span>
       </div>
 
-      <button routerLink="/signout" class="btn btn-red">
-        Cerrar sesión
-      </button>
+      <button routerLink="/signout" class="btn btn-red">Cerrar sesión</button>
     </div>
   </nav>
 </ng-container>
-<router-outlet></router-outlet>
+<main>
+  <div class="container">
+    <div class="p-2 p-md-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</main>

@@ -1,3 +1,5 @@
+import { Employee } from "./employee";
+
 export interface Commission {
     id: number,
     typeCommission: String,
@@ -7,4 +9,5 @@ export interface Commission {
     beginDate: Date,
     endDate: Date,
     amountAssigned: Number,
+    employee: Employee,
 }

@@ -19,6 +19,20 @@ exports.findCommissionsByEmployee = async (employee) => {
   });
 };
 
+exports.findCommissionsByManager = async (manager) => {
+  return Commission.findAll({
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+        where: {
+          departmentId: manager.department.id,
+        },
+      },
+    ],
+  });
+};
+
 exports.createCommission = async (comissionData, employee) => {
   const today = new Date();
   const beginDate = new Date(comissionData.beginDate);
