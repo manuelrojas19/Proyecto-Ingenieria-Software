@@ -43,8 +43,6 @@ module.exports = (sequelize, DataTypes) => {
   Department.prototype.toJSON = function() {
     const departmentJson = Object.assign({}, this.get());
     delete departmentJson.id;
-    delete departmentJson.budgetTransport;
-    delete departmentJson.budgetViatic;
     return departmentJson;
   };
 

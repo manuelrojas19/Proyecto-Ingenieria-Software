@@ -13,12 +13,9 @@ export class CommissionsIndexComponent implements OnInit {
   commissions: Commission[];
   manager: Employee;
 
-
-
   constructor(private commissionService: CommissionService,
     private employeeService: EmployeeService) {
   }
-
 
   ngOnInit(): void {
     this.getCommissions();
@@ -29,7 +26,6 @@ export class CommissionsIndexComponent implements OnInit {
     this.commissionService.getCommissionsByManager().subscribe(commisions => {
       this.commissions = commisions;
     });
-    
   }
 
   public getManagerInfo(): void {
@@ -37,4 +33,5 @@ export class CommissionsIndexComponent implements OnInit {
       this.manager = employee;
     })
   }
+  
 }
