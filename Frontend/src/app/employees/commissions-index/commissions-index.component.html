@@ -18,6 +18,7 @@
           <thead>
             <tr>
               <th scope="col">Tipo de comisión</th>
+              <th scope="col">Lugar de la comisión</th>
               <th scope="col">Fecha de inicio de la comisión</th>
               <th scope="col">Fecha de termino de la comisión</th>
               <th scope="col">Estado de la comisión</th>
@@ -28,6 +29,8 @@
           <tbody>
             <tr *ngFor="let commission of commissions">
               <td>{{ commission.typeCommission }}</td>
+
+              <td>{{ commission.placeCommission }}</td>
               <td>{{ commission.beginDate | date: "dd-MMM-yyyy":'es' }}</td>
               <td>{{ commission.endDate | date: "dd-MMM-yyyy" }}</td>
               <td>

@@ -33,7 +33,24 @@ exports.findCommissionsByManager = async (manager) => {
   });
 };
 
-exports.createCommission = async (comissionData, employee) => {
+exports.findCommissionByIdAndManager = async (id, manager) => {
+  return Commission.findOne({
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+        where: {
+          departmentId: manager.department.id,
+        },
+      },
+    ],
+    where: {
+      id: id,
+    },
+  });
+};
+
+exports.createCommission = async (comissionData, employeeOwner) => {
   const today = new Date();
   const beginDate = new Date(comissionData.beginDate);
   const endDate = new Date(comissionData.endDate);
@@ -48,7 +65,7 @@ exports.createCommission = async (comissionData, employee) => {
         attributes: [],
         association: 'employee',
         where: {
-          id: employee.id,
+          id: employeeOwner.id,
         },
       },
     ],
@@ -73,6 +90,33 @@ exports.createCommission = async (comissionData, employee) => {
   }
 
   const commissionCreated = await Commission.create(comissionData);
-  await commissionCreated.addEmployee(employee);
+  await commissionCreated.addEmployee(employeeOwner);
   return commissionCreated;
+};
+
+exports.updateCommissionByManager = async (
+    idCommission,
+    manager,
+    isApproved,
+) => {
+  const commission = await Commission.findOne({
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+        where: {
+          departmentId: manager.department.id,
+        },
+      },
+    ],
+    where: {
+      id: idCommission,
+    },
+  });
+  if (!commission) {
+    throw new Error('Commission does not exist');
+  }
+  commission.isApprovedByManager = isApproved;
+  await commission.save();
+  return commission;
 };

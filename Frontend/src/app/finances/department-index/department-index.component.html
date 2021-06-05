@@ -1,0 +1,14 @@
+<h1 class="display-5">Departamentos</h1>
+<div class="mt-4 row">
+  <div *ngFor="let department of departments" class="card me-4 mb-4" style="width: 14rem">
+    <div class="card-body">
+      <h5 class="card-title">Departamento de {{department.departmentDescription}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted"></h6>
+      <p class="card-text">
+        Descripción del departamento
+      </p>
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+</div>

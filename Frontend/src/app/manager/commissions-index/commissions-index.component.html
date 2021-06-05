@@ -2,7 +2,7 @@
 <div class="mt-4">
   <div class="card mt-4 mb-4">
     <div class="card-header card-header-main">
-      <h2 class="h5">Solicitudes del Área de {{manager?.department}}</h2>
+      <h2 class="h5">Solicitudes del Área de {{ manager?.department }}</h2>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -11,11 +11,12 @@
             <tr>
               <th scope="col">Tipo de comisión</th>
               <th scope="col">Empleado</th>
+              <th scope="col">Lugar de la comisión</th>
               <th scope="col">Fecha de inicio de la comisión</th>
               <th scope="col">Fecha de termino de la comisión</th>
               <th scope="col">Estado de la comisión</th>
               <th scope="col">Monto depositado</th>
-              <th scope="col">Opciones</th>
+              <th scope="col">Detalles</th>
             </tr>
           </thead>
           <tbody>
@@ -24,26 +25,23 @@
               <td *ngFor="let emp of commission.employee">
                 {{ emp.name + " " + emp.lastName }}
               </td>
+              <td>{{ commission.placeCommission }}</td>
               <td>{{ commission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
               <td>{{ commission.endDate | date: "dd-MMM-yyyy" }}</td>
               <td>
                 <span
                   [ngClass]="
-                    commission.isApprovedByFinances &&
                     commission.isApprovedByManager
                       ? 'bg-primary'
-                      : commission.isApprovedByFinances === false ||
-                        commission.isApprovedByManager === false
+                      : commission.isApprovedByManager === false
                       ? 'bg-danger'
                       : 'bg-secondary'
                   "
                   class="badge rounded-pill"
                   >{{
-                    commission.isApprovedByFinances &&
                     commission.isApprovedByManager
                       ? "Aprobada"
-                      : commission.isApprovedByFinances === false ||
-                        commission.isApprovedByManager === false
+                      : commission.isApprovedByManager === false
                       ? "No aprobada"
                       : "Por aprobar"
                   }}</span
@@ -58,17 +56,12 @@
                 }}
               </td>
               <td class="text-center">
-                <button
-                  [ngClass]="
-                    commission.isApprovedByFinances &&
-                    commission.isApprovedByManager
-                      ? 'btn-outline-primary'
-                      : 'disabled btn-outline-secondary'
-                  "
-                  class="btn btn-sm"
+                <a
+                  class="btn btn-sm btn-outline-primary"
+                  href="/manager/commissions/{{ commission.id }}"
                 >
-                  <i class="fa fa-file-code"></i>
-                </button>
+                  <i class="fa fa-file"></i>
+                </a>
               </td>
             </tr>
           </tbody>
