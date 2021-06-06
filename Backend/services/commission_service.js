@@ -57,10 +57,28 @@ exports.findCommissionsByDepartment = async (departmentName) => {
 
 exports.findCommissionById = async (id) => {
   return Commission.findOne({
-    include: [{
-      association: 'employee',
-      include: ['profile', 'department'],
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+      },
+    ],
+    where: {
+      id: id,
     },
+  });
+};
+
+exports.findCommissionByIdAndEmployee = async (id, employee) => {
+  return Commission.findOne({
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+        where: {
+          id: employee.id,
+        },
+      },
     ],
     where: {
       id: id,
@@ -156,10 +174,7 @@ exports.updateCommissionByManager = async (
   return commission;
 };
 
-exports.updateCommissionByFinances = async (
-    idCommission,
-    isApproved,
-) => {
+exports.updateCommissionByFinances = async (idCommission, isApproved) => {
   const commission = await Commission.findOne({
     include: [
       {

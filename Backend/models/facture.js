@@ -7,12 +7,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Facture extends Model {
     static associate(models) {
-        Facture.belongsTo(
-            models.Commission,{
-                foreignKey: 'commissionId',
-                as: 'commission',
-            }
-        )
+      Facture.belongsTo(
+          models.Commission, {
+            foreignKey: 'commissionId',
+            as: 'commission',
+          },
+      );
     }
   }
 
@@ -28,17 +28,17 @@ module.exports = (sequelize, DataTypes) => {
       field: 'DescripcionFactura',
     },
     date: {
-        type: DataTypes.STRING,
-        field: 'FechaEmision',
-      },
+      type: DataTypes.STRING,
+      field: 'FechaEmision',
+    },
     amount: {
-        type: DataTypes.DOUBLE,
-        field: 'MontoFactura',
-      },
+      type: DataTypes.DOUBLE,
+      field: 'MontoFactura',
+    },
     commissionId: {
-        type: DataTypes.INTEGER,
-        field: 'Comision_idComision',
-      },
+      type: DataTypes.INTEGER,
+      field: 'Comision_idComision',
+    },
   }, {
     sequelize,
     modelName: 'Facture',
@@ -46,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
- 
 
   return Facture;
 };
