@@ -1,6 +1,10 @@
 <h1 class="display-5">Detalles de la comisión</h1>
 <div class="mt-4">
-  <a href="/manager/commissions" type="button" class="btn btn-outline-red">
+  <a
+    href="/finances/{{ commission?.employee[0].department }}/commissions"
+    type="button"
+    class="btn btn-outline-red"
+  >
     Regresar
   </a>
   <div class="card mt-4 mb-4">
@@ -103,7 +107,7 @@
         </li>
       </ol>
       <div
-        *ngIf="commission != null && commission?.isApprovedByManager === null"
+        *ngIf="commission != null && commission?.isApprovedByFinances === null"
         class="col-12 mb-2 mt-4 text-center"
       >
         <button

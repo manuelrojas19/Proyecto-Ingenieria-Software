@@ -1,13 +1,8 @@
 <h1 class="display-5">Comisiones</h1>
 <div class="mt-4">
-  <button
-    type="button"
-    class="btn btn-outline-red"
-    data-bs-toggle="modal"
-    data-bs-target="#reqCommissionModal"
-  >
-    Solicitar comisión
-  </button>
+  <a href="/finances/departments" type="button" class="btn btn-outline-red">
+    Regresar
+  </a>
   <div class="card mt-4 mb-4">
     <div class="card-header card-header-main">
       <h2 class="h5">Comisiones solicitadas</h2>
@@ -23,7 +18,7 @@
               <th scope="col">Fecha de termino de la comisión</th>
               <th scope="col">Estado de la comisión</th>
               <th scope="col">Monto depositado</th>
-              <th scope="col">Comprobantes</th>
+              <th scope="col">Detalles</th>
             </tr>
           </thead>
           <tbody>
@@ -36,21 +31,17 @@
               <td>
                 <span
                   [ngClass]="
-                    commission.isApprovedByFinances &&
-                    commission.isApprovedByManager
+                    commission.isApprovedByFinances
                       ? 'bg-primary'
-                      : commission.isApprovedByFinances === false ||
-                        commission.isApprovedByManager === false
+                      : commission.isApprovedByFinances === false
                       ? 'bg-danger'
                       : 'bg-secondary'
                   "
                   class="badge rounded-pill"
                   >{{
-                    commission.isApprovedByFinances &&
-                    commission.isApprovedByManager
+                    commission.isApprovedByFinances
                       ? "Aprobada"
-                      : commission.isApprovedByFinances === false ||
-                        commission.isApprovedByManager === false
+                      : commission.isApprovedByFinances === false
                       ? "No aprobada"
                       : "Por aprobar"
                   }}</span
@@ -67,7 +58,7 @@
               <td class="text-center">
                 <a
                   class="btn btn-sm btn-outline-primary"
-                  href="/employees/commissions/{{ commission.id }}"
+                  href="/finances/{{commission.employee[0].department}}/commissions/{{ commission.id }}"
                 >
                   <i class="fa fa-file"></i>
                 </a>
@@ -79,7 +70,3 @@
     </div>
   </div>
 </div>
-<app-modal idModal="reqCommissionModal">
-  <h5 modalTitle>Solicitar comisión</h5>
-  <app-commission-form></app-commission-form>
-</app-modal>

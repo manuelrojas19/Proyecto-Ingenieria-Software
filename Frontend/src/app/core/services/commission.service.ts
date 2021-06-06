@@ -20,6 +20,10 @@ export class CommissionService {
     return this.http.get<Commission[]>(environment.API_URL + '/employee/commission');
   }
 
+  getCommissionsByDepartment(department: string) {
+    return this.http.get<Commission[]>(environment.API_URL + '/finances/' + department + '/commission');
+  }
+
 
   createCommission(commission: Commission) {
     return this.http.post(environment.API_URL + '/employee/commission', commission);
@@ -29,9 +33,16 @@ export class CommissionService {
     return this.http.get<Commission>(environment.API_URL + '/manager/commission/' + id);
   }
 
+  getCommissionById(id: string) {
+    return this.http.get<Commission>(environment.API_URL + '/finances/commission/' + id);
+  }
+
   updateCommission(id: string, commission: Commission) {
     return this.http.patch<Commission>(environment.API_URL + '/manager/commission/' + id, commission)
+  }
 
+  updateCommissionFinances(id: string, commission: Commission) {
+    return this.http.patch<Commission>(environment.API_URL + '/finances/commission/' + id, commission)
   }
 }
 
