@@ -22,6 +22,18 @@ exports.findCommissionsByManager = async (req, res) => {
   }
 };
 
+exports.findCommissionsByDepartment = async (req, res) => {
+  const deparment = req.params.department;
+  try {
+    const commissions = await CommissionService.findCommissionsByDepartment(
+        deparment,
+    );
+    res.status(200).json(commissions);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
 exports.findCommissionByIdAndManager = async (req, res) => {
   const id = req.params.id;
   try {
@@ -29,6 +41,19 @@ exports.findCommissionByIdAndManager = async (req, res) => {
         id,
         req.employee,
     );
+    if (!commission) {
+      return res.status(404).send();
+    }
+    res.status(200).json(commission);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
+exports.findCommissionById = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const commission = await CommissionService.findCommissionById(id);
     if (!commission) {
       return res.status(404).send();
     }
@@ -63,11 +88,23 @@ exports.createCommission = async (req, res) => {
 
 exports.updateCommissionByManager = async (req, res) => {
   try {
-    console.log(req.body.isApprovedByManager);
     const commission = await CommissionService.updateCommissionByManager(
         req.params.id,
         req.employee,
         req.body.isApprovedByManager,
+    );
+    res.status(200).json(commission);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
+
+exports.updateCommissionByFinances = async (req, res) => {
+  try {
+    const commission = await CommissionService.updateCommissionByFinances(
+        req.params.id,
+        req.body.isApprovedByFinances,
     );
     res.status(200).json(commission);
   } catch (e) {

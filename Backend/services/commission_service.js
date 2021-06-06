@@ -1,4 +1,4 @@
-const {Commission} = require('../models/index.js');
+const {Commission, Department} = require('../models/index.js');
 const {Op} = require('sequelize');
 
 const TRASLAPED_DATES_ERROR =
@@ -30,6 +30,41 @@ exports.findCommissionsByManager = async (manager) => {
         },
       },
     ],
+  });
+};
+
+exports.findCommissionsByDepartment = async (departmentName) => {
+  const departmentExist = await Department.findOne({
+    where: {
+      departmentDescription: departmentName,
+    },
+  });
+  if (!departmentExist) {
+    throw new Exception('Department does not exists');
+  }
+  return Commission.findAll({
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+        where: {
+          departmentId: departmentExist.id,
+        },
+      },
+    ],
+  });
+};
+
+exports.findCommissionById = async (id) => {
+  return Commission.findOne({
+    include: [{
+      association: 'employee',
+      include: ['profile', 'department'],
+    },
+    ],
+    where: {
+      id: id,
+    },
   });
 };
 
@@ -117,6 +152,29 @@ exports.updateCommissionByManager = async (
     throw new Error('Commission does not exist');
   }
   commission.isApprovedByManager = isApproved;
+  await commission.save();
+  return commission;
+};
+
+exports.updateCommissionByFinances = async (
+    idCommission,
+    isApproved,
+) => {
+  const commission = await Commission.findOne({
+    include: [
+      {
+        association: 'employee',
+        include: ['profile', 'department'],
+      },
+    ],
+    where: {
+      id: idCommission,
+    },
+  });
+  if (!commission) {
+    throw new Error('Commission does not exist');
+  }
+  commission.isApprovedByFinances = isApproved;
   await commission.save();
   return commission;
 };
