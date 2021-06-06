@@ -18,7 +18,6 @@ export class EmployeesHomeComponent implements OnInit {
 
   public getEmployeeInfo(): void {
     this.employeeService.getEmployeeInfo().subscribe(employee => {
-      console.log(employee);
       this.employee = employee;
     });
   }
