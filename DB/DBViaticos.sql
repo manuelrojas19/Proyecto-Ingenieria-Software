@@ -90,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `Viaticos`.`Comision` (
 ENGINE = InnoDB;
 
 
-
 -- -----------------------------------------------------
 -- Table `Viaticos`.`Factura`
 -- -----------------------------------------------------
@@ -168,20 +167,28 @@ END ;;
 DELIMITER ; 
 
 
-DROP PROCEDURE IF EXISTS `proc_insert_comision`;
-DELIMITER ;;
-CREATE PROCEDURE `proc_insert_comision` (
+DROP procedure IF EXISTS `viaticos`.`proc_insert_comision`;
+;
+
+DELIMITER $$
+USE `viaticos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_insert_comision`(
 pidComision int, 
 pTipoComision varchar(45), 
-pComisionAprobada tinyint, 
+pComisionAprobadaJefeArea tinyint, 
 pFechaInicio date, 
 pFechaFin date, 
-pFactura_idFactura int
+pFactura_idFactura int, 
+pComisionAprobadaFinanzas TINYINT, 
+pLugarComision VARCHAR(54), 
+pMontoAsignado decimal(11,4)
 )
 BEGIN
-INSERT INTO Comision (idComision, TipoComision, ComisionAprobada, FechaInicio, FechaFin, Factura_idFactura) VALUES (pidComision, pTipoComision, pComisionAprobada, pFechaInicio, pFechaFin, pFactura_idFactura);
-END ;;
-DELIMITER ; 
+INSERT INTO Comision (idComision, TipoComision, ComisionAprobadaJefeArea, FechaInicio, FechaFin, Factura_idFactura, ComisionAprobadaFinanzas, LugarComision, MontoAsignado) 
+VALUES (pidComision, pTipoComision, pComisionAprobadaJefeArea, pFechaInicio, pFechaFin, pFactura_idFactura, pComisionAprobadaFinanzas, pLugarComision, pMontoAsignado);
+END$$
+DELIMITER ;
+;
 
 
 DROP PROCEDURE IF EXISTS `proc_insert_perfiles`;
@@ -257,21 +264,29 @@ WHERE idFactura = pidFactura;
 END ;;
 DELIMITER ; 
 
-DROP PROCEDURE IF EXISTS `proc_update_comision`;
-DELIMITER ;;
-CREATE PROCEDURE `proc_update_comision` (
+
+DROP procedure IF EXISTS `viaticos`.`proc_update_comision`;
+;
+DELIMITER $$
+USE `viaticos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_update_comision`(
 pidComision int, 
 pTipoComision varchar(45), 
-pComisionAprobada tinyint, 
+pComisionAprobadaJefeArea tinyint, 
 pFechaInicio date, 
 pFechaFin date, 
-pFactura_idFactura int
+pFactura_idFactura int, 
+pComisionAprobadaFinanzas TINYINT, 
+pLugarComision VARCHAR(54), 
+pMontoAsignado decimal(11,4)
 )
 BEGIN
-UPDATE Comision SET idComision = pidComision, TipoComision = pTipoComision, ComisionAprobada = pComisionAprobada, FechaInicio = pFechaInicio, FechaFin = pFechaFin, Factura_idFactura = pFactura_idFactura 
+UPDATE Comision SET idComision = pidComision, TipoComision = pTipoComision, ComisionAprobadaJefeArea = pComisionAprobadaJefeArea, FechaInicio = pFechaInicio, FechaFin = pFechaFin, Factura_idFactura = pFactura_idFactura, ComisionAprobadaFinanzas=pComisionAprobadaFinanzas, LugarComision=pLugarComision, MontoAsignado=pMontoAsignado
 WHERE idComision = pidComision;
-END ;;
-DELIMITER ; 
+END$$
+DELIMITER ;
+;
+
 
 DROP PROCEDURE IF EXISTS `proc_update_perfiles`;
 DELIMITER ;;
@@ -383,6 +398,41 @@ pidEmpleado int
 )
 BEGIN
 DELETE FROM Empleado
+WHERE idEmpleado = pidEmpleado;
+END ;;
+DELIMITER ; 
+
+ALTER TABLE `Viaticos`.`Comision` CHANGE COLUMN  `ComisionAprobada` `ComisionAprobadaJefeArea` TINYINT;
+ALTER TABLE `Viaticos`.`Comision` ADD `ComisionAprobadaFinanzas` TINYINT;
+ALTER TABLE `Viaticos`.`Comision` ADD `MontoAsignado` decimal(11,4);
+ALTER TABLE `Viaticos`.`Comision` ADD `LugarComision` VARCHAR(54);
+
+DROP PROCEDURE IF EXISTS `proc_select_gastos_empleado`; 
+DELIMITER ;;
+CREATE PROCEDURE `proc_select_gastos_empleado` (
+pidEmpleado int
+)
+BEGIN
+SELECT concat_ws(" ", Empleado.NombreEmp, Empleado.ApellidoEmp) AS Empleado, Comision.LugarComision, Comision.MontoAsignado, Factura.DescripcionFactura, Factura.MontoFactura
+FROM Empleado
+INNER JOIN Empleado_has_Comision ON Empleado.idEmpleado=Empleado_has_Comision.Empleado_idEmpleado
+INNER JOIN Comision ON Comision.idComision=Empleado_has_Comision.Comision_idComision
+INNER JOIN Factura ON Comision.idComision=Factura.idFactura
+WHERE idEmpleado = pidEmpleado;
+END ;;
+DELIMITER ; 
+
+
+DROP PROCEDURE IF EXISTS `proc_select_comisiones_empleado`; 
+DELIMITER ;;
+CREATE PROCEDURE `proc_select_comisiones_empleado` (
+pidEmpleado int
+)
+BEGIN
+SELECT concat_ws(" ", Empleado.NombreEmp, Empleado.ApellidoEmp) AS Empleado, Empleado_has_Comision.Comision_idComision, Comision.TipoComision, Comision.LugarComision
+FROM Empleado
+INNER JOIN Empleado_has_Comision ON Empleado.idEmpleado=Empleado_has_Comision.Empleado_idEmpleado
+INNER JOIN Comision ON Comision.idComision=Empleado_has_Comision.Comision_idComision
 WHERE idEmpleado = pidEmpleado;
 END ;;
 DELIMITER ; 
