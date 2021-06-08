@@ -124,5 +124,5 @@
     </div>
   </div>
 </div>
-<app-facture-index>
+<app-facture-index *ngIf="commission?.isApprovedByFinances && commission.isApprovedByManager">
 </app-facture-index>

@@ -19,10 +19,17 @@ export class FactureService {
   }
 
   createFacture(facture: FormData) {
-    return this.http.post(environment.API_URL + '/facture', facture);
+    return this.http.post(environment.API_URL + '/facture', facture, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST'
+      },
+
+    });
   }
 
   downloadFacture(facture: string) {
-    return this.http.get(environment.API_URL + '/facture/' + facture + '/download', {responseType: 'blob'});
+    return this.http.get(environment.API_URL + '/facture/' + facture + '/download', { responseType: 'blob' });
   }
 }
