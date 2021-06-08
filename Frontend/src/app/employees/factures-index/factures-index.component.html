@@ -1,0 +1,48 @@
+<div class="mt-4">
+  <button
+    type="button"
+    class="btn btn-outline-red"
+    data-bs-toggle="modal"
+    data-bs-target="#reqCommissionModal"
+  >
+    Agregar factura
+  </button>
+  <div class="card mt-4 mb-4">
+    <div class="card-header card-header-main">
+      <h2 class="h5">Facturas de la comisión</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Fecha de las factura</th>
+              <th scope="col">Descripción de la factura</th>
+              <th scope="col">Monto de la factura</th>
+              <th scope="col">Archivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let facture of factures">
+              <td>{{ facture.date | date: "dd-MMM-yyyy":"es" }}</td>
+              <td>{{ facture.factureDescription }}</td>
+              <td>$ {{ facture.amount | number: "1.2" }}</td>
+              <td>
+                <button
+                  (click)="downloadFacture(facture.id)"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  <i class="fa fa-file"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal idModal="reqCommissionModal">
+  <h5 modalTitle>Agregar factura</h5>
+  <app-facture-form></app-facture-form>
+</app-modal>
