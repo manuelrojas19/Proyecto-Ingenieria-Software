@@ -21,7 +21,7 @@ app.use(cors({
     'https://sistema-viaticos.uc.r.appspot.com',
   ],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  allowedHeaders: 'X-Requested-With,Content-Type',
+  allowedHeaders: 'X-Requested-With,Content-Type, Access-Control-Allow-Origin',
   credentials: true,
 }));
 
