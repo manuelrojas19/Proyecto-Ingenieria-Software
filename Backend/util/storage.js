@@ -1,7 +1,7 @@
 const multer = require('multer');
 const fs = require('fs');
 
-const DIR = '~/Comprobantes';
+const DIR = '../../Comprobantes';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -10,7 +10,8 @@ const storage = multer.diskStorage({
       req.employee.lastName.split(' ').join('') +
       req.employee.name.split(' ').join('');
     const employeeId = req.employee.id;
-    const path = `${DIR}/${department}/${employee}-${employeeId}`;
+    const date = new Date().toISOString().toLowerCase().split(' ').join('-');
+    const path = `${DIR}/${department}/${employee}-${employeeId}/${date}`;
     fs.mkdirSync(path, {recursive: true});
     cb(null, path);
   },

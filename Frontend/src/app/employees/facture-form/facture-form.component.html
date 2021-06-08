@@ -1,0 +1,66 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form row g-3">
+  <div
+    *ngIf="authForm.errors?.invalidDate"
+    class="alert alert-danger"
+    role="alert"
+  >
+    Formato de archivo invalido.
+  </div>
+  <div class="col-md-6 form-group">
+    <label for="date" class="form-label">Fecha</label>
+    <input
+      formControlName="date"
+      [ngClass]="authForm.get('date').errors?.requiredField ? 'is-invalid' : ''"
+      class="form-control"
+      type="date"
+      id="date"
+    />
+    <div class="invalid-feedback">Por favor ingrese una fecha.</div>
+  </div>
+  <div class="col-md-6 form-group">
+    <label for="amount" class="form-label">Monto</label>
+    <input
+      formControlName="amount"
+      [ngClass]="
+        authForm.get('amount').errors?.requiredField ? 'is-invalid' : ''
+      "
+      class="form-control"
+      type="number"
+      id="amount"
+    />
+    <div class="invalid-feedback">Por favor ingrese una fecha.</div>
+  </div>
+  <div class="col-md-12 form-group">
+    <label for="factureDescription" class="form-label">Descripción</label>
+    <input
+      formControlName="factureDescription"
+      [ngClass]="
+        authForm.get('factureDescription').errors?.requiredField
+          ? 'is-invalid'
+          : ''
+      "
+      class="form-control"
+      type="text"
+      id="factureDescription"
+    />
+    <div class="invalid-feedback">Por favor ingrese una descripción.</div>
+  </div>
+  <div class="col-md-12 form-group">
+    <label for="facture" class="form-label">Archivo</label>
+    <input
+      (change)="onFileChange($event)"
+      formControlName="facture"
+      [ngClass]="
+        authForm.get('facture').errors?.requiredField ? 'is-invalid' : ''
+      "
+      class="form-control"
+      type="file"
+      accept=".xml"
+      id="facture"
+    />
+    <div class="invalid-feedback">Por favor ingrese un archivo.</div>
+  </div>
+  <div class="col-12 mb-2 mt-4">
+    <button type="submit" class="btn btn-outline-red">Agregar</button>
+  </div>
+</form>

@@ -21,6 +21,13 @@ router.get(
 );
 
 router.get(
+    ROOT_PATH + '/employee/commission/:id',
+    verifyToken,
+    permit('Empleado'),
+    CommissionController.findCommissionByIdAndEmployee,
+);
+
+router.get(
     ROOT_PATH + '/manager/commission',
     verifyToken,
     permit('Jefe de Area'),

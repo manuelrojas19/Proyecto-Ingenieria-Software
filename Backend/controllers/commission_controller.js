@@ -11,6 +11,19 @@ exports.findCommissionsByEmployee = async (req, res) => {
   }
 };
 
+exports.findCommissionByIdAndEmployee = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const commissions = await CommissionService.findCommissionByIdAndEmployee(
+        id,
+        req.employee,
+    );
+    res.status(200).json(commissions);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
 exports.findCommissionsByManager = async (req, res) => {
   try {
     const commissions = await CommissionService.findCommissionsByManager(
@@ -98,7 +111,6 @@ exports.updateCommissionByManager = async (req, res) => {
     res.status(400).json({error: e.message});
   }
 };
-
 
 exports.updateCommissionByFinances = async (req, res) => {
   try {

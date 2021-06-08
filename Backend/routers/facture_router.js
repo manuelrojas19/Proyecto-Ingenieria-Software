@@ -22,4 +22,23 @@ router.post(
     FactureController.createFacture,
 );
 
+router.get(
+    ROOT_PATH + '/employee/:commission/facture',
+    verifyToken,
+    FactureController.findFacturesByCommissionAndEmployee,
+);
+
+router.get(
+    ROOT_PATH + '/:commission/facture',
+    verifyToken,
+    permit('Jefe de Area', 'Finanzas'),
+    FactureController.findFacturesByCommission,
+);
+
+router.get(
+    ROOT_PATH + '/facture/:id/download',
+    verifyToken,
+    FactureController.downloadFacture,
+);
+
 module.exports = router;

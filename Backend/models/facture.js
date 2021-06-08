@@ -39,12 +39,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       field: 'Comision_idComision',
     },
+    filePath: {
+      type: DataTypes.STRING,
+      field: 'rutaArchivo',
+    },
   }, {
     sequelize,
     modelName: 'Facture',
     tableName: 'Factura',
     timestamps: false,
   });
+
+  Facture.prototype.toJSON = function() {
+    const factureJSON = Object.assign({}, this.get());
+    delete factureJSON.commissionId;
+    return factureJSON;
+  };
 
 
   return Facture;

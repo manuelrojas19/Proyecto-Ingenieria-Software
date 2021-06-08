@@ -6,6 +6,7 @@ import { FinancesHomeComponent } from './finances-home/finances-home.component';
 import { DepartmentIndexComponent } from './department-index/department-index.component';
 import { CommissionIndexComponent } from './commission-index/commission-index.component';
 import { CommissionInfoComponent } from './commission-info/commission-info.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CommissionInfoComponent } from './commission-info/commission-info.compo
   ],
   imports: [
     CommonModule,
-    FinancesRoutingModule
+    FinancesRoutingModule,
+    SharedModule,
   ]
 })
 export class FinancesModule { }
