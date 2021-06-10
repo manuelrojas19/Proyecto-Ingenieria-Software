@@ -19,13 +19,7 @@ export class FactureService {
   }
 
   createFacture(facture: FormData) {
-    return this.http.post(environment.API_URL + '/facture', facture, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-
-    });
+    return this.http.post(environment.API_URL + '/facture', facture);
   }
 
   downloadFacture(facture: string) {

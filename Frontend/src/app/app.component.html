@@ -35,6 +35,9 @@
           <li class="nav-item">
             <a href="manager/commissions" class="nav-link">Solicitudes</a>
           </li>
+          <li class="nav-item">
+            <a href="manager/reports" class="nav-link">Reportes</a>
+          </li>
         </ul>
         <ul
           *ngIf="signedIn$.getValue()?.employee.profile === 'Finanzas'"
@@ -45,6 +48,9 @@
           </li>
           <li class="nav-item">
             <a href="finances/departments" class="nav-link">Departamentos</a>
+          </li>
+          <li class="nav-item">
+            <a href="finances/reports" class="nav-link">Reportes</a>
           </li>
         </ul>
         <span class="btn btn-user btn-sm disabled">
