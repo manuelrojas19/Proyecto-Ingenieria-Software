@@ -29,10 +29,10 @@ module.exports = {
     'username': DB_USERNAME_PROD,
     'password': DB_PASSWORD_PROD,
     'database': 'Viaticos',
-    'host': '/cloudsql/' + DB_HOST_PROD,
+    'host': DB_HOST_PROD,
     'dialect': 'mysql',
     'dialectOptions': {
-      'socketPath': '/cloudsql/' + DB_HOST_PROD,
+      'socketPath': DB_HOST_PROD,
     },
   },
 };

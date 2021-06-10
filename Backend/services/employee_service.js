@@ -51,3 +51,7 @@ exports.findEmployeeById = async (employeeId) => {
     include: ['profile', 'department'],
   });
 };
+
+exports.findAllEmployees = async (employeeId) => {
+  return Employee.findAll();
+};

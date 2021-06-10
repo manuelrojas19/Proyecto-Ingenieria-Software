@@ -12,4 +12,10 @@ router.get(
     EmplooyeController.me,
 );
 
+router.get(
+    ROOT_PATH + '/employee',
+    verifyToken,
+    EmplooyeController.findAllEmployees,
+);
+
 module.exports = router;
