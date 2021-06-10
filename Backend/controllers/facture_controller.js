@@ -54,7 +54,6 @@ exports.createFacture = async (req, res) => {
   } catch (e) {
     console.log(e);
     res
-        .header('Access-Control-Allow-Origin', '*')
         .status(400)
         .json({error: e.message});
   }
@@ -70,8 +69,7 @@ exports.downloadFacture = async (req, res) => {
     if (!facture) {
       return res.status(400).send({error: 'Facture does not exists'});
     }
-    res.
-        header('Access-Control-Allow-Origin', '*').download(facture.filePath);
+    res.download(facture.filePath);
   } catch (e) {
     res.status(400).json({error: e.message});
   }

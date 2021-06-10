@@ -1,7 +1,10 @@
 const multer = require('multer');
 const fs = require('fs');
 
-const DIR = '../../Comprobantes';
+const env = process.env.NODE_ENV;
+const storageConfig = require('../config/storage_config.js')[env];
+
+const DIR = storageConfig.path;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
