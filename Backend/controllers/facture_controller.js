@@ -55,19 +55,25 @@ exports.createFacture = async (req, res) => {
   if (NODE_ENV === 'development') {
     factureData.filePath = req.file.path;
   } else if (NODE_ENV == 'production') {
-    const blob = bucket.file(req.file.originalName);
+    const blob = bucket.file(req.file.originalname);
     const blobStream = blob.createWriteStream({
       resumable: false,
     });
     blobStream.on('error', (err) => {
       res.status(500).send({message: err.message});
     });
-    blobStream.on('finish', () => {
+
+    blobStream.on('finish', async (data) => {
       const publicUrl = format(
           `https://storage.googleapis.com/${bucket.name}/${blob.name}`,
       );
+
       factureData.filePath = publicUrl;
+
+      await bucket.file(req.file.originalname).makePublic();
     });
+
+
     blobStream.end(req.file.buffer);
   }
 
