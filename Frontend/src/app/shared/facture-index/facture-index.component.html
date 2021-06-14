@@ -21,12 +21,12 @@
                 <td>{{ facture.factureDescription }}</td>
                 <td>$ {{ facture.amount | number: "1.2" }}</td>
                 <td>
-                  <button
-                    (click)="downloadFacture(facture.id)"
+                  <a href="{{ facture?.filePath }}" target="_blank"
+                  type="button"
                     class="btn btn-sm btn-outline-primary"
                   >
                     <i class="fa fa-file"></i>
-                  </button>
+                </a>
                 </td>
               </tr>
             </tbody>
