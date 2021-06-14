@@ -1,11 +1,13 @@
 const express = require('express');
+
 const {verifyToken, permit} = require('../middleware/auth');
+const upload = require('../middleware/upload.js');
+
+const FactureController = require('../controllers/facture_controller.js');
+
 const router = new express.Router();
 
 const ROOT_PATH = '/api/v1';
-
-const FactureController = require('../controllers/facture_controller.js');
-const upload = require('../util/upload');
 
 router.get(
     ROOT_PATH + '/facture',
@@ -33,12 +35,6 @@ router.get(
     verifyToken,
     permit('Jefe de Area', 'Finanzas'),
     FactureController.findFacturesByCommission,
-);
-
-router.get(
-    ROOT_PATH + '/facture/:id/download',
-    verifyToken,
-    FactureController.downloadFacture,
 );
 
 module.exports = router;

@@ -1,0 +1,6 @@
+[{
+      "origin": ["https://sistema-viaticos.uc.r.appspot.com", "https://sistema-viaticos-backend.uc.r.appspot.com"],
+      "responseHeader": ["content-type"],
+      "method": ["GET", "POST"],
+      "credentials": true
+}]

@@ -5,4 +5,5 @@ export interface Facture {
     factureDescription: String,
     date: Date,
     amount: number,
+    filePath: String,
 }
