@@ -1,27 +1,16 @@
-const multer = require('multer');
-const fs = require('fs');
+require('dotenv').config();
+const {
+  NODE_ENV,
+} = process.env;
 
-const env = process.env.NODE_ENV;
-const storageConfig = require('../config/storage_config.js')[env];
+const cloudStorage = require('./cloud_storage.js');
 
-const DIR = storageConfig.path;
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const department = req.employee.department.departmentDescription;
-    const employee =
-      req.employee.lastName.split(' ').join('') +
-      req.employee.name.split(' ').join('');
-    const employeeId = req.employee.id;
-    const date = new Date().toISOString().toLowerCase().split(' ').join('-');
-    const path = `${DIR}/${department}/${employee}-${employeeId}/${date}`;
-    fs.mkdirSync(path, {recursive: true});
-    cb(null, path);
-  },
-  filename: (req, file, cb) => {
-    const fileName = file.originalname.toLowerCase().split(' ').join('-');
-    cb(null, fileName);
-  },
-});
+const storage = (file) => {
+  if (NODE_ENV === 'development') {
+    return file.path;
+  } else if (NODE_ENV == 'production') {
+    return cloudStorage(file);
+  }
+};
 
 module.exports = storage;
