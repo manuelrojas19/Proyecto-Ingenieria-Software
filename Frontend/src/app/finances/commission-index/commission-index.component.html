@@ -31,18 +31,22 @@
               <td>
                 <span
                   [ngClass]="
-                    commission.isApprovedByFinances
+                    commission.isApprovedByFinances &&
+                    commission.isApprovedByManager
                       ? 'bg-primary'
-                      : commission.isApprovedByFinances === false
+                      : commission.isApprovedByFinances === false ||
+                        commission.isApprovedByManager === false
                       ? 'bg-danger'
                       : 'bg-secondary'
                   "
                   class="badge rounded-pill"
                   >{{
-                    commission.isApprovedByFinances
+                    commission.isApprovedByFinances &&
+                    commission.isApprovedByManager
                       ? "Aprobada"
-                      : commission.isApprovedByFinances === false
-                      ? "No aprobada"
+                      : commission.isApprovedByFinances === false ||
+                        commission.isApprovedByManager === false
+                      ? "Rechazada"
                       : "Por aprobar"
                   }}</span
                 >

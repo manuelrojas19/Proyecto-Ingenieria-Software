@@ -23,11 +23,4 @@ export class FactureIndexComponent implements OnInit {
       this.factures = factures;
     });
   }
-
-  downloadFacture(id: string): void {
-    this.factureService.downloadFacture(id).subscribe((res) => {
-      saveAs(res, 'comprobante.xml');
-    })
-  }
-
 }
