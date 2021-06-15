@@ -43,6 +43,9 @@ exports.findCommissionsByDepartment = async (departmentName) => {
     throw new Exception('Department does not exists');
   }
   return Commission.findAll({
+    where: {
+      isApprovedByManager: true,
+    },
     include: [
       {
         association: 'employee',
