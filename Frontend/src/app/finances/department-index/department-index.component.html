@@ -1,20 +1,50 @@
 <h1 class="display-5">Departamentos</h1>
-<div class="mt-4 row">
+<div class="mt-5 row">
   <div
     *ngFor="let department of departments"
     class="card me-4 mb-4"
-    style="width: 22rem"
+    style="width: 31rem"
   >
     <div class="card-body">
-      <h5 class="card-title">
-        Departamento de {{ department.departmentDescription }}
-      </h5>
-      <p class="card-text">
-        Presupuesto para viáticos: ${{ department.budgetViatic | number: "1.2"}} MXN
-      </p>
-    
-      <p class="card-text">Presupuesto para transportes: ${{ department.budgetTransport | number: "1.2"}} MXN</p>
-      <a href="/finances/{{department.departmentDescription}}/commissions" class="card-link">Ver solicitudes</a>
+      <dl class="row">
+        <h5 class="card-title text-center">
+          Departamento de {{ department.departmentDescription }}
+        </h5>
+        <dt class="col-sm-8 col-md-7 card-text">Presupuesto para viáticos:</dt>
+        <dd class="col-sm-4">
+          <small class="text-muted">
+            <strong>
+              ${{ department.budgetViatic | number: "1.2" }} MXN
+            </strong>
+          </small>
+        </dd>
+        <dt class="col-sm-8 col-md-7 card-text">
+          Presupuesto para transporte:
+        </dt>
+        <dd class="col-sm-4">
+          <small class="text-muted">
+            <strong>
+              ${{ department.budgetTransport | number: "1.2" }} MXN
+            </strong>
+          </small>
+        </dd>
+      </dl>
+      <ul class="list-inline text-center">
+        <li class="list-inline-item">
+          <a
+            href="/finances/{{ department.departmentDescription }}/commissions"
+            class="btn btn-outline-red"
+            >Solicitudes</a
+          >
+        </li>
+        <li class="list-inline-item">
+          <a
+            href="/finances/{{ department.departmentDescription }}/commissions"
+            class="btn btn-outline-red"
+            >Reportes</a
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </div>

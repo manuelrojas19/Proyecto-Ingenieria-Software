@@ -1,5 +1,7 @@
 <h1 class="display-5">Detalles de la comisión</h1>
-<div class="mt-4">
+
+<p *ngIf="commission === null">No se puede acceder al recurso</p>
+<div *ngIf="commission" class="mt-4">
   <a
     href="/finances/{{ commission?.employee[0].department }}/commissions"
     type="button"
@@ -88,26 +90,26 @@
           "
         >
           <div class="ms-2 me-auto">
-            <div class="fw-bold">Aprobada por el Jefe de Area</div>
-            {{ commission?.isApprovedByManager ? "Aprobada" : "No Aprobada" }}
-          </div>
-        </li>
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Aprobada por Finanzas</div>
-            {{ commission?.isApprovedByFinances ? "Aprobada" : "No Aprobada" }}
+            <div class="fw-bold">Estado de la solicitud</div>
+            {{
+              commission.isApprovedByManager && commission.isApprovedByFinances
+                ? "Comisión aprobada"
+                : commission.isApprovedByManager === false
+                ? "Comisión rechazada por el jefe de área"
+                : commission.isApprovedByFinances === false
+                ? "Comisión rechazada por el área de finanzas"
+                : "En proceso de aprobación"
+            }}
           </div>
         </li>
       </ol>
       <div
-        *ngIf="commission != null && commission?.isApprovedByFinances === null"
+        *ngIf="
+          commission !== null &&
+          commission?.isApprovedByFinances === null &&
+          commission?.isApprovedByManager !== false &&
+            commission?.isApprovedByManager !== null
+        "
         class="col-12 mb-2 mt-4 text-center"
       >
         <button
@@ -128,5 +130,7 @@
     </div>
   </div>
 </div>
-<app-facture-index *ngIf="commission?.isApprovedByFinances && commission.isApprovedByManager">
+<app-facture-index
+  *ngIf="commission?.isApprovedByFinances && commission.isApprovedByManager"
+>
 </app-facture-index>
