@@ -6,6 +6,7 @@ import { DepartmentIndexComponent } from './department-index/department-index.co
 import { FinancesHomeComponent } from './finances-home/finances-home.component';
 import { ReportsByDepartmentComponent } from './reports-by-department/reports-by-department.component';
 import { EmployeeIndexComponent } from './employee-index/employee-index.component';
+import { ReportsByEmployeeComponent } from './reports-by-employee/reports-by-employee.component';
 
 const routes: Routes = [
   { path: '', component: FinancesHomeComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: ':department/commissions', component: CommissionIndexComponent },
   { path: ':department/commissions/:id', component: CommissionInfoComponent },
   { path: ':department/reports', component: ReportsByDepartmentComponent },
-  { path: ':department/employees', component: EmployeeIndexComponent }
+  { path: ':department/employees', component: EmployeeIndexComponent },
+  { path: ':department/employees/:id/reports', component: ReportsByEmployeeComponent },
 ];
 
 @NgModule({

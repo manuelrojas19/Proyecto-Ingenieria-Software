@@ -13,6 +13,7 @@
           <thead>
             <tr>
               <th scope="col">Tipo de comisión</th>
+              <th scope="col">Empleado solicitante</th>
               <th scope="col">Lugar de la comisión</th>
               <th scope="col">Fecha de inicio de la comisión</th>
               <th scope="col">Fecha de termino de la comisión</th>
@@ -24,7 +25,10 @@
           <tbody>
             <tr *ngFor="let commission of commissions">
               <td>{{ commission.typeCommission }}</td>
-
+              <td>
+                {{ commission?.employee[0].lastName }}
+                {{ commission?.employee[0].name }}
+              </td>
               <td>{{ commission.placeCommission }}</td>
               <td>{{ commission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
               <td>{{ commission.endDate | date: "dd-MMM-yyyy" }}</td>
@@ -62,7 +66,9 @@
               <td class="text-center">
                 <a
                   class="btn btn-sm btn-outline-primary"
-                  href="/finances/{{commission.employee[0].department}}/commissions/{{ commission.id }}"
+                  href="/finances/{{
+                    commission.employee[0].department
+                  }}/commissions/{{ commission.id }}"
                 >
                   <i class="fa fa-file"></i>
                 </a>
