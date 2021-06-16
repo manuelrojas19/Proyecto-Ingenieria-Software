@@ -7,21 +7,21 @@ const ROOT_PATH = '/api/v1';
 const CommissionController = require('../controllers/commission_controller.js');
 
 router.post(
-    ROOT_PATH + '/employee/commission',
+    ROOT_PATH + '/commission',
     verifyToken,
     permit('Empleado'),
     CommissionController.createCommission,
 );
 
 router.get(
-    ROOT_PATH + '/employee/commission',
+    ROOT_PATH + '/commission',
     verifyToken,
     permit('Empleado'),
     CommissionController.findCommissionsByEmployee,
 );
 
 router.get(
-    ROOT_PATH + '/employee/commission/:id',
+    ROOT_PATH + '/commission/:id',
     verifyToken,
     permit('Empleado'),
     CommissionController.findCommissionByIdAndEmployee,
