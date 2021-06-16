@@ -6,7 +6,8 @@ import { ManagerHomeComponent } from './manager-home/manager-home.component';
 import { CommissionsIndexComponent } from './commissions-index/commissions-index.component';
 import { CommissionInfoComponent } from './commission-info/commission-info.component';
 import { SharedModule } from '../shared/shared.module';
-import { ReportsComponent } from './reports/reports.component';
+import { EmployeesIndexComponent } from './employees-index/employees-index.component';
+import { ReportsByEmployeeComponent } from './reports-by-employee/reports-by-employee.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ReportsComponent } from './reports/reports.component';
     ManagerHomeComponent,
     CommissionsIndexComponent,
     CommissionInfoComponent,
-    ReportsComponent
+    EmployeesIndexComponent,
+    ReportsByEmployeeComponent,
   ],
   imports: [
     CommonModule,
