@@ -1,0 +1,38 @@
+<h1 class="display-5">Empleados</h1>
+<div class="mt-4">
+  <div class="card mt-4 mb-4">
+    <div class="card-header card-header-main">
+      <h2 class="h5">Empleados subordinados</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Apellido</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo electrónico</th>
+              <th scope="col">Número telefónico</th>
+              <th scope="col">Reportes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees">
+              <td>{{ employee.lastName }}</td>
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.email }}</td>
+              <td>{{ employee.phoneNumber }}</td>
+              <td class="text-center">
+                <a href="/manager/employees/reports/{{employee.id}}"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  <i class="fa fa-file"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

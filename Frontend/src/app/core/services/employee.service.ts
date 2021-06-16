@@ -14,4 +14,8 @@ export class EmployeeService {
   getEmployeeInfo() {
     return this.http.get<Employee>(environment.API_URL + '/employee/me');
   }
+
+  getEmployeesByDepartment(department: string) {
+    return this.http.get<Employee[]>(environment.API_URL + '/' + department + '/employee');
+  }
 }
