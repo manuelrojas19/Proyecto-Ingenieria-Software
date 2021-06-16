@@ -9,6 +9,7 @@ import { CommissionInfoComponent } from './commission-info/commission-info.compo
 import { SharedModule } from '../shared/shared.module';
 import { ReportsByDepartmentComponent } from './reports-by-department/reports-by-department.component';
 import { EmployeeIndexComponent } from './employee-index/employee-index.component';
+import { ReportsByEmployeeComponent } from './reports-by-employee/reports-by-employee.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EmployeeIndexComponent } from './employee-index/employee-index.componen
     CommissionIndexComponent,
     CommissionInfoComponent,
     ReportsByDepartmentComponent,
-    EmployeeIndexComponent
+    EmployeeIndexComponent,
+    ReportsByEmployeeComponent
   ],
   imports: [
     CommonModule,

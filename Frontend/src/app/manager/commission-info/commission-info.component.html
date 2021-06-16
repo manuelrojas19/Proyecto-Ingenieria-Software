@@ -1,9 +1,8 @@
 <h1 class="display-5">Detalles de la comisión</h1>
-<p *ngIf="commission === null">No se puede acceder al recurso</p>
+<a href="/manager/commissions" type="button" class="btn btn-outline-red">
+  Regresar
+</a>
 <div *ngIf="commission" class="mt-4">
-  <a href="/manager/commissions" type="button" class="btn btn-outline-red">
-    Regresar
-  </a>
   <div class="card mt-4 mb-4">
     <div class="card-header card-header-main">
       <h2 class="h5">Información de la comisión</h2>
@@ -121,6 +120,10 @@
   </div>
 </div>
 <app-facture-index
-  *ngIf="commission?.isApprovedByFinances && commission.isApprovedByManager"
+  *ngIf="
+    commission &&
+    commission?.isApprovedByFinances &&
+    commission.isApprovedByManager
+  "
 >
 </app-facture-index>

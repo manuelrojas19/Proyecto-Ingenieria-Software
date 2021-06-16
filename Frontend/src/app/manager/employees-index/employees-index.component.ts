@@ -10,18 +10,27 @@ import { EmployeeService } from 'src/app/core/services/employee.service';
 })
 export class EmployeesIndexComponent implements OnInit {
   employees: Employee[];
+  manager: Employee;
 
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getEmployees();
-    console.log(this.employees);
+    this.getManagerInfo();
+  }
+
+  public getManagerInfo(): void {
+    this.employeeService.getEmployeeInfo().subscribe(manager => {
+      this.manager = manager;
+      this.getEmployees();
+    })
   }
 
   public getEmployees(): void {
-    this.employeeService.getEmployeesByDepartment(this.route.snapshot.params.department).subscribe(employees => {
+    this.employeeService.getEmployeesByDepartment(this.manager.department).subscribe(employees => {
       this.employees = employees;
     });
   }
+
+
 
 }

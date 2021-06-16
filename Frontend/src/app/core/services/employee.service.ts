@@ -15,6 +15,10 @@ export class EmployeeService {
     return this.http.get<Employee>(environment.API_URL + '/employee/me');
   }
 
+  getEmployeeById(id: Number) {
+    return this.http.get<Employee>(environment.API_URL + '/employee/' + id);
+  }
+
   getEmployeesByDepartment(department: string) {
     return this.http.get<Employee[]>(environment.API_URL + '/' + department + '/employee');
   }
