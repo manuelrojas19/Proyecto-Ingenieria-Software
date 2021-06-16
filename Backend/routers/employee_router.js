@@ -18,4 +18,11 @@ router.get(
     EmplooyeController.findAllEmployees,
 );
 
+router.get(
+    ROOT_PATH + '/:department/employee',
+    verifyToken,
+    EmplooyeController.findEmployeesByDepartment,
+);
+
+
 module.exports = router;

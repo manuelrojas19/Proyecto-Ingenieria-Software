@@ -55,3 +55,28 @@ exports.findEmployeeById = async (employeeId) => {
 exports.findAllEmployees = async (employeeId) => {
   return Employee.findAll();
 };
+
+exports.findEmployeesByDepartment = async (departmentName) => {
+  const departmentExist = await Department.findOne({
+    where: {
+      departmentDescription: departmentName,
+    },
+  });
+  if (!departmentExist) {
+    throw new Exception('Department does not exists');
+  }
+  return Employee.findAll({
+    include: [
+      {
+        association: 'profile',
+        where: {
+          profileDescription: 'Empleado',
+        },
+      },
+      {association: 'department'},
+    ],
+    where: {
+      departmentId: departmentExist.id,
+    },
+  });
+};
