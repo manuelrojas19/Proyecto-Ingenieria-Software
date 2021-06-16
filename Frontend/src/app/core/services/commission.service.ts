@@ -12,15 +12,15 @@ export class CommissionService {
   constructor(private http: HttpClient) { }
 
   getCommissionsByEmployee() {
-    return this.http.get<Commission[]>(environment.API_URL + '/employee/commission');
+    return this.http.get<Commission[]>(environment.API_URL + '/commission');
   }
 
   getCommissionsByIdAndEmployee(id: string) {
-    return this.http.get<Commission>(environment.API_URL + '/employee/commission/' + id);
+    return this.http.get<Commission>(environment.API_URL + '/commission/' + id);
   }
 
   createCommission(commission: Commission) {
-    return this.http.post(environment.API_URL + '/employee/commission', commission);
+    return this.http.post(environment.API_URL + '/commission', commission);
   }
 
   getCommissionsByManager() {
