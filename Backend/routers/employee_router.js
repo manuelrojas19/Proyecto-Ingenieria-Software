@@ -1,5 +1,5 @@
 const express = require('express');
-const {verifyToken} = require('../middleware/auth');
+const {verifyToken, permit} = require('../middleware/auth');
 const router = new express.Router();
 
 const ROOT_PATH = '/api/v1';
@@ -16,6 +16,13 @@ router.get(
     ROOT_PATH + '/employee',
     verifyToken,
     EmplooyeController.findAllEmployees,
+);
+
+router.get(
+    ROOT_PATH + '/employee/:id',
+    verifyToken,
+    permit('Finanzas'),
+    EmplooyeController.findEmplooyeById,
 );
 
 router.get(
