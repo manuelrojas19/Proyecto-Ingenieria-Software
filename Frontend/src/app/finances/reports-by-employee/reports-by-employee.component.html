@@ -1,4 +1,67 @@
-<h1 class="display-5">Reportes</h1>
-<p>reports-by-employee works! 
-    {{employee?.name}}
-</p>
+<h1 class="display-5">
+  Reportes
+  <strong class="h4 text-muted">
+    Empleado {{ employee?.name }} {{ employee?.lastName }}
+  </strong>
+</h1>
+<a
+  href="/finances/{{ employee.department }}/employees"
+  type="button"
+  class="btn btn-outline-red mt-3"
+>
+  Regresar
+</a>
+<div *ngIf="employee" class="mt-5">
+  <h1 class="display-5">General</h1>
+  <div *ngIf="employee" class="mt-4 row mx-auto">
+    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Comisiones asignadas</h5>
+        </dl>
+      </div>
+    </div>
+    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Gastos totales</h5>
+        </dl>
+      </div>
+    </div>
+    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Gastos en viáticos</h5>
+        </dl>
+      </div>
+    </div>
+    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Gastos en transportes</h5>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-5">
+  <h1 class="display-5">Historiales</h1>
+  <div class="card me-4 ms-1 mb-4 mt-4">
+    <div class="card-body">
+      <dl class="row">
+        <h5 class="card-title text-center">Historial de comisiones</h5>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<div class="mt-5">
+  <h1 class="display-5">Gastos</h1>
+  <div class="card me-4 ms-1 mb-4 mt-4">
+    <div class="card-body">
+      <dl class="row">
+        <h5 class="card-title text-center">Gastos desglosados</h5>
+      </dl>
+    </div>
+  </div>
+</div>

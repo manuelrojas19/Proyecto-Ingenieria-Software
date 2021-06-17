@@ -1,14 +1,14 @@
 <h1 class="display-5">Detalles de la comisión</h1>
 
 <p *ngIf="commission === null">No se puede acceder al recurso</p>
+<a
+  href="/finances/{{ commission?.employee[0].department }}/commissions"
+  type="button"
+  class="btn btn-outline-red"
+>
+  Regresar
+</a>
 <div *ngIf="commission" class="mt-4">
-  <a
-    href="/finances/{{ commission?.employee[0].department }}/commissions"
-    type="button"
-    class="btn btn-outline-red"
-  >
-    Regresar
-  </a>
   <div class="card mt-4 mb-4">
     <div class="card-header card-header-main">
       <h2 class="h5">Información de la comisión</h2>
@@ -108,7 +108,7 @@
           commission !== null &&
           commission?.isApprovedByFinances === null &&
           commission?.isApprovedByManager !== false &&
-            commission?.isApprovedByManager !== null
+          commission?.isApprovedByManager !== null
         "
         class="col-12 mb-2 mt-4 text-center"
       >
