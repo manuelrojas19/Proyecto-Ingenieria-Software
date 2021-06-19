@@ -11,14 +11,7 @@
 >
   Regresar
 </a>
-<div
-  *ngIf="
-    employee &&
-    commissions?.length > 0 &&
-    viatics?.length > 0 &&
-    transports?.length > 0
-  "
->
+<div *ngIf="employee && commissions?.length > 0">
   <div class="mt-5">
     <h1 class="display-5">General</h1>
     <div class="mt-4 row mx-auto">
