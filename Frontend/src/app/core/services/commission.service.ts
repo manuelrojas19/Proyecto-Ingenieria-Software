@@ -15,6 +15,10 @@ export class CommissionService {
     return this.http.get<Commission[]>(environment.API_URL + '/commission');
   }
 
+  getCommissionsByEmployeeId(id: string) {
+    return this.http.get<Commission[]>(environment.API_URL + '/finances/employees/' + id + '/commission');
+  }
+
   getCommissionsByIdAndEmployee(id: string) {
     return this.http.get<Commission>(environment.API_URL + '/commission/' + id);
   }

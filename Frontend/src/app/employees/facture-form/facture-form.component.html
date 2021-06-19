@@ -15,7 +15,7 @@
       type="date"
       id="date"
     />
-    <div class="invalid-feedback">Por favor ingrese una fecha.</div>
+    <div class="invalid-feedback">Por favor ingrese la fecha de la factura.</div>
   </div>
   <div class="col-md-6 form-group">
     <label for="amount" class="form-label">Monto</label>
@@ -28,22 +28,20 @@
       type="number"
       id="amount"
     />
-    <div class="invalid-feedback">Por favor ingrese una fecha.</div>
+    <div class="invalid-feedback">Por favor ingrese el monto de la factura.</div>
   </div>
   <div class="col-md-12 form-group">
     <label for="factureDescription" class="form-label">Descripción</label>
-    <input
+    <select
       formControlName="factureDescription"
-      [ngClass]="
-        authForm.get('factureDescription').errors?.requiredField
-          ? 'is-invalid'
-          : ''
-      "
-      class="form-control"
-      type="text"
+      class="form-select"
       id="factureDescription"
-    />
-    <div class="invalid-feedback">Por favor ingrese una descripción.</div>
+    >
+      <option value="Gastos de transporte">Gastos de transporte</option>
+      <option value="Gastos de alimentación">Gastos de alimentación</option>
+      <option value="Gastos de hospedaje">Gastos de hospedaje</option>
+      <option value="Otros gastos">Otros gastos</option>
+    </select>
   </div>
   <div class="col-md-12 form-group">
     <label for="facture" class="form-label">Archivo</label>
