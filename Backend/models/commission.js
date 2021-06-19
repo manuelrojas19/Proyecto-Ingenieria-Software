@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Facture, {
         foreignKey: 'commissionId',
         as: 'commissions',
-      })
+      });
     }
   }
   Commission.init(

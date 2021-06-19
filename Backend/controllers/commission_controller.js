@@ -1,9 +1,26 @@
 const CommissionService = require('../services/commission_service.js');
+const EmployeeService = require('../services/employee_service.js');
 
 exports.findCommissionsByEmployee = async (req, res) => {
   try {
     const commissions = await CommissionService.findCommissionsByEmployee(
         req.employee,
+    );
+    res.status(200).json(commissions);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
+exports.findCommissionsByEmployeeId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const employee = await EmployeeService.findEmployeeById(id);
+    if (!employee) {
+      throw new Error();
+    }
+    const commissions = await CommissionService.findCommissionsByEmployee(
+        employee,
     );
     res.status(200).json(commissions);
   } catch (e) {

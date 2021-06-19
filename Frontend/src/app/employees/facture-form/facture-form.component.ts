@@ -16,7 +16,7 @@ export class FactureFormComponent implements OnInit {
     date: new FormControl('', [
       Validators.required,
     ]),
-    factureDescription: new FormControl('', [
+    factureDescription: new FormControl('Gastos de transporte', [
       Validators.required,
     ]),
     amount: new FormControl('', [

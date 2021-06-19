@@ -1,67 +1,124 @@
 <h1 class="display-5">
   Reportes
-  <strong class="h4 text-muted">
+  <strong *ngIf="employee" class="h4 text-muted">
     Empleado {{ employee?.name }} {{ employee?.lastName }}
   </strong>
 </h1>
 <a
-  href="/finances/{{ employee.department }}/employees"
+  href="/finances/{{ employee?.department }}/employees"
   type="button"
   class="btn btn-outline-red mt-3"
 >
   Regresar
 </a>
-<div *ngIf="employee" class="mt-5">
-  <h1 class="display-5">General</h1>
-  <div *ngIf="employee" class="mt-4 row mx-auto">
-    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
-      <div class="card-body">
-        <dl class="row">
-          <h5 class="card-title text-center">Comisiones asignadas</h5>
-        </dl>
+<div *ngIf="employee && viatics.length > 0 && transports.length > 0">
+  <div class="mt-5">
+    <h1 class="display-5">General</h1>
+    <div class="mt-4 row mx-auto">
+      <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+        <div class="card-body">
+          <dl class="row">
+            <h5 class="card-title text-center">Comisiones asignadas</h5>
+            <p class="text-muted h2 text-center">
+              <strong>
+                {{ viatics.length + transports.length }}
+              </strong>
+            </p>
+          </dl>
+        </div>
       </div>
-    </div>
-    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
-      <div class="card-body">
-        <dl class="row">
-          <h5 class="card-title text-center">Gastos totales</h5>
-        </dl>
+      <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+        <div class="card-body">
+          <dl class="row">
+            <h5 class="card-title text-center">Gastos totales</h5>
+          </dl>
+        </div>
       </div>
-    </div>
-    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
-      <div class="card-body">
-        <dl class="row">
-          <h5 class="card-title text-center">Gastos en viáticos</h5>
-        </dl>
+      <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+        <div class="card-body">
+          <dl class="row">
+            <h5 class="card-title text-center">Gastos en viáticos</h5>
+          </dl>
+        </div>
       </div>
-    </div>
-    <div class="card me-4 ms-1 mb-4" style="width: 14rem">
-      <div class="card-body">
-        <dl class="row">
-          <h5 class="card-title text-center">Gastos en transportes</h5>
-        </dl>
+      <div class="card me-4 ms-1 mb-4" style="width: 14rem">
+        <div class="card-body">
+          <dl class="row">
+            <h5 class="card-title text-center">Gastos en transportes</h5>
+          </dl>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="mt-5">
-  <h1 class="display-5">Historiales</h1>
-  <div class="card me-4 ms-1 mb-4 mt-4">
-    <div class="card-body">
-      <dl class="row">
-        <h5 class="card-title text-center">Historial de comisiones</h5>
-      </dl>
+  <div class="mt-5">
+    <h1 class="display-5">Comisiones asignadas</h1>
+    <div class="card me-4 ms-1 mb-4 mt-4">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Historial de viáticos</h5>
+        </dl>
+        <p *ngIf="viatics.length <= 0" class="card-title text-center">
+          El empleado no cuenta actualmente con comisiones de viaticos
+          asignadas.
+        </p>
+        <div class="table-responsive">
+          <table *ngIf="viatics.length > 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Fecha de inicio de la comisión</th>
+                <th scope="col">Fecha de termino de la comisión</th>
+                <th scope="col">Lugar de la comisión</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let viaticCommission of viatics">
+                <td>{{ viaticCommission.beginDate }}</td>
+                <td>{{ viaticCommission.endDate }}</td>
+                <td>{{ viaticCommission.placeCommission }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card me-4 ms-1 mb-4 mt-4">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Historial de transportes</h5>
+        </dl>
+        <p *ngIf="transports.length <= 0" class="card-title text-center">
+          El empleado no cuenta actualmente con comisiones de transporte
+          asignadas.
+        </p>
+        <div class="table-responsive">
+          <table *ngIf="transports.length > 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Fecha de inicio de la comisión</th>
+                <th scope="col">Fecha de termino de la comisión</th>
+                <th scope="col">Lugar de la comisión</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tranportCommission of transports">
+                <td>{{ tranportCommission.beginDate }}</td>
+                <td>{{ tranportCommission.endDate }}</td>
+                <td>{{ tranportCommission.placeCommission }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="mt-5">
-  <h1 class="display-5">Gastos</h1>
-  <div class="card me-4 ms-1 mb-4 mt-4">
-    <div class="card-body">
-      <dl class="row">
-        <h5 class="card-title text-center">Gastos desglosados</h5>
-      </dl>
+  <div class="mt-5">
+    <h1 class="display-5">Gastos</h1>
+    <div class="card me-4 ms-1 mb-4 mt-4">
+      <div class="card-body">
+        <dl class="row">
+          <h5 class="card-title text-center">Gastos desglosados</h5>
+        </dl>
+      </div>
     </div>
   </div>
 </div>
