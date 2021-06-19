@@ -16,7 +16,7 @@ router.post(
 router.get(
     ROOT_PATH + '/commission',
     verifyToken,
-    permit('Empleado'),
+    permit('Empleado', 'Finanzas'),
     CommissionController.findCommissionsByEmployee,
 );
 
@@ -60,6 +60,13 @@ router.get(
     verifyToken,
     permit('Finanzas'),
     CommissionController.findCommissionsByDepartment,
+);
+
+router.get(
+    ROOT_PATH + '/finances/employees/:id/commission',
+    verifyToken,
+    permit('Finanzas'),
+    CommissionController.findCommissionsByEmployeeId,
 );
 
 router.get(
