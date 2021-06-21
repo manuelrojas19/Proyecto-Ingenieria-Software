@@ -1,5 +1,12 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form row g-3">
   <div
+    *ngIf="authForm.errors?.invalidFile"
+    class="alert alert-danger"
+    role="alert"
+  >
+    A ocurrido un error, formato de archivo invalido, el archivo enviado debe ser de extensión .xml
+  </div>
+  <div
     *ngIf="authForm.errors?.invalidDate"
     class="alert alert-danger"
     role="alert"
@@ -15,20 +22,43 @@
       type="date"
       id="date"
     />
-    <div class="invalid-feedback">Por favor ingrese la fecha de la factura.</div>
+    <div class="invalid-feedback">
+      Por favor ingrese la fecha de la factura.
+    </div>
   </div>
   <div class="col-md-6 form-group">
     <label for="amount" class="form-label">Monto</label>
-    <input
-      formControlName="amount"
-      [ngClass]="
-        authForm.get('amount').errors?.requiredField ? 'is-invalid' : ''
-      "
-      class="form-control"
-      type="number"
-      id="amount"
-    />
-    <div class="invalid-feedback">Por favor ingrese el monto de la factura.</div>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend">$</span>
+      <input
+        formControlName="amount"
+        [ngClass]="
+          authForm.get('amount').errors?.requiredField
+            ? 'is-invalid'
+            : authForm.get('amount').errors?.rangeError
+            ? 'is-invalid'
+            : ''
+        "
+        class="form-control"
+        type="number"
+        maxlength="11"
+        min="1"
+        max="99999999999"
+        id="amount"
+      />
+      <div
+        *ngIf="authForm.get('amount').errors?.requiredField"
+        class="invalid-feedback"
+      >
+        Por favor ingrese el monto de la factura.
+      </div>
+      <div
+        *ngIf="authForm.get('amount').errors?.rangeError"
+        class="invalid-feedback"
+      >
+        Por favor ingrese un monto valido.
+      </div>
+    </div>
   </div>
   <div class="col-md-12 form-group">
     <label for="factureDescription" class="form-label">Descripción</label>

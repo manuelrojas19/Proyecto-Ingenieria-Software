@@ -54,14 +54,13 @@ export class ReportsByEmployeeComponent implements OnInit {
     });
   }
 
-
   filterCommissions() {
     this.transports = this.commissions.filter(commission => commission.typeCommission === 'Transporte' && commission.isApprovedByFinances === true);
     this.viatics = this.commissions.filter(commission => commission.typeCommission === 'Viaticos' && commission.isApprovedByFinances === true); 
   }
 
   getData() {
-    this.amount = this.factures.map(facture => facture.amount).reduce((a, b) => Number(a) + Number(b));
+    this.amount = this.factures.map(facture => facture.amount).reduce((a, b) => Number(a) + Number(b), 0);
   }
 
 }

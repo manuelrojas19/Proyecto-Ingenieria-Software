@@ -110,8 +110,12 @@
         <dl class="row">
           <h5 class="card-title text-center">Gastos desglosados</h5>
         </dl>
+
+        <p *ngIf="factures?.length <= 0" class="card-title text-center">
+          El empleado no cuenta actualmente con registro de gastos.
+        </p>
         <div class="table-responsive">
-          <table *ngIf="factures.length > 0" class="table table-hover ">
+          <table *ngIf="factures?.length > 0" class="table table-hover ">
             <thead>
               <tr>
                 <th scope="col">Fecha</th>
