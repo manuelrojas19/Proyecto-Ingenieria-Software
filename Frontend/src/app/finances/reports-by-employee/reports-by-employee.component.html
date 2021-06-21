@@ -64,8 +64,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let viaticCommission of viatics">
-                <td>{{ viaticCommission.beginDate }}</td>
-                <td>{{ viaticCommission.endDate }}</td>
+                <td>{{ viaticCommission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
+                <td>{{ viaticCommission.endDate | date: "dd-MMM-yyyy":"es" }}</td>
                 <td>{{ viaticCommission.placeCommission }}</td>
               </tr>
             </tbody>
@@ -93,8 +93,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let tranportCommission of transports">
-                <td>{{ tranportCommission.beginDate }}</td>
-                <td>{{ tranportCommission.endDate }}</td>
+                <td>{{ tranportCommission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
+                <td>{{ tranportCommission.endDate | date: "dd-MMM-yyyy":"es" }}</td>
                 <td>{{ tranportCommission.placeCommission }}</td>
               </tr>
             </tbody>
