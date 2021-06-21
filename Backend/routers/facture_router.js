@@ -37,4 +37,10 @@ router.get(
     FactureController.findFacturesByCommission,
 );
 
+router.get(
+    ROOT_PATH + '/finances/:employee/facture',
+    verifyToken,
+    FactureController.findFacturesByEmployee,
+);
+
 module.exports = router;
