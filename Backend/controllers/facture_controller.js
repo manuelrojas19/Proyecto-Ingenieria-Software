@@ -1,4 +1,5 @@
 const FactureService = require('../services/factures_service.js');
+const EmployeeService = require('../services/employee_service.js');
 
 const storage = require('../util/storage.js');
 
@@ -29,6 +30,22 @@ exports.findFacturesByCommission = async (req, res) => {
   try {
     const factures = await FactureService.findFacturesByCommission(
         idCommission,
+    );
+    res.status(200).json(factures);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};
+
+exports.findFacturesByEmployee = async (req, res) => {
+  const idEmployee = req.params.employee;
+  try {
+    const employee = await EmployeeService.findEmployeeById(idEmployee);
+    if (!employee) {
+      throw new Error('Emplooye not found');
+    }
+    const factures = await FactureService.findFacturesByEmployee(
+        employee,
     );
     res.status(200).json(factures);
   } catch (e) {

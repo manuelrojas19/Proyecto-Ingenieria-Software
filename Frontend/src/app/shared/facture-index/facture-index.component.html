@@ -1,37 +1,39 @@
 <h1 class="display-5 mt-5">Comprobantes</h1>
 <div class="mt-4">
-    <div class="card mt-4 mb-4">
-      <div class="card-header card-header-main">
-        <h2 class="h5">Facturas de la comisión</h2>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Fecha de las factura</th>
-                <th scope="col">Descripción de la factura</th>
-                <th scope="col">Monto de la factura</th>
-                <th scope="col">Archivo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let facture of factures">
-                <td>{{ facture.date | date: "dd-MMM-yyyy":"es" }}</td>
-                <td>{{ facture.factureDescription }}</td>
-                <td>$ {{ facture.amount | number: "1.2" }}</td>
-                <td>
-                  <a href="{{ facture?.filePath }}" target="_blank"
+  <div class="card mt-4 mb-4">
+    <div class="card-header card-header-main">
+      <h2 class="h5">Facturas de la comisión</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Fecha de las factura</th>
+              <th scope="col">Descripción de la factura</th>
+              <th scope="col">Monto de la factura</th>
+              <th scope="col">Archivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let facture of factures">
+              <td>{{ facture.date | date: "dd-MMM-yyyy":"es" }}</td>
+              <td>{{ facture.factureDescription }}</td>
+              <td>$ {{ facture.amount | number: "1.2" }}</td>
+              <td>
+                <a
+                  href="{{ facture?.filePath }}"
+                  target="_blank"
                   type="button"
-                    class="btn btn-sm btn-outline-primary"
-                  >
-                    <i class="fa fa-file"></i>
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  <i class="fa fa-file"></i>
                 </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>

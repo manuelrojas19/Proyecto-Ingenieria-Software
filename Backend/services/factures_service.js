@@ -1,4 +1,7 @@
+const {Op} = require('sequelize');
+
 const {Facture} = require('../models/index.js');
+
 const CommissionService = require('../services/commission_service.js');
 
 exports.findFacturesByCommissionAndEmployee = async (
@@ -30,6 +33,26 @@ exports.findFacturesByCommission = async (commissionId) => {
       commissionId: commissionId,
     },
     include: ['commission'],
+  });
+};
+
+exports.findFacturesByEmployee = async (employee) => {
+  const commissions = await CommissionService.findCommissionsByEmployee(
+      employee,
+  );
+
+  const idCommissions = commissions.map((commission) => commission.id);
+
+  return Facture.findAll({
+    include: [
+      {
+        attributes: [],
+        association: 'commission',
+        where: {
+          id: {[Op.in]: idCommissions},
+        },
+      },
+    ],
   });
 };
 

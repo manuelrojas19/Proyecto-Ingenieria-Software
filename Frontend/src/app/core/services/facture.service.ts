@@ -18,6 +18,11 @@ export class FactureService {
     return this.http.get<Facture[]>(environment.API_URL + '/' + commision + '/facture');
   }
 
+  getFacturesByEmployee(employee: string) {
+    return this.http.get<Facture[]>(environment.API_URL + '/finances/' + employee + '/facture');
+
+  }
+
   createFacture(facture: FormData) {
     return this.http.post(environment.API_URL + '/facture', facture);
   }
