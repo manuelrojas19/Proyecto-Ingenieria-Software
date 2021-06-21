@@ -54,6 +54,8 @@ export class FactureFormComponent implements OnInit {
         this.authForm.get('factureDescription').setErrors({ requiredField: true })
       if (this.authForm.get('amount').value === '')
         this.authForm.get('amount').setErrors({ requiredField: true })
+      if (this.authForm.get('amount').value > 99999999999 || this.authForm.get('amount').value <= 0)
+        this.authForm.get('amount').setErrors({ rangeError: true })
       if (this.authForm.get('facture').value === '')
         this.authForm.get('facture').setErrors({ requiredField: true })
       return;
