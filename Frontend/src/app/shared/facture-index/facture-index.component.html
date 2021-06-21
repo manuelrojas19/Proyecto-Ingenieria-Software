@@ -1,11 +1,14 @@
-<h1 class="display-5 mt-5">Comprobantes</h1>
+<h1 class="display-5 mt-5">Facturas</h1>
 <div class="mt-4">
   <div class="card mt-4 mb-4">
     <div class="card-header card-header-main">
       <h2 class="h5">Facturas de la comisión</h2>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
+      <p class="lead mt-3" *ngIf="factures?.length == 0">
+        No existen facturas registradas por el empleado para la comisión.
+      </p>
+      <div *ngIf="factures?.length > 0" class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>

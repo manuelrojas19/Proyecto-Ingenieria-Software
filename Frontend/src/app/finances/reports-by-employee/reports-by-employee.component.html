@@ -11,6 +11,10 @@
 >
   Regresar
 </a>
+
+<p class="lead mt-4" *ngIf="employee && commissions?.length == 0">
+  El empleado no cuenta con comisiones asignadas para la generación de reportes
+</p>
 <div *ngIf="employee && commissions?.length > 0">
   <div class="mt-5">
     <h1 class="display-5">General</h1>
@@ -18,7 +22,9 @@
       <div class="card me-4 ms-1 mb-4" style="width: 30rem">
         <div class="card-body">
           <dl class="row">
-            <h5 class="card-title text-center">Número de comisiones asignadas</h5>
+            <h5 class="card-title text-center">
+              Número de comisiones asignadas
+            </h5>
             <p class="text-muted h2 text-center">
               <strong>
                 {{ viatics.length + transports.length }}
@@ -32,14 +38,11 @@
           <dl class="row">
             <h5 class="card-title text-center">Gastos totales realizados</h5>
             <p class="text-muted h2 text-center">
-              <strong>
-                ${{ amount | number: "1.2" }} MXN 
-              </strong>
+              <strong> ${{ amount | number: "1.2" }} MXN </strong>
             </p>
           </dl>
         </div>
       </div>
-      
     </div>
   </div>
   <div class="mt-5">
@@ -64,8 +67,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let viaticCommission of viatics">
-                <td>{{ viaticCommission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
-                <td>{{ viaticCommission.endDate | date: "dd-MMM-yyyy":"es" }}</td>
+                <td>
+                  {{ viaticCommission.beginDate | date: "dd-MMM-yyyy":"es" }}
+                </td>
+                <td>
+                  {{ viaticCommission.endDate | date: "dd-MMM-yyyy":"es" }}
+                </td>
                 <td>{{ viaticCommission.placeCommission }}</td>
               </tr>
             </tbody>
@@ -93,8 +100,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let tranportCommission of transports">
-                <td>{{ tranportCommission.beginDate | date: "dd-MMM-yyyy":"es" }}</td>
-                <td>{{ tranportCommission.endDate | date: "dd-MMM-yyyy":"es" }}</td>
+                <td>
+                  {{ tranportCommission.beginDate | date: "dd-MMM-yyyy":"es" }}
+                </td>
+                <td>
+                  {{ tranportCommission.endDate | date: "dd-MMM-yyyy":"es" }}
+                </td>
                 <td>{{ tranportCommission.placeCommission }}</td>
               </tr>
             </tbody>
@@ -115,7 +126,7 @@
           El empleado no cuenta actualmente con registro de gastos.
         </p>
         <div class="table-responsive">
-          <table *ngIf="factures?.length > 0" class="table table-hover ">
+          <table *ngIf="factures?.length > 0" class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">Fecha</th>
@@ -125,9 +136,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let facture of factures">
-                <td>{{ facture.date | date: "dd-MMM-yyyy":"es"}}</td>
+                <td>{{ facture.date | date: "dd-MMM-yyyy":"es" }}</td>
                 <td>{{ facture.factureDescription }}</td>
-                <td>${{ (facture.amount | number: "1.2") }} MXN</td>
+                <td>${{ facture.amount | number: "1.2" }} MXN</td>
               </tr>
             </tbody>
           </table>

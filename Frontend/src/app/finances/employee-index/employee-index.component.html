@@ -8,7 +8,10 @@
       <h2 class="h5">Empleados del departamento</h2>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
+      <p class="lead mt-3" *ngIf="employees?.length == 0">
+        Actualmente no existen empleados registrados en el departamento
+      </p>
+      <div *ngIf="employees.length > 0" class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
