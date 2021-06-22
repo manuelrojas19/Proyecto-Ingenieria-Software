@@ -10,6 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ReportsByDepartmentComponent } from './reports-by-department/reports-by-department.component';
 import { EmployeeIndexComponent } from './employee-index/employee-index.component';
 import { ReportsByEmployeeComponent } from './reports-by-employee/reports-by-employee.component';
+import { DepositFormComponent } from './deposit-form/deposit-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,11 +22,13 @@ import { ReportsByEmployeeComponent } from './reports-by-employee/reports-by-emp
     CommissionInfoComponent,
     ReportsByDepartmentComponent,
     EmployeeIndexComponent,
-    ReportsByEmployeeComponent
+    ReportsByEmployeeComponent,
+    DepositFormComponent
   ],
   imports: [
     CommonModule,
     FinancesRoutingModule,
+    ReactiveFormsModule,
     SharedModule,
   ]
 })

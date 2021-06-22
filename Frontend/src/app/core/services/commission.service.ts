@@ -52,6 +52,9 @@ export class CommissionService {
     return this.http.patch<Commission>(environment.API_URL + '/finances/commission/' + id, commission)
   }
 
+  depositToCommission(id: string, monto: Number) {
+    return this.http.patch<Commission>(environment.API_URL + '/deposit/commission/' + id, monto);
+  }
 
 }
 
