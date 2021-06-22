@@ -140,3 +140,16 @@ exports.updateCommissionByFinances = async (req, res) => {
     res.status(400).json({error: e.message});
   }
 };
+
+
+exports.depositToCommision = async (req, res) => {
+  try {
+    const commission = await CommissionService.depositToCommission(
+        req.params.id,
+        req.body.amount,
+    );
+    res.status(200).json(commission);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+};

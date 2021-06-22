@@ -83,6 +83,24 @@
             }}
           </div>
         </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Monto depositado</div>
+            <p *ngIf="commission?.amountAssigned != null">
+              ${{ commission?.amountAssigned | number: "1.2" }} MXN
+            </p>
+            <p *ngIf="commission?.amountAssigned == null">
+              Sin depositos
+            </p>
+          </div>
+        </li>
       </ol>
     </div>
   </div>

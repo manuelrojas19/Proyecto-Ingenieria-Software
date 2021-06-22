@@ -1,4 +1,4 @@
-const {Commission, Department} = require('../models/index.js');
+const {Commission, Department, sequelize} = require('../models/index.js');
 const {Op} = require('sequelize');
 
 const TRASLAPED_DATES_ERROR =
@@ -195,4 +195,56 @@ exports.updateCommissionByFinances = async (idCommission, isApproved) => {
   commission.isApprovedByFinances = isApproved;
   await commission.save();
   return commission;
+};
+
+exports.depositToCommission = async (idCommission, amount) => {
+  return sequelize.transaction(async (t) => {
+    const commission = await Commission.findOne({
+      include: [
+        {
+          association: 'employee',
+          include: ['profile', 'department'],
+        },
+      ],
+      where: {
+        id: idCommission,
+      },
+      transaction: t,
+    });
+    if (!commission) {
+      throw new Error('Commission does not exist');
+    }
+
+    const departmentName =
+      commission.employee[0].department.departmentDescription;
+
+    const department = await Department.findOne({
+      where: {
+        departmentDescription: departmentName,
+      },
+      transaction: t,
+    });
+    if (!department) {
+      throw new Error('Department does not exists');
+    }
+
+
+    if (commission.typeCommission === 'Transporte') {
+      if (department.budgetTransport - amount < 0) {
+        throw new Error('Budget not enough');
+      }
+      department.budgetTransport = department.budgetTransport - amount;
+    }
+
+    if (commission.typeCommission === 'Viaticos') {
+      if (department.budgetViatic - amount < 0) {
+        throw new Error('Budget not enough');
+      }
+      department.budgetViatic = department.budgetViatic - amount;
+    }
+
+    commission.amountAssigned = amount;
+    await department.save({transaction: t});
+    return await commission.save({transaction: t});
+  });
 };

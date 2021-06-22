@@ -1,0 +1,40 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form row g-3">
+  <div class="col-md-12 form-group">
+    <label for="amount" class="form-label">Monto</label>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend">$</span>
+      <input
+        formControlName="amount"
+        [ngClass]="
+          authForm.get('amount').errors?.requiredField
+            ? 'is-invalid'
+            : authForm.get('amount').errors?.rangeError
+            ? 'is-invalid'
+            : ''
+        "
+        class="form-control"
+        type="number"
+        maxlength="11"
+        min="1"
+        max="99999999999"
+        id="amount"
+      />
+      <div
+        *ngIf="authForm.get('amount').errors?.requiredField"
+        class="invalid-feedback"
+      >
+        Por favor ingrese el monto de la factura.
+      </div>
+      <div
+        *ngIf="authForm.get('amount').errors?.rangeError"
+        class="invalid-feedback"
+      >
+        Por favor ingrese un monto valido.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 mb-2 mt-4">
+    <button type="submit" class="btn btn-outline-red">Depositar</button>
+  </div>
+</form>
