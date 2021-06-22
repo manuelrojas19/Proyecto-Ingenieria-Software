@@ -76,4 +76,11 @@ router.get(
     CommissionController.findCommissionById,
 );
 
+router.patch(
+    ROOT_PATH + '/deposit/commission/:id',
+    verifyToken,
+    permit('Finanzas'),
+    CommissionController.depositToCommision,
+);
+
 module.exports = router;

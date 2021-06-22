@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
           field: 'LugarComision',
         },
         amountAssigned: {
-          type: DataTypes.STRING,
+          type: DataTypes.DOUBLE,
           field: 'MontoAsignado',
         },
       },
@@ -73,6 +73,7 @@ module.exports = (sequelize, DataTypes) => {
     delete commissionJson.Empleado_has_Comision;
     return commissionJson;
   };
+
 
   return Commission;
 };
