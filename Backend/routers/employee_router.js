@@ -1,33 +1,74 @@
 const express = require('express');
-const {verifyToken, permit} = require('../middleware/auth');
+const {auth, permit} = require('../middleware/auth');
 const router = new express.Router();
 
 const ROOT_PATH = '/api/v1';
+const URL_PATH_V2 = '/api/v2';
+
+const FINANCES = 'Finanzas';
+const MANAGER = 'Jefe de Area';
 
 const EmplooyeController = require('../controllers/emplooye_controller.js');
 
+/**
+ * V1 Routing
+ *
+*/
+
 router.get(
     ROOT_PATH + '/employee/me',
-    verifyToken,
+    auth,
     EmplooyeController.me,
 );
 
 router.get(
     ROOT_PATH + '/employee',
-    verifyToken,
+    auth,
     EmplooyeController.findAllEmployees,
 );
 
 router.get(
     ROOT_PATH + '/employee/:id',
-    verifyToken,
+    auth,
     permit('Finanzas'),
     EmplooyeController.findEmplooyeById,
 );
 
 router.get(
     ROOT_PATH + '/:department/employee',
-    verifyToken,
+    auth,
+    EmplooyeController.findEmployeesByDepartment,
+);
+
+/**
+ * V2 Routing
+ *
+*/
+
+router.get(
+    `${URL_PATH_V2}/employees/me`,
+    auth,
+    EmplooyeController.me,
+);
+
+router.get(
+    `${URL_PATH_V2}/employees`,
+    auth,
+    permit(FINANCES),
+    EmplooyeController.findAllEmployees,
+);
+
+router.get(
+    `${URL_PATH_V2}/employees/:id`,
+    auth,
+    permit(FINANCES),
+    EmplooyeController.findEmplooyeById,
+);
+
+router.get(
+    `${URL_PATH_V2}/departments/:department/employees`,
+    auth,
+    permit(FINANCES, MANAGER),
     EmplooyeController.findEmployeesByDepartment,
 );
 

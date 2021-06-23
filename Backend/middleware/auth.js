@@ -8,7 +8,7 @@ const USER_NOT_AUTHENTICATED_ERROR = 'Not authenticaded, please authenticate';
 const USER_NOT_AUTHORIZED_ERROR = 'Forbidden, user is not authorized';
 const USER_NOT_FOUND_ERROR = 'User was not found';
 
-exports.verifyToken = async (req, res, next) => {
+exports.auth = async (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
