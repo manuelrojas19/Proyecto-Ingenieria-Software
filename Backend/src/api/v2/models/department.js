@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       field: 'idAreas',
     },
-    departmentDescription: {
+    name: {
       type: DataTypes.STRING,
       field: 'DescripcionArea',
     },

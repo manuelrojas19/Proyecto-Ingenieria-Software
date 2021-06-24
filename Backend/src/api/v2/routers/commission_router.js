@@ -5,21 +5,21 @@ const {permit, auth} = require('../middleware/auth');
 const router = new express.Router();
 
 router.get(
-    '/employee/commissions',
+    '/employee/me/commissions',
     auth,
     permit('Empleado'),
     CommissionController.findCommissionsByEmployee,
 );
 
 router.post(
-    '/employee/commissions',
+    '/employee/me/commissions',
     auth,
     permit('Empleado'),
     CommissionController.createCommission,
 );
 
 router.get(
-    '/employee/commissions/:id',
+    '/employee/me/commissions/:id',
     auth,
     permit('Empleado'),
     CommissionController.findCommissionByIdAndEmployee,

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       field: 'idPerfiles',
     },
-    profileDescription: {
+    name: {
       type: DataTypes.STRING,
       field: 'DescripcionPerfil',
     },

@@ -5,7 +5,7 @@ const TRASLAPED_DATES_ERROR =
   'Dates for the commission are in traslaped with another';
 const INVALID_DATES_ERROR = 'Dates for the commission are invalid';
 
-exports.findCommissionsByEmployee = async (employee) => {
+exports.findCommissionsByEmployee = async (employee, pagination) => {
   return Commission.findAll({
     include: [
       {
@@ -16,6 +16,8 @@ exports.findCommissionsByEmployee = async (employee) => {
         },
       },
     ],
+    limit: pagination.limit,
+    offset: pagination.offset,
   });
 };
 
