@@ -1,12 +1,21 @@
 const {CommissionService, EmployeeService} = require('../services/index.js');
+const {logger} = require('../../../util/logger.js');
 
 exports.findCommissionsByEmployee = async (req, res) => {
+  const pagination = {};
+  pagination.limit = parseInt(req.query.limit ? req.query.limit : 10);
+  pagination.offset = parseInt(req.query.offset ? req.query.offset : 0);
+
   try {
+    logger.info('Fetching comissions from DB');
     const commissions = await CommissionService.findCommissionsByEmployee(
         req.employee,
+        pagination,
     );
+    logger.info(commissions, 'Commissions founded, sending to client');
     res.status(200).json(commissions);
   } catch (e) {
+    logger.error(e);
     res.status(400).json({error: e.message});
   }
 };
@@ -139,7 +148,6 @@ exports.updateCommissionByFinances = async (req, res) => {
     res.status(400).json({error: e.message});
   }
 };
-
 
 exports.depositToCommision = async (req, res) => {
   try {

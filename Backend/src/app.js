@@ -27,6 +27,7 @@ app.use(ROOT_PATH_VERSION_1, RouterV1.EmployeeRouter);
 app.use(ROOT_PATH_VERSION_1, RouterV1.FactureRouter);
 
 app.use(ROOT_PATH_VERSION_2, RouterV2.AuthRouter);
+app.use(ROOT_PATH_VERSION_2, RouterV2.CommissionRouter);
 
 app.listen(PORT, () => {
   logger.info(`App is listening on port ${PORT}`);

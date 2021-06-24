@@ -97,11 +97,6 @@ module.exports = (sequelize, DataTypes) => {
   Employee.prototype.toJSON = function() {
     const employeeJson = Object.assign({}, this.get());
     delete employeeJson.password;
-    delete employeeJson.profileId;
-    delete employeeJson.departmentId;
-    delete employeeJson.Empleado_has_Comision;
-    employeeJson.profile = employeeJson.profile.profileDescription;
-    employeeJson.department = employeeJson.department.departmentDescription;
     return employeeJson;
   };
 

@@ -3,6 +3,7 @@ const {ACCESS_TOKEN_SECRET} = process.env;
 const EmployeeService = require('../services/employee_service.js');
 
 const jwt = require('jsonwebtoken');
+const {logger} = require('../../../util/logger.js');
 
 const USER_NOT_AUTHENTICATED_ERROR = 'Not authenticaded, please authenticate';
 const USER_NOT_AUTHORIZED_ERROR = 'Forbidden, user is not authorized';
@@ -27,6 +28,7 @@ exports.auth = async (req, res, next) => {
     req.employee = employee;
     next();
   } catch (e) {
+    logger.error(e);
     res.status(500).json({error: e.message});
   }
 };
@@ -37,7 +39,7 @@ exports.permit = (...permittedRoles) => {
     if (!employee) {
       throw new Error();
     }
-    if (permittedRoles.includes(employee.profile.profileDescription)) {
+    if (permittedRoles.includes(employee.profile.name)) {
       next();
     } else {
       res.status(403).json({message: USER_NOT_AUTHORIZED_ERROR});
