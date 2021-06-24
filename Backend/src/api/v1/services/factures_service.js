@@ -2,7 +2,7 @@ const {Op} = require('sequelize');
 
 const {Facture} = require('../models/index.js');
 
-const CommissionService = require('../services/commission_service.js');
+const CommissionService = require('./commission_service.js');
 
 exports.findFacturesByCommissionAndEmployee = async (
     commissionId,
