@@ -7,6 +7,8 @@ const corsConfig = require('./v1/config/cors_config.js');
 
 const port = process.env.PORT;
 
+const ROOT_PATH_VERSION_1 = '/api/v1';
+
 const app = express();
 
 app.disable('x-powered-by');
@@ -15,11 +17,11 @@ app.use(cors(corsConfig));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use('/api/v1', RouterV1.AuthRouter);
-app.use('/api/v1', RouterV1.CommissionRouter);
-app.use('/api/v1', RouterV1.DepartmentRouter);
-app.use('/api/v1', RouterV1.EmployeeRouter);
-app.use('/api/v1', RouterV1.FactureRouter);
+app.use(ROOT_PATH_VERSION_1, RouterV1.AuthRouter);
+app.use(ROOT_PATH_VERSION_1, RouterV1.CommissionRouter);
+app.use(ROOT_PATH_VERSION_1, RouterV1.DepartmentRouter);
+app.use(ROOT_PATH_VERSION_1, RouterV1.EmployeeRouter);
+app.use(ROOT_PATH_VERSION_1, RouterV1.FactureRouter);
 
 app.listen(port, () => {
   console.log('App is listening on port ' + port);
