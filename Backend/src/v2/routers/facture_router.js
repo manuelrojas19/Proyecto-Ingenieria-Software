@@ -1,21 +1,19 @@
 const express = require('express');
-
+const {FactureController} = require('../controllers/index.js');
 const {permit, auth} = require('../middleware/auth');
 const upload = require('../middleware/upload.js');
-
-const {FactureController} = require('../controllers/index.js');
 
 const router = new express.Router();
 
 router.get(
-    '/facture',
+    '/employee/factures',
     auth,
     permit('Empleado'),
     FactureController.findAllFactures,
 );
 
 router.post(
-    '/facture',
+    '/employee/factures',
     auth,
     permit('Empleado'),
     upload.single('facture'),
@@ -23,21 +21,29 @@ router.post(
 );
 
 router.get(
-    '/employee/:commission/facture',
+    '/employee/commissions/:commission/factures',
     auth,
     FactureController.findFacturesByCommissionAndEmployee,
 );
 
 router.get(
-    '/:commission/facture',
+    '/manager/commissions/:commission/factures',
     auth,
-    permit('Jefe de Area', 'Finanzas'),
+    permit('Jefe de Area'),
     FactureController.findFacturesByCommission,
 );
 
 router.get(
-    '/finances/:employee/facture',
+    '/finance/commissions/:commission/factures',
     auth,
+    permit('Finanzas'),
+    FactureController.findFacturesByCommission,
+);
+
+router.get(
+    '/finance/employees/:employee/factures',
+    auth,
+    permit('Finanzas'),
     FactureController.findFacturesByEmployee,
 );
 

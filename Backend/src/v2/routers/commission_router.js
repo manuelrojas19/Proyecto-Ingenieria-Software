@@ -1,87 +1,85 @@
 const express = require('express');
+const {CommissionController} = require('../controllers/index.js');
 const {permit, auth} = require('../middleware/auth');
+
 const router = new express.Router();
 
-const CommissionController = require('../controllers/commission_controller.js');
+router.get(
+    '/employee/commissions',
+    auth,
+    permit('Empleado'),
+    CommissionController.findCommissionsByEmployee,
+);
 
 router.post(
-    '/commission',
+    '/employee/commissions',
     auth,
     permit('Empleado'),
     CommissionController.createCommission,
 );
 
 router.get(
-    '/commission',
-    auth,
-    permit('Empleado', 'Finanzas'),
-    CommissionController.findCommissionsByEmployee,
-);
-
-router.get(
-    '/commission/:id',
+    '/employee/commissions/:id',
     auth,
     permit('Empleado'),
     CommissionController.findCommissionByIdAndEmployee,
 );
 
-
 // Manager
 
 router.get(
-    '/manager/commission',
+    '/manager/commissions',
     auth,
     permit('Jefe de Area'),
     CommissionController.findCommissionsByManager,
 );
 
 router.get(
-    '/manager/commission/:id',
+    '/manager/commissions/:id',
     auth,
     permit('Jefe de Area', 'Finanzas'),
     CommissionController.findCommissionByIdAndManager,
 );
 
 router.patch(
-    '/manager/commission/:id',
+    '/manager/commissions/:id/approve',
     auth,
     permit('Jefe de Area'),
     CommissionController.updateCommissionByManager,
 );
 
-
 // Finances
 
-router.patch(
-    '/finances/commission/:id',
-    auth,
-    permit('Finanzas'),
-    CommissionController.updateCommissionByFinances,
-);
-
 router.get(
-    '/finances/:department/commission',
+    '/finance/departments/:department/commissions/:id',
     auth,
     permit('Finanzas'),
     CommissionController.findCommissionsByDepartment,
 );
 
 router.get(
-    '/finances/employees/:id/commission',
+    '/finance/employees/:employee/commissions',
     auth,
     permit('Finanzas'),
     CommissionController.findCommissionsByEmployeeId,
 );
 
 router.get(
-    '/finances/commission/:id',
+    '/finance/commissions/:id',
     auth,
     permit('Finanzas'),
     CommissionController.findCommissionById,
 );
 
 router.patch(
-    '/deposit/commission/:id',
+    '/finance/commissions/:id/approve',
+    auth,
+    permit('Finanzas'),
+    CommissionController.updateCommissionByFinances,
+);
+
+router.patch(
+    '/finance/commission/:id/deposit',
     auth,
     permit('Finanzas'),
     CommissionController.depositToCommision,
