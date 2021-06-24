@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 const {logger, expressLogger} = require('./util/logger.js');
 const corsConfig = require('./config/cors_config.js');
 
@@ -14,9 +15,9 @@ const ROOT_PATH_VERSION_2 = '/api/v2';
 const app = express();
 
 app.use(expressLogger);
-app.disable('x-powered-by');
-app.use(cookieParser());
+app.use(helmet());
 app.use(cors(corsConfig));
+app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
