@@ -1,11 +1,14 @@
 const express = require('express');
+
 const {AuthController} = require('../controllers/index.js');
 
 const router = new express.Router();
 
-router.get('check', AuthController.check);
-router.post('/signup', AuthController.signUp);
-router.post('/signin', AuthController.singIn);
-router.get('/logout', AuthController.logout);
+const ROOT_URL = '/auth';
+
+router.post(`${ROOT_URL}/signup`, AuthController.signUp);
+router.post(`${ROOT_URL}/signin`, AuthController.singIn);
+router.get(`${ROOT_URL}/check`, AuthController.check);
+router.get(`${ROOT_URL}/logout`, AuthController.logout);
 
 module.exports = router;

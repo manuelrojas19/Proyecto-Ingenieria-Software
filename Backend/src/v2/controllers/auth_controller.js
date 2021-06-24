@@ -3,9 +3,9 @@ const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE, NODE_ENV} = process.env;
 
 const jwt = require('jsonwebtoken');
 
-const cookieConfig = require('../../v1/config/cookie_config')[NODE_ENV];
+const cookieConfig = require('../../config/cookie_config')[NODE_ENV];
 
-const {EmployeeService} = require('../../v1/services/index.js');
+const {EmployeeService} = require('../services/index.js');
 
 const USER_LOGGED_ERROR = 'No employee logged in, please log in.';
 const TOKEN_INVALID_ERROR = 'Token is not valid, please log in.';
