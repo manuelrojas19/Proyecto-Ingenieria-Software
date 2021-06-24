@@ -2,10 +2,10 @@ const express = require('express');
 const {permit, auth} = require('../middleware/auth');
 const router = new express.Router();
 
-const ROOT_PATH = '/api/v1';
+const ROOT_PATH = '';
 const URL_PATH_V2 = '/api/v2';
 
-const CommissionController = require('../controllers/commission_controller.js');
+const {CommissionController} = require('../controllers/index.js');
 
 /**
  * V1 Routing

@@ -1,5 +1,4 @@
-const FactureService = require('../services/factures_service.js');
-const EmployeeService = require('../services/employee_service.js');
+const {FactureService, EmployeeService} = require('../services/index.js');
 
 const storage = require('../util/storage.js');
 

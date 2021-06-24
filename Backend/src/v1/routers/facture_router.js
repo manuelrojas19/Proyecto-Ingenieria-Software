@@ -3,11 +3,11 @@ const express = require('express');
 const {permit, auth} = require('../middleware/auth');
 const upload = require('../middleware/upload.js');
 
-const FactureController = require('../controllers/facture_controller.js');
+const {FactureController} = require('../controllers/index.js');
 
 const router = new express.Router();
 
-const ROOT_PATH = '/api/v1';
+const ROOT_PATH = '';
 const URL_PATH_V2 = '/api/v2';
 
 

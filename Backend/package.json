@@ -6,14 +6,8 @@
   "author": "Manuel Antonio Rojas Ramos",
   "license": "MIT",
   "scripts": {
-    "start": "node -r dotenv/config app.js",
-    "dev": "nodemon -r dotenv/config app.js",
-    "db:create": "sequelize-cli db:create",
-    "db:migrate": "sequelize-cli db:migrate",
-    "db:u:migrate:all": "sequelize-cli db:migrate:undo:all",
-    "db:g:migration": "sequelize-cli migration:generate --name",
-    "db:g:seed": "sequelize-cli seed:generate --name",
-    "db:seeds": "sequelize-cli db:seed:all"
+    "start": "node -r dotenv/config src/app.js",
+    "dev": "nodemon -r dotenv/config src/app.js"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.8.5",

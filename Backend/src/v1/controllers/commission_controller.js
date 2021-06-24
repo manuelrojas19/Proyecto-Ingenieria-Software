@@ -1,5 +1,4 @@
-const CommissionService = require('../services/commission_service.js');
-const EmployeeService = require('../services/employee_service.js');
+const {CommissionService, EmployeeService} = require('../services/index.js');
 
 exports.findCommissionsByEmployee = async (req, res) => {
   try {

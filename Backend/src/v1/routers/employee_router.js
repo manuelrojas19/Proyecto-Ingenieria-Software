@@ -2,13 +2,13 @@ const express = require('express');
 const {auth, permit} = require('../middleware/auth');
 const router = new express.Router();
 
-const ROOT_PATH = '/api/v1';
+const ROOT_PATH = '';
 const URL_PATH_V2 = '/api/v2';
 
 const FINANCES = 'Finanzas';
 const MANAGER = 'Jefe de Area';
 
-const EmplooyeController = require('../controllers/emplooye_controller.js');
+const {EmployeeController} = require('../controllers/index.js');
 
 /**
  * V1 Routing
@@ -18,26 +18,26 @@ const EmplooyeController = require('../controllers/emplooye_controller.js');
 router.get(
     ROOT_PATH + '/employee/me',
     auth,
-    EmplooyeController.me,
+    EmployeeController.me,
 );
 
 router.get(
     ROOT_PATH + '/employee',
     auth,
-    EmplooyeController.findAllEmployees,
+    EmployeeController.findAllEmployees,
 );
 
 router.get(
     ROOT_PATH + '/employee/:id',
     auth,
     permit('Finanzas'),
-    EmplooyeController.findEmplooyeById,
+    EmployeeController.findEmplooyeById,
 );
 
 router.get(
     ROOT_PATH + '/:department/employee',
     auth,
-    EmplooyeController.findEmployeesByDepartment,
+    EmployeeController.findEmployeesByDepartment,
 );
 
 /**
@@ -48,29 +48,36 @@ router.get(
 router.get(
     `${URL_PATH_V2}/employees/me`,
     auth,
-    EmplooyeController.me,
+    EmployeeController.me,
 );
+
+router.get(
+    `${URL_PATH_V2}/manager/employees`,
+    auth,
+    permit(MANAGER),
+    EmployeeController.findEmployeesByDepartment,
+);
+
 
 router.get(
     `${URL_PATH_V2}/employees`,
     auth,
     permit(FINANCES),
-    EmplooyeController.findAllEmployees,
+    EmployeeController.findAllEmployees,
+);
+
+router.get(
+    `${URL_PATH_V2}/finance/departments/:department/employees`,
+    auth,
+    permit(FINANCES),
+    EmployeeController.findEmployeesByDepartment,
 );
 
 router.get(
     `${URL_PATH_V2}/employees/:id`,
     auth,
     permit(FINANCES),
-    EmplooyeController.findEmplooyeById,
+    EmployeeController.findEmplooyeById,
 );
-
-router.get(
-    `${URL_PATH_V2}/departments/:department/employees`,
-    auth,
-    permit(FINANCES, MANAGER),
-    EmplooyeController.findEmployeesByDepartment,
-);
-
 
 module.exports = router;
