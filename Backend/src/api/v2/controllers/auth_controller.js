@@ -3,7 +3,7 @@ const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE, NODE_ENV} = process.env;
 
 const jwt = require('jsonwebtoken');
 
-const cookieConfig = require('../../config/cookie_config')[NODE_ENV];
+const cookieConfig = require('../../../config/cookie_config')[NODE_ENV];
 
 const {EmployeeService} = require('../services/index.js');
 
