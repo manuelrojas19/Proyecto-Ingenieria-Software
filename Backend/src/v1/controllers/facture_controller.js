@@ -1,6 +1,6 @@
 const {FactureService, EmployeeService} = require('../services/index.js');
 
-const storage = require('../util/storage.js');
+const storage = require('../../util/storage.js');
 
 exports.findAllFactures = async (req, res) => {
   try {

@@ -1,3 +1,5 @@
+const {logger} = require('../util/logger');
+
 require('dotenv').config();
 
 const {
@@ -16,6 +18,7 @@ module.exports = {
     'database': 'Viaticos',
     'host': DB_HOST_DEV,
     'dialect': 'mysql',
+    'logging': (sql) => logger.info(sql),
   },
   'test': {
     'username': DB_USERNAME_DEV,
