@@ -1,12 +1,11 @@
+const {Facture} = require('../models');
+const {CommissionService} = require('../services');
 const {Op} = require('sequelize');
-
-const {Facture} = require('../models/index.js');
-
-const CommissionService = require('../services/commission_service.js');
 
 exports.findFacturesByCommissionAndEmployee = async (
     commissionId,
     employee,
+    pagination,
 ) => {
   const commission = await CommissionService.findCommissionByIdAndEmployee(
       commissionId,
@@ -19,7 +18,8 @@ exports.findFacturesByCommissionAndEmployee = async (
     where: {
       commissionId: commissionId,
     },
-    include: ['commission'],
+    limit: pagination.limit,
+    offset: pagination.offset,
   });
 };
 

@@ -6,6 +6,12 @@ const upload = require('../middleware/upload.js');
 const router = new express.Router();
 
 router.get(
+    '/employee/me/commissions/:commission/factures',
+    auth,
+    FactureController.employeeFindFacturesByCommission,
+);
+
+router.get(
     '/employee/factures',
     auth,
     permit('Empleado'),
@@ -18,12 +24,6 @@ router.post(
     permit('Empleado'),
     upload.single('facture'),
     FactureController.createFacture,
-);
-
-router.get(
-    '/employee/commissions/:commission/factures',
-    auth,
-    FactureController.findFacturesByCommissionAndEmployee,
 );
 
 router.get(
@@ -46,6 +46,5 @@ router.get(
     permit('Finanzas'),
     FactureController.findFacturesByEmployee,
 );
-
 
 module.exports = router;

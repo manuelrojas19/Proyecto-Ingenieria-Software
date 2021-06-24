@@ -1,7 +1,7 @@
 const {CommissionService, EmployeeService} = require('../services/index.js');
 const {logger} = require('../../../util/logger.js');
 
-exports.findCommissionsByEmployee = async (req, res) => {
+exports.employeeFindCommissions = async (req, res) => {
   const pagination = {};
   pagination.limit = parseInt(req.query.limit ? req.query.limit : 10);
   pagination.offset = parseInt(req.query.offset ? req.query.offset : 0);
@@ -12,7 +12,10 @@ exports.findCommissionsByEmployee = async (req, res) => {
         req.employee,
         pagination,
     );
-    logger.info(commissions, 'Commissions founded, sending to client');
+    logger.info(
+        commissions,
+        'Commissions founded succesfully, sending to client',
+    );
     res.status(200).json(commissions);
   } catch (e) {
     logger.error(e);
