@@ -1,5 +1,5 @@
 const {FactureService, EmployeeService} = require('../services/index.js');
-
+const {logger} = require('../../../util/logger.js');
 const storage = require('../../../util/storage.js');
 
 exports.findAllFactures = async (req, res) => {
@@ -11,15 +11,26 @@ exports.findAllFactures = async (req, res) => {
   }
 };
 
-exports.findFacturesByCommissionAndEmployee = async (req, res) => {
+exports.employeeFindFacturesByCommission = async (req, res) => {
+  const pagination = {};
+  pagination.limit = parseInt(req.query.limit ? req.query.limit : 5);
+  pagination.offset = parseInt(req.query.offset ? req.query.offset : 0);
+
   const idCommission = req.params.commission;
   try {
+    logger.info('Fetching factures from DB');
     const factures = await FactureService.findFacturesByCommissionAndEmployee(
         idCommission,
         req.employee,
+        pagination,
+    );
+    logger.info(
+        factures,
+        'Factures founded succesfully, sending to client',
     );
     res.status(200).json(factures);
   } catch (e) {
+    logger.error(e);
     res.status(400).json({error: e.message});
   }
 };

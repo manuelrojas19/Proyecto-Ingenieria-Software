@@ -1,6 +1,6 @@
 const express = require('express');
-const {CommissionController} = require('../controllers/index.js');
-const {permit, auth} = require('../middleware/auth');
+const {CommissionController} = require('../controllers');
+const {permit, auth} = require('../middleware/auth.js');
 
 const router = new express.Router();
 
@@ -8,7 +8,7 @@ router.get(
     '/employee/me/commissions',
     auth,
     permit('Empleado'),
-    CommissionController.findCommissionsByEmployee,
+    CommissionController.employeeFindCommissions,
 );
 
 router.post(

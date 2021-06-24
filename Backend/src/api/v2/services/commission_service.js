@@ -1,4 +1,4 @@
-const {Commission, Department, sequelize} = require('../models/index.js');
+const {Commission, Department, sequelize} = require('../models');
 const {Op} = require('sequelize');
 
 const TRASLAPED_DATES_ERROR =

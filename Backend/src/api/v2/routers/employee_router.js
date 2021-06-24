@@ -1,6 +1,6 @@
 const express = require('express');
-const {EmployeeController} = require('../controllers/index.js');
-const {auth, permit} = require('../middleware/auth');
+const {EmployeeController} = require('../controllers');
+const {auth, permit} = require('../middleware/auth.js');
 
 const FINANCES = 'Finanzas';
 const MANAGER = 'Jefe de Area';
