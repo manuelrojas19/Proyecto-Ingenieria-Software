@@ -5,8 +5,7 @@ const cookieParser = require('cookie-parser');
 const RouterV1 = require('./v1/routers/index.js');
 const corsConfig = require('./v1/config/cors_config.js');
 
-const port = process.env.PORT;
-
+const PORT = process.env.PORT;
 const ROOT_PATH_VERSION_1 = '/api/v1';
 
 const app = express();
@@ -23,6 +22,6 @@ app.use(ROOT_PATH_VERSION_1, RouterV1.DepartmentRouter);
 app.use(ROOT_PATH_VERSION_1, RouterV1.EmployeeRouter);
 app.use(ROOT_PATH_VERSION_1, RouterV1.FactureRouter);
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log('App is listening on port ' + port);
 });
