@@ -1,4 +1,4 @@
-const EmployeeService = require('../services/employee_service.js');
+const {EmployeeService} = require('../services/index.js');
 
 exports.me = async (req, res) => {
   res.status(200).json(req.employee);

@@ -1,4 +1,4 @@
-const DepartmentService = require('../services/department_service.js');
+const {DepartmentService} = require('../services/index.js');
 
 exports.findAllDepartments = async (req, res) => {
   try {

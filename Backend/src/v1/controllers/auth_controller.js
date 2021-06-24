@@ -4,7 +4,8 @@ const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE, NODE_ENV} = process.env;
 const jwt = require('jsonwebtoken');
 
 const cookieConfig = require('../config/cookie_config')[NODE_ENV];
-const EmployeeService = require('../services/employee_service.js');
+
+const {EmployeeService} = require('../services/index.js');
 
 const USER_LOGGED_ERROR = 'No employee logged in, please log in.';
 const TOKEN_INVALID_ERROR = 'Token is not valid, please log in.';
@@ -31,9 +32,12 @@ exports.singIn = async (req, res) => {
           expiresIn: ACCESS_TOKEN_LIFE,
         },
     );
-    res.status(200).cookie('token', token, cookieConfig,
-    ) .json({message: USER_LOGIN_MESSAGE, employee: employee.toJSON()});
+    res
+        .status(200)
+        .cookie('token', token, cookieConfig)
+        .json({message: USER_LOGIN_MESSAGE, employee: employee.toJSON()});
   } catch (e) {
+    console.log(e);
     res.status(400).json({error: e.message});
   }
 };
@@ -60,11 +64,15 @@ exports.signUp = async (req, res) => {
   try {
     const employee = await EmployeeService.createEmployee(employeData);
 
-    const token = jwt.sign({
-      employeeId: employee.id.toString()},
-    ACCESS_TOKEN_SECRET, {
-      expiresIn: ACCESS_TOKEN_LIFE,
-    });
+    const token = jwt.sign(
+        {
+          employeeId: employee.id.toString(),
+        },
+        ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: ACCESS_TOKEN_LIFE,
+        },
+    );
 
     res.status(200).cookie('token', token, cookieConfig).json({
       message: USER_SIGNUP_MESSAGE,
@@ -76,8 +84,10 @@ exports.signUp = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.status(200).clearCookie('token',
-      cookieConfig).json({message: USER_LOGOUT_MESSAGE});
+  res
+      .status(200)
+      .clearCookie('token', cookieConfig)
+      .json({message: USER_LOGOUT_MESSAGE});
 };
 
 exports.check = async (req, res) => {
