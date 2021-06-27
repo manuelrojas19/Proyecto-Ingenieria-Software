@@ -1,31 +1,38 @@
-const {FactureService, EmployeeService} = require('../services/index.js');
+const {
+  FactureService,
+  EmployeeService,
+  CommissionService,
+} = require('../services/index.js');
 const {logger} = require('../util/logger.js');
 const storage = require('../util/storage.js');
 
 const factureController = {};
 
-factureController.employeeFindFacturesByCommission = async (req, res) => {
+factureController.employeeFindFacturesByCommission = async (req, res, next) => {
   const pagination = {};
   pagination.limit = parseInt(req.query.limit ? req.query.limit : 5);
   pagination.offset = parseInt(req.query.offset ? req.query.offset : 0);
 
-  const idCommission = req.params.commission;
+  const commisionId = req.params.commission;
   try {
     logger.info('Fetching factures from DB');
-    const factures = await FactureService.findFacturesByCommissionAndEmployee(
-        idCommission,
-        req.employee,
+    const commission = await CommissionService.findCommissionByIdAndEmployee(
+        commisionId,
+        req.employee.id,
+    );
+
+    const factures = await FactureService.findFacturesByCommission(
+        commission.id,
         pagination,
     );
     logger.info(factures, 'Factures founded succesfully, sending to client');
     res.status(200).json({factures: factures});
   } catch (e) {
-    logger.error(e);
-    res.status(400).json({error: e.message});
+    next(e);
   }
 };
 
-factureController.createFacture = async (req, res) => {
+factureController.employeeCreateFacture = async (req, res, next) => {
   const params = Object.keys(req.body);
   const allowParams = ['factureDescription', 'date', 'amount'];
   const isValid = params.every((update) => allowParams.includes(update));
@@ -35,7 +42,7 @@ factureController.createFacture = async (req, res) => {
   }
 
   const factureData = req.body;
-  factureData.commissionId = req.params.commission;
+  const commissionId = req.params.commission;
 
   logger.info(factureData, 'Facture data from client');
   logger.info(req.file, 'File');
@@ -43,20 +50,29 @@ factureController.createFacture = async (req, res) => {
     logger.info('Storing facture in DB');
     factureData.filePath = storage(req.file);
 
-    const facture = await FactureService.createFacture(
-        factureData,
-        req.employee,
+    /**
+     * Recupera la comisión a la que se le desea agregar la factura de la base
+     * de datos si la comisión no es encontrada o la comisión no pertenece
+     * al empleado se lanzara un error, en caso contrario el id de la comisión
+     * se agregara los datos de la factura para su almacenamiento.
+    */
+    const commission = await CommissionService.findCommissionByIdAndEmployee(
+        commissionId,
+        req.employee.id,
     );
+
+    factureData.commissionId = commission.id;
+
+    const facture = await FactureService.createFacture(factureData);
     logger.info(
         facture.toJSON(),
         'Facture stored succesfully, sending to client',
     );
     res.status(200).json({facture: facture});
   } catch (e) {
-    res.status(400).json({error: e.message});
+    next(e);
   }
 };
-
 
 factureController.findFacturesByCommission = async (req, res) => {
   const idCommission = req.params.commission;

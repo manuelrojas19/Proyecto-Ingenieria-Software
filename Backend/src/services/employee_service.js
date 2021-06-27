@@ -1,4 +1,5 @@
 const CredentialsError = require('../errors/credentials_error.js');
+const NotFoundError = require('../errors/not_found_error.js');
 const {Employee, Profile, Department} = require('../models/index.js');
 
 const EMPLOYEE_EXIST_ERROR = 'Employee already exist';
@@ -55,8 +56,8 @@ exports.findEmployeeByCredentials = async (credentials) => {
   return employee;
 };
 
-exports.findEmployeeById = async (employeeId) => {
-  const employee = Employee.findByPk(employeeId, {
+exports.findEmployeeById = async (id) => {
+  const employee = await Employee.findByPk(id, {
     include: [
       {
         association: 'profile',
@@ -68,6 +69,9 @@ exports.findEmployeeById = async (employeeId) => {
       },
     ],
   });
+  if (!employee) {
+    throw new NotFoundError(`Employe with id ${id} was not found`);
+  }
   return employee;
 };
 

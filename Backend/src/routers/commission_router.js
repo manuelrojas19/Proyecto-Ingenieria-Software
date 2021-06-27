@@ -16,7 +16,7 @@ router.post(
     '/employees/me/commissions',
     auth,
     permit('Empleado'),
-    CommissionController.createCommission,
+    CommissionController.employeeCreateCommission,
 );
 
 router.get(
