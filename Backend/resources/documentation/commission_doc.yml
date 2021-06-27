@@ -1,6 +1,6 @@
 openapi: 3.0.0
 tags:
-  name: Commissions
+  name: Comisiones
   description: API para interactura con las comisiones.
 paths:
   /employees/me/commissions:
@@ -12,6 +12,8 @@ paths:
       responses:
         "401":
           $ref: "#/components/responses/EmployeeNotAuthenticated"
+        "403":
+          $ref: "#/components/responses/EmployeeNotAuthorized"
         "200":
           description: Lista de las comisiones del empleado autenticado
           content:
@@ -22,18 +24,51 @@ paths:
                   commissions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/commission'
-
-  /auth/check:
+                      $ref: "#/components/schemas/commission"
+  /employees/me/commissions/{commissionId}:
     get:
-      summary: Obtener status de autenticación.
-      description: Corrobora en la API el estado actual de la autenticación del empleado
-      tags: [Autenticación]
-      operationID: check
-      
-      
+      summary: Obtener una comisión del empleado autenticado por el ID.
+      description: Recupera de la api una lista de las comisiones del empleado actualmente autenticado
+      tags: [Commissions]
+      operationID: employeeFindCommissionsById
+      parameters:
+        - in: path
+          name: commissionId
+          schema:
+            type: number
+            format: integer
+          required: true
+          description: ID de la comisión
+      responses:
+        "401":
+          $ref: "#/components/responses/EmployeeNotAuthenticated"
+        "403":
+          $ref: "#/components/responses/EmployeeNotAuthorized"
+        "404":
+          $ref: "#/components/responses/CommissionNotFound"
+        "200":
+          description: Objecto con la comision encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  commission:
+                    $ref: "#/components/schemas/commission"
+
 components:
   responses:
+    CommissionNotFound:
+      description: La comisión a la que se hacia referencia no fue encontrada
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Mensaje de comisión no encontrada
+                type: string
+                example: Commission with id 110 was not found.
     EmployeeNotAuthenticated:
       description: No existe un empleado autenticado
       content:
@@ -42,14 +77,28 @@ components:
             type: object
             properties:
               message:
-                description: Empleado no autenticado
+                description: Mensaje de empleado no autenticado
                 type: string
                 example: Not authenticaded, please authenticate.
+    EmployeeNotAuthorized:
+      description: El empleado no esta autorizado para acceder al recurso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Mensaje de empleado no autorizado
+                type: string
+                example: Forbidden, user is not authorized
   schemas:
     commission:
       description: Comision
       type: object
       properties:
+        id:
+          type: number
+          format: integer
         type:
           type: string
         startDate:
@@ -67,6 +116,15 @@ components:
         amountDeposited:
           type: number
           format: double
+      example:
+        id: 32
+        type: Viaticos
+        place: Madrid, España
+        startDate: "2021-06-23"
+        endDate: "2021-06-30"
+        managerApproval: true
+        financesApproval: true
+        amountDeposited: 3200.00
     Employee:
       description: Empleado
       type: object
@@ -99,4 +157,3 @@ components:
           name: Empleado
         department:
           name: Logistica
-

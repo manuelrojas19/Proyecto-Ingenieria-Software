@@ -40,11 +40,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  Department.prototype.toJSON = function() {
-    const departmentJson = Object.assign({}, this.get());
-    delete departmentJson.id;
-    return departmentJson;
-  };
-
   return Department;
 };

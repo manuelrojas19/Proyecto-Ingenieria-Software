@@ -11,7 +11,7 @@ const {handleError, logError} = require('./middleware/error.js');
 
 const PORT = process.env.PORT;
 const BASE_PATH_V2 = '/api/v2';
-const PATH_DOC = '/api-docs';
+const PATH_DOC = '/api/doc';
 
 const app = express();
 
