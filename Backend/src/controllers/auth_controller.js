@@ -13,11 +13,10 @@ const USER_LOGIN_MESSAGE = 'User logged in succesfuly.';
 const USER_SIGNUP_MESSAGE = 'User sign up succesfuly.';
 const USER_LOGOUT_MESSAGE = 'User logged out succesfuly.';
 const USER_IS_LOGGEDIN = 'User authenticated and logged in';
-const AUTH_CREDENTIALS_ERROR = 'Password or email incorrect';
 
 const authController = {};
 
-authController.singIn = async (req, res) => {
+authController.singIn = async (req, res, next) => {
   const {email, password} = req.body;
 
   try {
@@ -25,10 +24,6 @@ authController.singIn = async (req, res) => {
       email,
       password,
     });
-
-    if (!employee) {
-      return res.status(401).json({error: AUTH_CREDENTIALS_ERROR});
-    }
 
     const token = jwt.sign(
         {
@@ -45,8 +40,7 @@ authController.singIn = async (req, res) => {
         .cookie('token', token, cookieConfig)
         .json({message: USER_LOGIN_MESSAGE, employee: employee.toJSON()});
   } catch (e) {
-    logger.error(e);
-    res.status(500).json({error: e.message});
+    next(e);
   }
 };
 
@@ -101,8 +95,7 @@ authController.signOut = async (req, res) => {
         .clearCookie('token', cookieConfig)
         .json({message: USER_LOGOUT_MESSAGE});
   } catch (e) {
-    logger.error(e);
-    res.status(500).json({error: e.message});
+    next(e);
   }
 };
 
@@ -139,11 +132,7 @@ authController.check = async (req, res) => {
       employee: employee.toJSON(),
     });
   } catch (e) {
-    logger.error(e);
-    res.status(500).json({
-      error: e.message,
-      authenticated: false,
-    });
+    next(e);
   }
 };
 

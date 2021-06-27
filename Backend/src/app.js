@@ -7,6 +7,7 @@ const {logger, expressLogger} = require('./util/logger.js');
 const corsConfig = require('./config/cors_config.js');
 const RouterV2 = require('./routers');
 const specs = require('./util/swagger.js');
+const {handleError, logError} = require('./middleware/error.js');
 
 const PORT = process.env.PORT;
 const BASE_PATH_V2 = '/api/v2';
@@ -28,6 +29,9 @@ app.use(BASE_PATH_V2, RouterV2.FactureRouter);
 
 // Documentation
 app.use(PATH_DOC, swaggerUi.serve, swaggerUi.setup(specs, {explore: true}));
+
+app.use(logError);
+app.use(handleError);
 
 app.listen(PORT, () => {
   logger.info(`App is listening on port ${PORT}`);
