@@ -7,7 +7,7 @@ paths:
     get:
       summary: Obtener las comisiones del empleado autenticado.
       description: Recupera de la api una lista de las comisiones del empleado actualmente autenticado
-      tags: [Commissions]
+      tags: [Comisiones]
       operationID: employeeFindCommissions
       responses:
         "401":
@@ -24,12 +24,12 @@ paths:
                   commissions:
                     type: array
                     items:
-                      $ref: "#/components/schemas/commission"
+                      $ref: "#/components/schemas/Commission"
   /employees/me/commissions/{commissionId}:
     get:
       summary: Obtener una comisión del empleado autenticado por el ID.
       description: Recupera de la api una lista de las comisiones del empleado actualmente autenticado
-      tags: [Commissions]
+      tags: [Comisiones]
       operationID: employeeFindCommissionsById
       parameters:
         - in: path
@@ -54,7 +54,7 @@ paths:
                 type: object
                 properties:
                   commission:
-                    $ref: "#/components/schemas/commission"
+                    $ref: "#/components/schemas/Commission"
 
 components:
   responses:
@@ -92,7 +92,7 @@ components:
                 type: string
                 example: Forbidden, user is not authorized
   schemas:
-    commission:
+    Commission:
       description: Comision
       type: object
       properties:
