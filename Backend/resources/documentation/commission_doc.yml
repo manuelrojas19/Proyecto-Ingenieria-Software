@@ -1,0 +1,102 @@
+openapi: 3.0.0
+tags:
+  name: Commissions
+  description: API para interactura con las comisiones.
+paths:
+  /employees/me/commissions:
+    get:
+      summary: Obtener las comisiones del empleado autenticado.
+      description: Recupera de la api una lista de las comisiones del empleado actualmente autenticado
+      tags: [Commissions]
+      operationID: employeeFindCommissions
+      responses:
+        "401":
+          $ref: "#/components/responses/EmployeeNotAuthenticated"
+        "200":
+          description: Lista de las comisiones del empleado autenticado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  commissions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/commission'
+
+  /auth/check:
+    get:
+      summary: Obtener status de autenticación.
+      description: Corrobora en la API el estado actual de la autenticación del empleado
+      tags: [Autenticación]
+      operationID: check
+      
+      
+components:
+  responses:
+    EmployeeNotAuthenticated:
+      description: No existe un empleado autenticado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Empleado no autenticado
+                type: string
+                example: Not authenticaded, please authenticate.
+  schemas:
+    commission:
+      description: Comision
+      type: object
+      properties:
+        type:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        place:
+          type: string
+        managerApproval:
+          type: boolean
+        financesApproval:
+          type: boolean
+        amountDeposited:
+          type: number
+          format: double
+    Employee:
+      description: Empleado
+      type: object
+      properties:
+        name:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+        department:
+          type: object
+          properties:
+            name:
+              type: string
+      example:
+        name: Manuel
+        lastName: Rojas
+        phoneNumber: "+525584892004"
+        email: manuelarr99@gmail.com
+        password: "123456"
+        profile:
+          name: Empleado
+        department:
+          name: Logistica
+
