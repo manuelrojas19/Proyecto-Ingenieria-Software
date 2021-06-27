@@ -1,0 +1,141 @@
+openapi: 3.0.0
+tags:
+  name: Autenticación
+  description: API para la autenticación de los empleados
+paths:
+  /auth/check:
+    get:
+      summary: Obtener status de autenticación.
+      description: "Corrobora en la API el estado actual de la autenticación del empleado"
+      tags: [Autenticación]
+      operationID: check
+      responses:
+        "200":
+          description: Usuario actualmente autenticado en la API
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    description: Mensaje con el estatus de la autenticación del empleado
+                    type: string
+                    example: User authenticated and logged in.
+                  authenticated:
+                    description: Status de la autenticación del empleado
+                    type: boolean
+                    example: true
+                  employee:
+                      $ref: '#/components/schemas/Employee'
+  /auth/signin:
+    post:
+      summary: Iniciar sesión.
+      description: "Autentica al empleado e inicio sesión en la API"
+      tags: [Autenticación]
+      operationID: authSignin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  description: Email del empleado
+                  type: string
+                password:
+                  description: Contraseña del empleado
+                  type: string
+              example:
+                email: manuelarr99@gmail.com
+                password: "123456"
+      responses:
+        "500":
+          description: Error al intentar la autenticación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    description: Mensaje con la descripción del error
+                    type: string
+                example:
+                  message: Bad request
+        "401":
+          description: Autenticación fallida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    description: Mensaje de autenticación fallida
+                    type: string
+                example:
+                  message: Password or email incorrect
+        "200":
+          description: Autenticación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    description: Mensaje de autenticación exitosa
+                    type: string
+                    example: User logged in succesfuly
+                  employee:
+                    $ref: '#/components/schemas/Employee'
+  /auth/signout:
+    get:
+      summary: Cerrar sesión.
+      description: "Cierra la sesion del empleado en la API"
+      tags: [Autenticación]
+      operationID: signout
+      responses:
+        "202":
+          description: Cierre de sesión del usuario exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    description: Mensaje de cierre de sesión
+                    type: string
+                    example: User logged out succesfuly.
+
+components:
+  schemas:
+    Employee:
+      description: Empleado
+      type: object
+      properties:
+        name:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+        department:
+          type: object
+          properties:
+            name:
+              type: string
+      example:
+        name: Manuel
+        lastName: Rojas
+        phoneNumber: "+525584892004"
+        email: manuelarr99@gmail.com
+        password: "123456"
+        profile:
+          name: Empleado
+        department:
+          name: Logistica

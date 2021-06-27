@@ -10,7 +10,7 @@ const DIR = STORAGE_PATH_DEV;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const department = req.employee.department.departmentDescription;
+    const department = req.employee.department.name;
     const employee =
       req.employee.lastName.split(' ').join('') +
       req.employee.name.split(' ').join('');
