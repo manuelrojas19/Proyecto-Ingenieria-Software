@@ -68,7 +68,7 @@ factureController.employeeCreateFacture = async (req, res, next) => {
         facture.toJSON(),
         'Facture stored succesfully, sending to client',
     );
-    res.status(200).json({facture: facture});
+    res.status(201).json({facture: facture});
   } catch (e) {
     next(e);
   }

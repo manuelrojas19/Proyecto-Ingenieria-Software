@@ -65,7 +65,7 @@ commissionController.employeeCreateCommission = async (req, res, next) => {
         req.employee,
     );
     logger.info(commission, 'Commission stored succesfully, sending to client');
-    res.status(200).json({commission: commission});
+    res.status(201).json({commission: commission});
   } catch (e) {
     next(e);
   }
