@@ -1,7 +1,9 @@
+const CredentialsError = require('../errors/credentials_error.js');
 const {Employee, Profile, Department} = require('../models/index.js');
 
 const EMPLOYEE_EXIST_ERROR = 'Employee already exist';
 const EMPLOYEE_ROLE_ERROR = 'Employee role does not exist';
+const EMPLOYEE_CREDENTIALS_ERROR = 'Password or email incorrect';
 
 exports.createEmployee = async (employee) => {
   const employeeExist = await Employee.findOne({
@@ -43,11 +45,18 @@ exports.createEmployee = async (employee) => {
 };
 
 exports.findEmployeeByCredentials = async (credentials) => {
-  return Employee.findByCredentials(credentials.email, credentials.password);
+  const employee = await Employee.findByCredentials(
+      credentials.email,
+      credentials.password,
+  );
+  if (!employee) {
+    throw new CredentialsError(EMPLOYEE_CREDENTIALS_ERROR);
+  }
+  return employee;
 };
 
 exports.findEmployeeById = async (employeeId) => {
-  return Employee.findByPk(employeeId, {
+  const employee = Employee.findByPk(employeeId, {
     include: [
       {
         association: 'profile',
@@ -59,6 +68,7 @@ exports.findEmployeeById = async (employeeId) => {
       },
     ],
   });
+  return employee;
 };
 
 exports.findAllEmployees = async (employeeId) => {

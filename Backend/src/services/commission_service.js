@@ -1,5 +1,6 @@
 const {Commission, Department, sequelize} = require('../models');
 const {Op} = require('sequelize');
+const NotFoundError = require('../errors/not_found_error.js');
 
 const TRASLAPED_DATES_ERROR =
   'Dates for the commission are in traslaped with dates in another commission';
@@ -76,7 +77,7 @@ commissionService.findCommissionsByDepartment = async (departmentName) => {
 };
 
 commissionService.findCommissionById = async (id) => {
-  return Commission.findOne({
+  const commission = await Commission.findOne({
     include: [
       {
         association: 'employee',
@@ -87,18 +88,21 @@ commissionService.findCommissionById = async (id) => {
       id: id,
     },
   });
+  if (!commission) {
+    throw new NotFoundError(`Commission with id: ${id} was not found.`);
+  }
+  return commission;
 };
 
-commissionService.findCommissionByIdAndEmployee = async (
-    idCommission,
+commissionService.employeefindCommissionById = async (
     employee,
+    idCommission,
 ) => {
-  return Commission.findOne({
+  const commission = await Commission.findOne({
     include: [
       {
         attributes: [],
         association: 'employee',
-        include: ['profile', 'department'],
         where: {
           id: employee.id,
         },
@@ -108,6 +112,12 @@ commissionService.findCommissionByIdAndEmployee = async (
       id: idCommission,
     },
   });
+  if (!commission) {
+    throw new NotFoundError(
+        `Commission with id: ${idCommission} was not found.`,
+    );
+  }
+  return commission;
 };
 
 commissionService.findCommissionByIdAndManager = async (id, manager) => {

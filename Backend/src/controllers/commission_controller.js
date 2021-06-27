@@ -21,28 +21,25 @@ commissionController.employeeFindCommissions = async (req, res) => {
     res.status(200).json({commissions: commissions});
   } catch (e) {
     logger.error(e);
-    res.status(400).json({error: e.message});
+    next(e);
   }
 };
 
-commissionController.employeeFindCommissionById = async (req, res) => {
+commissionController.employeeFindCommissionById = async (req, res, next) => {
   const id = req.params.id;
   try {
     logger.info(`Fetching comission with id: ${id} from DB`);
-    const commission = await CommissionService.findCommissionByIdAndEmployee(
-        id,
+    const commission = await CommissionService.employeefindCommissionById(
         req.employee,
+        id,
     );
-    if (!commission) {
-      return res.status(404).json({msg: 'Commission was not found'});
-    }
     logger.info(
         commission.toJSON(),
         'Commission was found succesfully, sending to client',
     );
     res.status(200).json({commission: commission});
   } catch (e) {
-    res.status(400).json({error: e.message});
+    next(e);
   }
 };
 
@@ -69,10 +66,7 @@ commissionController.createCommission = async (req, res) => {
         commissionData,
         req.employee,
     );
-    logger.info(
-        commission,
-        'Commission stored succesfully, sending to client',
-    );
+    logger.info(commission, 'Commission stored succesfully, sending to client');
     res.status(200).json({commission: commission});
   } catch (e) {
     logger.error(e);
