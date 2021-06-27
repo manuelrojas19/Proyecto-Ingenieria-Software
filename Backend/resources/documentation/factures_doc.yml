@@ -1,0 +1,94 @@
+openapi: 3.0.0
+tags:
+  name: Facturas
+  description: API para interactura con las facturas.
+paths:
+  /employees/me/commissions/{commissionId}/factures:
+    get:
+      summary: Obtener las facturas de una comisión del empleado autenticado.
+      description: Recupera de la api una lista de las facturas de una comisión del empleado actualmente autenticado
+      tags: [Facturas]
+      operationID: employeeFindFacturesByCommission
+      parameters:
+        - in: path
+          name: commissionId
+          schema:
+            type: number
+            format: integer
+          required: true
+          description: ID de la comisión
+      responses:
+        "401":
+          $ref: "#/components/responses/EmployeeNotAuthenticated"
+        "403":
+          $ref: "#/components/responses/EmployeeNotAuthorized"
+        "404":
+          $ref: "#/components/responses/CommissionNotFound"
+        "200":
+          description: Lista de las facturas encontradas de la comisión
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  factures:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Facture"
+
+components:
+  responses:
+    CommissionNotFound:
+      description: La comisión a la que se hacia referencia no fue encontrada
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Mensaje de comisión no encontrada
+                type: string
+                example: Commission with id 110 was not found.
+    EmployeeNotAuthenticated:
+      description: No existe un empleado autenticado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Mensaje de empleado no autenticado
+                type: string
+                example: Not authenticaded, please authenticate.
+    EmployeeNotAuthorized:
+      description: El empleado no esta autorizado para acceder al recurso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: Mensaje de empleado no autorizado
+                type: string
+                example: Forbidden, user is not authorized
+  schemas:
+    Facture:
+      description: Factura
+      type: object
+      properties:
+        id:
+          type: number
+          format: integer
+        description:
+          type: string
+        date:
+          type: string
+          format: date
+        amount:
+          type: string
+          format: date
+      example:
+        id: 32
+        description: Gastos de transporte
+        date: "2021-06-23"
+        amount: 3200.00
