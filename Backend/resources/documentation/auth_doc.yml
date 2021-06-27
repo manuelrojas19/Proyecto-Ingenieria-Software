@@ -111,6 +111,9 @@ components:
       description: Empleado
       type: object
       properties:
+        id:
+          type: number
+          format: integer
         name:
           type: string
         lastName:
@@ -130,6 +133,7 @@ components:
             name:
               type: string
       example:
+        id: 12
         name: Manuel
         lastName: Rojas
         phoneNumber: "+525584892004"

@@ -33,11 +33,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  Profile.prototype.toJSON = function() {
-    const profileJson = Object.assign({}, this.get());
-    delete profileJson.id;
-    return profileJson;
-  };
-
   return Profile;
 };

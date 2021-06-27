@@ -58,7 +58,7 @@ commissionService.findCommissionByIdAndEmployee = async (
   });
   if (!commission) {
     throw new NotFoundError(
-        `Commission with id: ${commissionId} was not found.`,
+        `Commission with id ${commissionId} was not found.`,
     );
   }
   return commission;
@@ -116,7 +116,7 @@ commissionService.findCommissionById = async (id) => {
     },
   });
   if (!commission) {
-    throw new NotFoundError(`Commission with id: ${id} was not found.`);
+    throw new NotFoundError(`Commission with id ${id} was not found.`);
   }
   return commission;
 };
