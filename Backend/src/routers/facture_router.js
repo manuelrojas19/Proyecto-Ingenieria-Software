@@ -19,7 +19,7 @@ router.post(
     auth,
     permit('Empleado'),
     upload.single('facture'),
-    FactureController.createFacture,
+    FactureController.employeeCreateFacture,
 );
 
 // Manager

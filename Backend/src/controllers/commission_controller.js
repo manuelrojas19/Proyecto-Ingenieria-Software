@@ -11,7 +11,7 @@ commissionController.employeeFindCommissions = async (req, res) => {
   try {
     logger.info('Fetching comissions from DB');
     const commissions = await CommissionService.findCommissionsByEmployee(
-        req.employee,
+        req.employee.id,
         pagination,
     );
     logger.info(
@@ -20,18 +20,17 @@ commissionController.employeeFindCommissions = async (req, res) => {
     );
     res.status(200).json({commissions: commissions});
   } catch (e) {
-    logger.error(e);
     next(e);
   }
 };
 
 commissionController.employeeFindCommissionById = async (req, res, next) => {
-  const id = req.params.id;
+  const commissionId = req.params.id;
   try {
-    logger.info(`Fetching comission with id: ${id} from DB`);
-    const commission = await CommissionService.employeefindCommissionById(
-        req.employee,
-        id,
+    logger.info(`Fetching comission with id: ${commissionId} from DB`);
+    const commission = await CommissionService.findCommissionByIdAndEmployee(
+        commissionId,
+        req.employee.id,
     );
     logger.info(
         commission.toJSON(),
@@ -43,7 +42,7 @@ commissionController.employeeFindCommissionById = async (req, res, next) => {
   }
 };
 
-commissionController.createCommission = async (req, res) => {
+commissionController.employeeCreateCommission = async (req, res, next) => {
   const params = Object.keys(req.body);
   const allowParams = [
     'typeCommission',
@@ -54,7 +53,6 @@ commissionController.createCommission = async (req, res) => {
   logger.info(req.body, 'Commission request body from client');
   const isValid = params.every((update) => allowParams.includes(update));
   if (!isValid) {
-    logger.error('Invalid params');
     return res.status(400).send({error: 'Invalid params'});
   }
 
@@ -69,8 +67,7 @@ commissionController.createCommission = async (req, res) => {
     logger.info(commission, 'Commission stored succesfully, sending to client');
     res.status(200).json({commission: commission});
   } catch (e) {
-    logger.error(e);
-    res.status(400).json({error: e.message});
+    next(e);
   }
 };
 
@@ -78,17 +75,12 @@ commissionController.findCommissionsByEmployeeId = async (req, res) => {
   const id = req.params.id;
   try {
     const employee = await EmployeeService.findEmployeeById(id);
-    if (!employee) {
-      throw new Error();
-    }
     const commission = await CommissionService.findCommissionsByEmployee(
         employee,
     );
-
     res.status(200).json({commission: commission});
   } catch (e) {
-    logger.error(e);
-    res.status(400).json({error: e.message});
+    next(e);
   }
 };
 

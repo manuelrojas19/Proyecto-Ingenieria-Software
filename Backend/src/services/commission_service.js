@@ -14,27 +14,54 @@ const commissionService = {};
  * This method retrieves employee commissions from the database based on
  * the employee's ID
  *
- * @param  {Employee} employee The employee owner of the commissions.
+ * @param  {number} employeeId The id of employee owner of the commissions.
  * @param  {Pagination} pagination The pagination object.
- * @param  {Pagination.limit} limit The number of commissions to fetch.
- * @param  {Pagination.offset} offset The initial element to fetch commisions.
  * @return {Commissions} The employee commissions
  *
  */
-commissionService.findCommissionsByEmployee = async (employee, pagination) => {
+commissionService.findCommissionsByEmployee = async (
+    employeeId,
+    pagination,
+) => {
   return Commission.findAll({
     include: [
       {
         attributes: [],
         association: 'employee',
         where: {
-          id: employee.id,
+          id: employeeId,
         },
       },
     ],
     limit: pagination.limit,
     offset: pagination.offset,
   });
+};
+
+commissionService.findCommissionByIdAndEmployee = async (
+    commissionId,
+    employeeId,
+) => {
+  const commission = await Commission.findOne({
+    include: [
+      {
+        attributes: [],
+        association: 'employee',
+        where: {
+          id: employeeId,
+        },
+      },
+    ],
+    where: {
+      id: commissionId,
+    },
+  });
+  if (!commission) {
+    throw new NotFoundError(
+        `Commission with id: ${commissionId} was not found.`,
+    );
+  }
+  return commission;
 };
 
 commissionService.findCommissionsByManager = async (manager) => {
@@ -90,32 +117,6 @@ commissionService.findCommissionById = async (id) => {
   });
   if (!commission) {
     throw new NotFoundError(`Commission with id: ${id} was not found.`);
-  }
-  return commission;
-};
-
-commissionService.employeefindCommissionById = async (
-    employee,
-    idCommission,
-) => {
-  const commission = await Commission.findOne({
-    include: [
-      {
-        attributes: [],
-        association: 'employee',
-        where: {
-          id: employee.id,
-        },
-      },
-    ],
-    where: {
-      id: idCommission,
-    },
-  });
-  if (!commission) {
-    throw new NotFoundError(
-        `Commission with id: ${idCommission} was not found.`,
-    );
   }
   return commission;
 };
