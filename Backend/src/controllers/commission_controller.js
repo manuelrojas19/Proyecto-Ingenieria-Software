@@ -45,10 +45,10 @@ commissionController.employeeFindCommissionById = async (req, res, next) => {
 commissionController.employeeCreateCommission = async (req, res, next) => {
   const params = Object.keys(req.body);
   const allowParams = [
-    'typeCommission',
-    'beginDate',
+    'type',
+    'startDate',
     'endDate',
-    'placeCommission',
+    'place',
   ];
   logger.info(req.body, 'Commission request body from client');
   const isValid = params.every((update) => allowParams.includes(update));
@@ -62,7 +62,7 @@ commissionController.employeeCreateCommission = async (req, res, next) => {
     logger.info('Storing commission in the database');
     const commission = await CommissionService.createCommission(
         commissionData,
-        req.employee,
+        req.employee.id,
     );
     logger.info(commission, 'Commission stored succesfully, sending to client');
     res.status(201).json({commission: commission});

@@ -1,9 +1,10 @@
 const {Commission, Department, sequelize} = require('../models');
 const {Op} = require('sequelize');
 const NotFoundError = require('../errors/not_found_error.js');
+const EmployeeService = require('./employee_service.js');
 
 const TRASLAPED_DATES_ERROR =
-  'Dates for the commission are in traslaped with dates in another commission';
+  'Dates for the commission are traslaped with dates in another commission';
 const INVALID_DATES_ERROR = 'Dates for the commission are invalid';
 
 const commissionService = {};
@@ -143,20 +144,22 @@ commissionService.findCommissionByIdAndManager = async (id, manager) => {
  *
  * This method stores a commission into the DB
  *
- * @param  {Commission} comissionData The commission data to store in the DB.
- * @param  {Employee} employe The employee owner of the commission to store.
+ * @param  {Commission} commission The commission data to store in the DB.
+ * @param  {Employee} employeeId The employee owner of the commission to store.
  * @return {Commission} The commission stored in the DB
  *
  * @throws Will throw an error if the endDate is before the beginDate or if the
  *         if the beginDate or endDate are less than today.
  *         Also if the dates are traslaped with the dates of another commission.
  */
-commissionService.createCommission = async (comissionData, employe) => {
+commissionService.createCommission = async (commission, employeeId) => {
   const today = new Date();
-  const beginDate = new Date(comissionData.beginDate);
-  const endDate = new Date(comissionData.endDate);
+  const startDate = new Date(commission.startDate);
+  const endDate = new Date(commission.endDate);
 
-  if (beginDate <= today || endDate <= today || endDate < beginDate) {
+  const employee = await EmployeeService.findEmployeeById(employeeId);
+
+  if (startDate <= today || endDate <= today || endDate < startDate) {
     throw new Error(INVALID_DATES_ERROR);
   }
 
@@ -166,20 +169,20 @@ commissionService.createCommission = async (comissionData, employe) => {
         attributes: [],
         association: 'employee',
         where: {
-          id: employe.id,
+          id: employeeId,
         },
       },
     ],
     where: {
       [Op.or]: [
         {
-          beginDate: {
-            [Op.between]: [comissionData.beginDate, comissionData.endDate],
+          startDate: {
+            [Op.between]: [commission.startDate, commission.endDate],
           },
         },
         {
           endDate: {
-            [Op.between]: [comissionData.beginDate, comissionData.endDate],
+            [Op.between]: [commission.startDate, commission.endDate],
           },
         },
       ],
@@ -190,8 +193,8 @@ commissionService.createCommission = async (comissionData, employe) => {
     throw new Error(TRASLAPED_DATES_ERROR);
   }
 
-  const commissionCreated = await Commission.create(comissionData);
-  await commissionCreated.addEmployee(employe);
+  const commissionCreated = await Commission.create(commission);
+  await commissionCreated.addEmployee(employee);
   return commissionCreated;
 };
 

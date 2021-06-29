@@ -27,23 +27,23 @@ module.exports = (sequelize, DataTypes) => {
           autoIncrement: true,
           field: 'idComision',
         },
-        typeCommission: {
+        type: {
           type: DataTypes.STRING,
           field: 'TipoComision',
         },
-        isApprovedByManager: {
+        managerApproval: {
           type: DataTypes.BOOLEAN,
           allowNull: true,
           defaultValue: null,
           field: 'ComisionAprobadaJefeArea',
         },
-        isApprovedByFinances: {
+        financesApproval: {
           allowNull: true,
           defaultValue: null,
           type: DataTypes.BOOLEAN,
           field: 'ComisionAprobadaFinanzas',
         },
-        beginDate: {
+        startDate: {
           type: DataTypes.TIME,
           field: 'FechaInicio',
         },
@@ -51,11 +51,11 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.TIME,
           field: 'FechaFin',
         },
-        placeCommission: {
+        place: {
           type: DataTypes.STRING,
           field: 'LugarComision',
         },
-        amountAssigned: {
+        amountDeposited: {
           type: DataTypes.DOUBLE,
           field: 'MontoAsignado',
         },
@@ -67,13 +67,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
       },
   );
-
-  Commission.prototype.toJSON = function() {
-    const commissionJson = Object.assign({}, this.get());
-    delete commissionJson.Empleado_has_Comision;
-    return commissionJson;
-  };
-
 
   return Commission;
 };

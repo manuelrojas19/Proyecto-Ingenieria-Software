@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       field: 'idFactura',
     },
-    factureDescription: {
+    description: {
       type: DataTypes.STRING,
       field: 'DescripcionFactura',
     },
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       field: 'Comision_idComision',
     },
-    filePath: {
+    file: {
       type: DataTypes.STRING,
       field: 'rutaArchivo',
     },

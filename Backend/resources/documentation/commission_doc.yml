@@ -118,12 +118,12 @@ components:
           format: double
       example:
         id: 32
-        type: Viaticos
-        place: Madrid, España
-        startDate: "2021-06-23"
-        endDate: "2021-06-30"
+        type: Transporte
         managerApproval: true
         financesApproval: true
+        startDate: "2021-06-23"
+        endDate: "2021-06-30"
+        place: Madrid, España
         amountDeposited: 3200.00
     Employee:
       description: Empleado

@@ -2,9 +2,7 @@ require('dotenv').config();
 const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_LIFE, NODE_ENV} = process.env;
 const jwt = require('jsonwebtoken');
 const {logger} = require('../util/logger.js');
-const cookieConfig = require('../config/cookie_config')[
-    parseInt(NODE_ENV)
-];
+const cookieConfig = require('../config/cookie_config')[NODE_ENV];
 const {EmployeeService} = require('../services/index.js');
 
 const USER_LOGGED_ERROR = 'No user logged in, please log in.';
@@ -88,7 +86,7 @@ authController.signUp = async (req, res) => {
   }
 };
 
-authController.signOut = async (req, res) => {
+authController.signOut = async (req, res, next) => {
   try {
     res
         .status(200)
@@ -99,21 +97,23 @@ authController.signOut = async (req, res) => {
   }
 };
 
-authController.check = async (req, res) => {
+authController.check = async (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
       return res.status(202).json({
-        authenticated: false,
         message: USER_LOGGED_ERROR,
+        authenticated: false,
+        employee: null,
       });
     }
 
     const decodedToken = jwt.verify(token, ACCESS_TOKEN_SECRET);
     if (!decodedToken) {
       return res.status(202).json({
-        authenticated: false,
         message: TOKEN_INVALID_ERROR,
+        authenticated: false,
+        employee: null,
       });
     }
 
@@ -122,8 +122,9 @@ authController.check = async (req, res) => {
     );
     if (!employee) {
       return res.status(202).json({
-        authenticated: false,
         message: USER_LOGGED_ERROR,
+        authenticated: false,
+        employee: null,
       });
     }
     res.status(200).json({
