@@ -25,9 +25,6 @@ exports.auth = async (req, res, next) => {
 
     const employee = await EmployeeService.findEmployeeById(
         decodedToken.employeeId);
-    if (!employee) {
-      throw new NotFoundError(USER_NOT_FOUND_ERROR);
-    }
     req.employee = employee;
     next();
   } catch (e) {

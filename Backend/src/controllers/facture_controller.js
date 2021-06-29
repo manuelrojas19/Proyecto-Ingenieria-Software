@@ -34,7 +34,7 @@ factureController.employeeFindFacturesByCommission = async (req, res, next) => {
 
 factureController.employeeCreateFacture = async (req, res, next) => {
   const params = Object.keys(req.body);
-  const allowParams = ['factureDescription', 'date', 'amount'];
+  const allowParams = ['description', 'date', 'amount'];
   const isValid = params.every((update) => allowParams.includes(update));
   if (!isValid) {
     logger.error('Invalid params');
@@ -48,7 +48,7 @@ factureController.employeeCreateFacture = async (req, res, next) => {
   logger.info(req.file, 'File');
   try {
     logger.info('Storing facture in DB');
-    factureData.filePath = storage(req.file);
+    factureData.file = storage(req.file);
 
     /**
      * Recupera la comisión a la que se le desea agregar la factura de la base
