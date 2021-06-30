@@ -24,6 +24,7 @@ app.use(express.json());
 
 // Routes v2
 app.use(BASE_PATH_V2, RouterV2.AuthRouter);
+app.use(BASE_PATH_V2, RouterV2.EmployeeRouter);
 app.use(BASE_PATH_V2, RouterV2.CommissionRouter);
 app.use(BASE_PATH_V2, RouterV2.FactureRouter);
 
