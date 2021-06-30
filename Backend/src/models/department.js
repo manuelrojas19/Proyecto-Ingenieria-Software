@@ -25,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: 'DescripcionArea',
     },
-    budgetTransport: {
+    transportBudget: {
       type: DataTypes.DOUBLE,
       field: 'PresupuestoTransporte',
     },
-    budgetViatic: {
+    viaticBudget: {
       type: DataTypes.DOUBLE,
       field: 'PresupuestoViatico',
     },
