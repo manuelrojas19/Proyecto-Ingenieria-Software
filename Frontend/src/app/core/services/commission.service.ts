@@ -4,6 +4,14 @@ import { environment } from 'src/environments/environment';
 import { Commission } from '../models/commission';
 
 
+interface getCommissionsByEmployeeResponse {
+  commissions: [];
+}
+
+interface getCommissionsByIdAndEmployeeResponse {
+  commission;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +20,7 @@ export class CommissionService {
   constructor(private http: HttpClient) { }
 
   getCommissionsByEmployee() {
-    return this.http.get<Commission[]>(environment.API_URL + '/commission');
+    return this.http.get<getCommissionsByEmployeeResponse>(environment.API_URL + '/employees/me/commissions');
   }
 
   getCommissionsByEmployeeId(id: string) {
@@ -20,7 +28,7 @@ export class CommissionService {
   }
 
   getCommissionsByIdAndEmployee(id: string) {
-    return this.http.get<Commission>(environment.API_URL + '/commission/' + id);
+    return this.http.get<getCommissionsByIdAndEmployeeResponse>(environment.API_URL + '/employees/me/commissions/' + id);
   }
 
   createCommission(commission: Commission) {

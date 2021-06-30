@@ -1,0 +1,167 @@
+<h1 class="display-5">Detalles de la comisión</h1>
+
+<p *ngIf="commission === null">No se puede acceder al recurso</p>
+<a
+  href="/finances/{{ commission?.employee[0].department }}/commissions"
+  type="button"
+  class="btn btn-outline-red mt-2"
+>
+  Regresar
+</a>
+<div *ngIf="commission" class="mt-4">
+  <div class="card mt-4 mb-4">
+    <div class="card-header card-header-main">
+      <h2 class="h5">Información de la comisión</h2>
+    </div>
+    <div class="card-body">
+      <ol class="list-group list-group-flush">
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Tipo de la Comisión</div>
+            {{ commission?.type }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Empleados asignados</div>
+            {{ commission?.employee[0].name }}
+            {{ commission?.employee[0].lastName }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Lugar de la comisión</div>
+            {{ commission?.place }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de Inicio de la comisión</div>
+            {{ commission?.startDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de término de la comisión</div>
+            {{ commission?.endDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Estado de la solicitud</div>
+            {{
+              commission.managerApproval && commission.financesApproval
+                ? "Comisión aprobada"
+                : commission.managerApproval === false
+                ? "Comisión rechazada por el jefe de área"
+                : commission.financesApproval === false
+                ? "Comisión rechazada por el área de finanzas"
+                : "En proceso de aprobación"
+            }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Monto depositado</div>
+            <p *ngIf="commission?.amountDeposited != null">
+              ${{ commission?.amountDeposited | number: "1.2" }}
+            </p>
+            <button
+              *ngIf="
+                commission?.amountDeposited === null &&
+                commission?.financesApproval
+              "
+              class="btn btn-sm btn-outline-red mt-2"
+              data-bs-toggle="modal"
+              data-bs-target="#reqDepositModal"
+            >
+              Realizar depósito
+            </button>
+          </div>
+        </li>
+      </ol>
+      <div
+        *ngIf="
+          commission !== null &&
+          commission?.financesApproval === null &&
+          commission?.managerApproval !== false &&
+          commission?.managerApproval !== null
+        "
+        class="col-12 mb-2 mt-4 text-center"
+      >
+        <button
+          (click)="approveCommission()"
+          type="submit"
+          class="btn btn-primary me-3"
+        >
+          Aprobar comisión
+        </button>
+        <button
+          (click)="dissapproveCommission()"
+          type="submit"
+          class="btn btn-danger"
+        >
+          Rechazar comisión
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-facture-index
+  *ngIf="commission?.financesApproval && commission.managerApproval"
+>
+</app-facture-index>
+
+<app-modal idModal="reqDepositModal">
+  <h5 modalTitle>Realizar deposito</h5>
+  <app-deposit-form></app-deposit-form>
+</app-modal>
