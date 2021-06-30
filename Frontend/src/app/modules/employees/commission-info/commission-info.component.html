@@ -1,0 +1,110 @@
+<h1 class="display-5">Detalles de la comisión</h1>
+<p *ngIf="commission === null">No se puede acceder al recurso</p>
+<div *ngIf="commission" class="mt-4">
+  <a routerLink="/employees/commissions" type="button" class="btn btn-outline-red">
+    Regresar
+  </a>
+  <div class="card mt-4 mb-4">
+    <div class="card-header card-header-main">
+      <h2 class="h5">Información de la comisión</h2>
+    </div>
+    <div class="card-body">
+      <ol class="list-group list-group-flush">
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Tipo de la Comisión</div>
+            {{ commission?.type }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Lugar de la comisión</div>
+            {{ commission?.place }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de Inicio de la comisión</div>
+            {{ commission?.startDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de término de la comisión</div>
+            {{ commission?.endDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Estado de la solicitud</div>
+            {{
+              commission.isApprovedByManager && commission.isApprovedByFinances
+                ? "Comisión aprobada"
+                : commission.isApprovedByManager === false
+                ? "Comisión rechazada por el jefe de área"
+                : commission.isApprovedByFinances === false
+                ? "Comisión rechazada por el área de finanzas"
+                : "En proceso de aprobación"
+            }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Monto depositado</div>
+            <p *ngIf="commission?.amountDeposited != null">
+              ${{ commission?.amountDeposited | number: "1.2" }} MXN
+            </p>
+            <p *ngIf="commission?.amountDeposited == null">
+              Sin depositos
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+<router-outlet
+  *ngIf="commission?.financesApproval && commission.managerApproval"
+></router-outlet>

@@ -1,0 +1,130 @@
+<h1 class="display-5">Detalles de la comisión</h1>
+<a href="/manager/commissions" type="button" class="btn btn-outline-red">
+  Regresar
+</a>
+
+<div *ngIf="commission" class="mt-4">
+  <div class="card mt-4 mb-4">
+    <div class="card-header card-header-main">
+      <h2 class="h5">Información de la comisión</h2>
+    </div>
+    <div class="card-body">
+      <ol class="list-group list-group-flush">
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Tipo de la Comisión</div>
+            {{ commission?.typeCommission }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Empleados asignados</div>
+            {{ commission?.employee[0].name }}
+            {{ commission?.employee[0].lastName }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Lugar de la comisión</div>
+            {{ commission?.placeCommission }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de Inicio de la comisión</div>
+            {{ commission?.beginDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de término de la comisión</div>
+            {{ commission?.endDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            align-items-start
+          "
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Estado de la solicitud</div>
+            {{
+              commission.isApprovedByManager && commission.isApprovedByFinances
+                ? "Comisión aprobada"
+                : commission.isApprovedByManager === false
+                ? "Comisión rechazada por el jefe de área"
+                : commission.isApprovedByFinances === false
+                ? "Comisión rechazada por el área de finanzas"
+                : "En proceso de aprobación"
+            }}
+          </div>
+        </li>
+      </ol>
+      <div
+        *ngIf="commission != null && commission?.isApprovedByManager === null"
+        class="col-12 mb-2 mt-4 text-center"
+      >
+        <button
+          (click)="approveCommission()"
+          type="submit"
+          class="btn btn-primary me-3"
+        >
+          Aprobar comisión
+        </button>
+        <button
+          (click)="dissapproveCommission()"
+          type="submit"
+          class="btn btn-danger"
+        >
+          Rechazar comisión
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-facture-index
+  *ngIf="
+    commission &&
+    commission?.financesApproval &&
+    commission.managerApproval
+  "
+>
+</app-facture-index>

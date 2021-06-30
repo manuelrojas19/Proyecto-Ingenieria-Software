@@ -1,6 +1,6 @@
 export interface Department {
     id: number,
-    departmentDescription: string,
+    name: string,
     budgetTransport: number,
     budgetViatic: number,
 }

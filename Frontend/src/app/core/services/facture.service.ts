@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Facture } from '../models/facture';
 
+interface getFacturesByCommissionResponse {
+  factures: Facture[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +15,7 @@ export class FactureService {
   constructor(private http: HttpClient) { }
 
   getFacturesByCommission(commision: string) {
-    return this.http.get<Facture[]>(environment.API_URL + '/employee/' + commision + '/facture');
+    return this.http.get<getFacturesByCommissionResponse>(environment.API_URL + '/employees/me/commissions/' + commision + '/factures');
   }
 
   getFactures(commision: string) {

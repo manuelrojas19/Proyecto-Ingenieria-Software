@@ -2,8 +2,8 @@ import { Commission } from "./commission";
 
 export interface Facture {
     id: number,
-    factureDescription: String,
+    description: String,
     date: Date,
     amount: number,
-    filePath: String,
+    file: String,
 }
