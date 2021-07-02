@@ -1,81 +1,11 @@
-<ng-container *ngIf="signedIn$.getValue()?.isAuthenticated">
-  <nav  class="shadow sticky-top navbar navbar-expand-lg navbar navbar-dark bg-red">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">Sistema de Comisiones</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarText"
-        aria-controls="navbarText"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul
-          *ngIf="signedIn$.getValue()?.employee.profile.name === 'Empleado'"
-          class="navbar-nav me-auto mb-2 mb-lg-0"
-        >
-          <!-- <li class="nav-item">
-            <a routerLink="employees" routerLinkActive="active" class="nav-link"
-              >Inicio</a
-            >
-          </li> -->
-          <li class="nav-item">
-            <a
-              routerLink="employees/commissions"
-              routerLinkActive="active"
-              class="nav-link"
-              >Comisiones</a
-            >
-          </li>
-        </ul>
-        <ul
-          *ngIf="signedIn$.getValue()?.employee.profile.name === 'Jefe de Area'"
-          class="navbar-nav me-auto mb-2 mb-lg-0"
-        >
-          <li class="nav-item">
-            <a href="manager" class="nav-link">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="manager/commissions" class="nav-link">Solicitudes</a>
-          </li>
-          <li class="nav-item">
-            <a href="manager/employees" class="nav-link">Empleados</a>
-          </li>
-        </ul>
-        <ul
-          *ngIf="signedIn$.getValue()?.employee.profile.name === 'Finanzas'"
-          class="navbar-nav me-auto mb-2 mb-lg-0"
-        >
-          <li class="nav-item">
-            <a href="finances" class="nav-link">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="finances/departments" class="nav-link">Departamentos</a>
-          </li>
-        </ul>
-        <span class="btn btn-user btn-sm disabled">
-          <i class="fa fa-user"></i>
-        </span>
-        <span class="navbar-text me-3">
-          {{
-            signedIn$.getValue()?.employee.name +
-              " - Área de " +
-              signedIn$.getValue()?.employee.department.name
-          }}
-        </span>
-      </div>
-      <button routerLink="/signout" class="btn btn-red">Cerrar sesión</button>
-    </div>
-  </nav>
-</ng-container>
+<app-header *ngIf="(signedIn$ | async)?.isAuthenticated"></app-header>
 <main>
-  <div class="container">
-    <div class="p-2 p-md-5">
-      <router-outlet></router-outlet>
+  <div class="loading-container text-center" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
+  <div class="container">
+    <router-outlet></router-outlet>
   </div>
 </main>

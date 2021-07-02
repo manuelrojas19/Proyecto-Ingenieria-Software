@@ -11,7 +11,7 @@
   }
   
   .login-form {
-    padding-top: 5.4rem;
+    padding-top: 6rem;
     padding-bottom: 2rem;
   }
   
@@ -21,3 +21,8 @@
   
   }
   
+  .card-header h2 {
+    
+    font-size: 1.4rem;
+    font-weight: 600;
+}

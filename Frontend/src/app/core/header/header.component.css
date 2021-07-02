@@ -1,0 +1,43 @@
+:focus {
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.bg-wine {
+  background-color: #6c2343;
+}
+
+.color-wine {
+  background-color: #6c2343;
+}
+
+.color-wine-active {
+  background-color: #5f082c;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #5f082c !important;
+}
+
+.btn-outline-secondary:active {
+  background-color: #5f082c !important;
+}
+
+.btn-outline-secondary {
+  border-color: #6c2343;
+  color: white;
+}
+
+span {
+  font-weight: 600;
+}
+
+a {
+  font-weight: 600;
+}

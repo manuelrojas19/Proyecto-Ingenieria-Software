@@ -1,19 +1,22 @@
-.bg-red {
-    background-color: #6C2343;
+.loading-container {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  opacity: .6;
+  z-index: 2;
 }
 
-.btn-red {
-    background-color: #5F082C;
-    border-color: #5F082C;
-    color: white;
+.text-primary {
+  color: #5f082c !important;
 }
 
-.btn-red:hover {
-    background-color: #A25573;
-    border-color: #A25573;
+main {
+  padding-top: 2rem;
+  padding-bottom: 6rem;
 }
-
-.btn-user {
-    color: white;
-}
-

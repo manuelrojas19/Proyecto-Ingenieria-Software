@@ -1,79 +1,104 @@
 <main class="login-form">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card shadow-lg">
-          <div class="card-header">Ingresar al Sistema</div>
-          <div class="card-body">
-            <form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form">
-              <div
-                *ngIf="authForm.errors?.credentials"
-                class="alert alert-danger"
-                role="alert"
-              >
-                Correo electrónico o contraseña incorrecta
-              </div>
-              <div
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-header text-center">
+          <h2 class="h5">Ingresar al sistema</h2>
+        </div>
+        <div class="card-body">
+          <form
+            (ngSubmit)="onSubmit()"
+            [formGroup]="authForm"
+            class="form needs-validation"
+            novalidate
+          >
+            <div
+              *ngIf="authForm.errors?.credentials"
+              class="alert alert-danger"
+              role="alert"
+            >
+              Correo electrónico o contraseña incorrecta
+            </div>
+            <div
               *ngIf="authForm.errors?.noConnection"
               class="alert alert-danger"
               role="alert"
             >
-              Lo sentimos, no ha sido posible establecer contacto con el servidor.
-            </div>              
-              <div class="form-group row">
-                <label
-                  for="email_address"
-                  class="col-md-5 col-lg-4 col-form-label text-md-right"
-                >
-                  Correo Electrónico
-                </label>
-                <div class="col-md-7 col-lg-8">
-                  <input
-                    
-                    formControlName="email"
-                    type="text"
-                    id="email_address"
-                    class="form-control"
-                    name="email-address"
-                    required
-                    maxlength="45"
-                    autofocus
-                  />
-                  <div class="invalid-feedback">Por favor ingrese su correo.</div>
+              Lo sentimos, no ha sido posible establecer contacto con el
+              servidor.
+            </div>
+
+            <!-- <div class="col-md-6">
+              <label for="validationServer05" class="form-label">Zip</label>
+              <input type="text" class="form-control is-invalid" id="validationServer05" aria-describedby="validationServer05Feedback" required>
+              <div id="validationServer05Feedback" class="invalid-feedback">
+                Please provide a valid zip.
+              </div>
+            </div>    -->
+
+            <div class="form-group row">
+              <label
+                for="email"
+                class="col-md-5 col-lg-4 col-form-label text-md-right"
+              >
+                Correo Electrónico
+              </label>
+              <div class="col-md-7 col-lg-8">
+                <input
+                  formControlName="email"
+                  placeholder="Ingresa el correo electrónico"
+                  type="text"
+                  id="email"
+                  class="form-control"
+                  [ngClass]="
+                    formHasErrors && getControls().email.errors?.required
+                      ? 'is-invalid'
+                      : ''
+                  "
+                  maxlength="45"
+                  required
+                />
+                <div class="invalid-feedback">Por favor ingrese su correo.</div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label
+                for="password"
+                class="col-md-5 col-lg-4 col-form-label text-md-right"
+              >
+                Contraseña
+              </label>
+              <div class="col-md-7 col-lg-8">
+                <input
+                  formControlName="password"
+                  placeholder="Ingresa la contraseña"
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  name="password"
+                  [ngClass]="
+                    formHasErrors && getControls().password.errors?.required
+                      ? 'is-invalid'
+                      : ''
+                  "
+                  maxlength="45"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Por favor ingrese su contraseña.
                 </div>
               </div>
-              <div class="form-group row">
-                <label
-                  for="password"
-                  class="col-md-5 col-lg-4 col-form-label text-md-right"
-                >
-                  Contraseña
-                </label>
-                <div class="col-md-7 col-lg-8">
-                  <input
-                    formControlName="password"
-                    type="password"
-                    id="password"
-                    class="form-control"
-                    name="password"
-                    maxlength="8"
-                    required
-                  />
-                  <div class="invalid-feedback">
-                    Por favor ingrese su contraseña.
-                  </div>
-                </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-5 col-lg-4 offset-md-5 offset-lg-4">
+                <button type="submit" class="btn btn-outline-primary">
+                  Ingresar
+                </button>
               </div>
-              <div class="form-group row">
-                <div class="col-md-5 col-lg-4 offset-md-5 offset-lg-4">
-                  <button type="submit" class="btn btn-outline-red">
-                    Ingresar
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </main>
-  
+  </div>
+</main>
