@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommissionInfoComponent } from './commission-info/commission-info.component';
 import { FacturesIndexComponent } from './factures-index/factures-index.component';
 import { FactureFormComponent } from './facture-form/facture-form.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({

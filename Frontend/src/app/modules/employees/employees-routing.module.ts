@@ -7,7 +7,7 @@ import { EmployeesHomeComponent } from './employees-home/employees-home.componen
 import { FacturesIndexComponent } from './factures-index/factures-index.component';
 
 const routes: Routes = [
-  { path: '', component: EmployeesHomeComponent, },
+  { path: 'home', component: EmployeesHomeComponent, },
   { path: 'commissions', component: CommissionsIndexComponent, },
   {
     path: 'commissions/:id', component: CommissionInfoComponent,

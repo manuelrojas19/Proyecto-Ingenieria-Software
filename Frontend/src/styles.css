@@ -1,35 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
-:focus {
-  border-color: #6c2343 !important;
-  box-shadow: 0 0 0 0.25rem rgb(108, 35, 37, 0.35) !important;
+html,
+body {
+  height: 100%;
+  background-color: #fafafa;
 }
 
-.btn-outline-red {
-  border-color: #5f082c !important;
-  color: #5f082c;
+body {
+  margin: 0;
 }
 
-.btn-outline-red:hover {
-  border-color: #5f082c !important;
-  background-color: #5f082c;
-  color: white;
+h1 {
+  font-size: 3.4rem !important;
+  font-weight: 600 !important;
+
+  color: #343a40 !important;
 }
 
-.card {
-  border-color: #5f082c !important;
+.lead {
+  font-size: 1.8rem;
 }
-
-.card-header {
-  border-color: #5f082c;
-  background-color: #6c2343;
-  color: white;
-}
-
-.card-header-main {
-  background-color: white;
-  border-color: #6C2343;
-  color: black;
-}
-

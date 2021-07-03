@@ -1,7 +1,7 @@
 <h1 class="display-5">Detalles de la comisión</h1>
 <p *ngIf="commission === null">No se puede acceder al recurso</p>
 <div *ngIf="commission" class="mt-4">
-  <a routerLink="/employees/commissions" type="button" class="btn btn-outline-red">
+  <a routerLink="/employees/commissions" type="button" class="btn btn-outline-secondary">
     Regresar
   </a>
   <div class="card mt-4 mb-4">
@@ -73,11 +73,11 @@
           <div class="ms-2 me-auto">
             <div class="fw-bold">Estado de la solicitud</div>
             {{
-              commission.isApprovedByManager && commission.isApprovedByFinances
+              commission.managerApproval && commission.financesApproval
                 ? "Comisión aprobada"
-                : commission.isApprovedByManager === false
+                : commission.managerApproval === false
                 ? "Comisión rechazada por el jefe de área"
-                : commission.isApprovedByFinances === false
+                : commission.financesApproval === false
                 ? "Comisión rechazada por el área de finanzas"
                 : "En proceso de aprobación"
             }}

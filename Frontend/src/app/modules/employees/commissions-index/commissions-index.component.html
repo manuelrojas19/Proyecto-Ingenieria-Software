@@ -1,86 +1,19 @@
-<h1 class="display-5">Comisiones</h1>
-
-<div class="mt-4">
-  <button
-    type="button"
-    class="btn btn-outline-red"
-    data-bs-toggle="modal"
-    data-bs-target="#reqCommissionModal"
-  >
-    Solicitar comisión
-  </button>
-  <div class="card mt-4 mb-4">
-    <div class="card-header card-header-main">
-      <h2 class="h5">Comisiones solicitadas</h2>
-    </div>
-    <div class="card-body">
-      <p class="lead mt-3" *ngIf="commissions?.length == 0">
-        No se han realizado solicitudes de comisiones.
-      </p>
-      <div *ngIf="commissions?.length > 0"  class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Tipo de comisión</th>
-              <th scope="col">Lugar de la comisión</th>
-              <th scope="col">Fecha de inicio de la comisión</th>
-              <th scope="col">Fecha de termino de la comisión</th>
-              <th scope="col">Estado de la comisión</th>
-              <th scope="col">Monto depositado</th>
-              <th scope="col">Detalles</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let commission of commissions">
-              <td>{{ commission.type }}</td>
-
-              <td>{{ commission.place }}</td>
-              <td>{{ commission.startDate | date: "dd-MMM-yyyy":"es" }}</td>
-              <td>{{ commission.endDate | date: "dd-MMM-yyyy" }}</td>
-              <td>
-                <span
-                  [ngClass]="
-                    commission.financesApproval &&
-                    commission.isApprovedByManager
-                      ? 'bg-primary'
-                      : commission.financesApproval === false ||
-                        commission.managerApproval === false
-                      ? 'bg-danger'
-                      : 'bg-secondary'
-                  "
-                  class="badge rounded-pill"
-                  >{{
-                    commission.financesApproval &&
-                    commission.managerApproval
-                      ? "Aprobada"
-                      : commission.financesApproval === false ||
-                        commission.managerApproval === false
-                      ? "Rechazada"
-                      : "Por aprobar"
-                  }}</span
-                >
-              </td>
-
-              <td>
-                {{
-                  commission.amountDeposited
-                    ? "$" + (commission.amountDeposited | number: "1.2") + " MXN"
-                    : "Sin depósitos"
-                }}
-              </td>
-              <td class="text-center">
-                <a
-                  class="btn btn-sm btn-outline-primary"
-                  routerLink="/employees/commissions/{{ commission.id }}"
-                >
-                  <i class="fa fa-file"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<h1 class="h1">Comisiones</h1>
+<div class="mt-3 content-container" *ngIf="commissions">
+  <div class="table-data-container mt-4">
+    <app-commission-data-table
+      [commissions]="commissions"
+      [pagination]="pagination"
+      (selectIndexEvent)="onChangeItem($event)"
+      ><button
+        type="button"
+        class="btn btn-outline-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#reqCommissionModal"
+      >
+        <i class="fa fa-plus"></i> Solicitar comisión
+      </button>
+    </app-commission-data-table>
   </div>
 </div>
 <app-modal idModal="reqCommissionModal">

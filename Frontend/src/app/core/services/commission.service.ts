@@ -4,13 +4,23 @@ import { environment } from 'src/environments/environment';
 import { Commission } from '../models/commission';
 
 
-interface getCommissionsByEmployeeResponse {
+
+interface CommissionsResponse {
+  meta: {
+    pagination: {
+      total: number,
+      pages: number,
+      page: number,
+      limit: number,
+    }
+  },
   commissions: [];
 }
 
-interface getCommissionsByIdAndEmployeeResponse {
-  commission;
+interface CommissionResponse {
+  commission: Commission,
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +29,8 @@ export class CommissionService {
 
   constructor(private http: HttpClient) { }
 
-  getCommissionsByEmployee() {
-    return this.http.get<getCommissionsByEmployeeResponse>(environment.API_URL + '/employees/me/commissions');
+  getCommissionsForEmployee(page: number) {
+    return this.http.get<CommissionsResponse>(`${environment.API_URL}/employees/me/commissions?page=${page}&limit=5`);
   }
 
   getCommissionsByEmployeeId(id: string) {
@@ -28,7 +38,7 @@ export class CommissionService {
   }
 
   getCommissionsByIdAndEmployee(id: string) {
-    return this.http.get<getCommissionsByIdAndEmployeeResponse>(environment.API_URL + '/employees/me/commissions/' + id);
+    return this.http.get<CommissionResponse>(environment.API_URL + '/employees/me/commissions/' + id);
   }
 
   createCommission(commission: Commission) {

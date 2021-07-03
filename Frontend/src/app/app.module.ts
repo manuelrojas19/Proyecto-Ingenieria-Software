@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -25,9 +27,14 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

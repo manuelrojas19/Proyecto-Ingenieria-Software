@@ -11,13 +11,18 @@
   }
   
   .login-form {
-    padding-top: 5.4rem;
-    padding-bottom: 2rem;
+    padding-top: 4.6rem;
+    padding-bottom: 0rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
   }
   
   .login-form .row {
     margin-left: 0;
     margin-right: 0;
-  
   }
   
+  .card-header h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}

@@ -1,0 +1,79 @@
+<div class="card shadow">
+    <div class="card-header card-header-main text-center">
+      <h2 class="h4">Facturas subidas</h2>
+    </div>
+    <div class="card-body">
+      <div class="btn-container mb-4 mt-3">
+        <ng-content></ng-content>
+      </div>
+      <p class="lead mt-3" *ngIf="factures.length == 0">
+        No existen facturas registradas para la comisión.
+      </p>
+      <div *ngIf="factures.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+                <th scope="col">Fecha de la factura</th>
+                <th scope="col">Descripción de la factura</th>
+                <th scope="col">Monto de la factura</th>
+                <th scope="col">Archivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let facture of factures">
+                <td>{{ facture.date | date: "dd-MMM-yyyy":"es" }}</td>
+                <td>{{ facture.description }}</td>
+                <td>$ {{ facture.amount | number: "1.2" }}</td>
+                <td>
+                  <a
+                    href="{{ facture?.file }}"
+                    target="_blank"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary"
+                  >
+                    <i class="fa fa-file"></i>
+                  </a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <nav class="paginator"
+        aria-label="Page navigation example"
+        *ngIf="pagination?.pages > 1"
+      >
+        <ul class="pagination justify-content-end ">
+          <li
+            class="page-item"
+            [ngClass]="pagination.page - 1 <= 0 ? 'disabled' : ''"
+          >
+            <btn
+              class="page-link btn"
+              (click)="onSelectIndex(pagination.page - 1)"
+              >Anterior</btn
+            >
+          </li>
+          <li
+            *ngFor="let index of pagesToShow"
+            class="page-item"
+            [ngClass]="index == currentPage ? 'active' : ''"
+          >
+            <btn class="page-link btn" (click)="onSelectIndex(index)">{{
+              index
+            }}</btn>
+          </li>
+          <li
+            class="page-item"
+            [ngClass]="pagination.page + 1 > pagination.pages ? 'disabled' : ''"
+          >
+            <btn
+              class="page-link btn"
+              (click)="onSelectIndex(pagination.page + 1)"
+              >Siguiente</btn
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  

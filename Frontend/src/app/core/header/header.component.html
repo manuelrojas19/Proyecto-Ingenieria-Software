@@ -1,73 +1,42 @@
-<ng-container>
-  <nav  class="shadow sticky-top navbar navbar-expand-lg navbar navbar-dark bg-red">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">Sistema de Comisiones</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarText"
-        aria-controls="navbarText"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+<nav class="navbar navbar-expand-lg navbar-dark bg-wine shadow">
+  <span class="navbar-brand ms-3">Sistema de comisiones</span>
+  <div class="container-fluid" *ngIf="employee">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul
+        *ngIf="employee.profile.name === 'Empleado'"
+        class="navbar-nav me-auto mb-2 mb-lg-0"
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul
-          class="navbar-nav me-auto mb-2 mb-lg-0"
-        >
-          <!-- <li class="nav-item">
-            <a routerLink="employees" routerLinkActive="active" class="nav-link"
-              >Inicio</a
-            >
-          </li> -->
-          <li class="nav-item">
-            <a
-              routerLink="employees/commissions"
-              routerLinkActive="active"
-              class="nav-link"
-              >Comisiones</a
-            >
-          </li>
-        </ul>
-        <!-- <ul
-          *ngIf="signedIn$.getValue()?.employee.profile.name === 'Jefe de Area'"
-          class="navbar-nav me-auto mb-2 mb-lg-0"
-        >
-          <li class="nav-item">
-            <a href="manager" class="nav-link">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="manager/commissions" class="nav-link">Solicitudes</a>
-          </li>
-          <li class="nav-item">
-            <a href="manager/employees" class="nav-link">Empleados</a>
-          </li>
-        </ul>
-        <ul
-          *ngIf="signedIn$.getValue()?.employee.profile.name === 'Finanzas'"
-          class="navbar-nav me-auto mb-2 mb-lg-0"
-        >
-          <li class="nav-item">
-            <a href="finances" class="nav-link">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="finances/departments" class="nav-link">Departamentos</a>
-          </li>
-        </ul> -->
-        <span class="btn btn-user btn-sm disabled">
-          <i class="fa fa-user"></i>
-        </span>
-        <!-- <span class="navbar-text me-3">
-          {{
-            signedIn$.getValue()?.employee.name +
-              " - Área de " +
-              signedIn$.getValue()?.employee.department.name
-          }}
-        </span> -->
-      </div>
-      <button routerLink="/signout" class="btn btn-red">Cerrar sesión</button>
+        <li class="nav-item">
+          <a
+            class="btn btn-outline-secondary color-wine mb-sm-2 mb-lg-0"
+            routerLink="/employees/home"
+            routerLinkActive="color-wine-active"
+            >Inicio</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="btn btn-outline-secondary color-wine"
+            routerLink="/employees/commissions"
+            routerLinkActive="color-wine-active"
+            >Comisiones</a
+          >
+        </li>
+      </ul>
+      <a class="btn" routerLink="/signout" class="btn btn-outline-secondary">
+        Cerrar sesión
+      </a>
     </div>
-  </nav>
-</ng-container>
+  </div>
+</nav>

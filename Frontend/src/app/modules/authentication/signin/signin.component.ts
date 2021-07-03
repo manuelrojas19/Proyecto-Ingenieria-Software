@@ -22,6 +22,7 @@ export class SigninComponent implements OnInit {
         Validators.maxLength(45),
       ]),
   });
+  formHasErrors: boolean;
 
   constructor(private AuthenticationService: AuthenticationService,
     private router: Router) { }
@@ -29,23 +30,27 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getControls() {
+    return this.authForm.controls;
+  }
+
   onSubmit(): void {
+    this.formHasErrors = false;
     if (this.authForm.invalid) {
+      this.formHasErrors = true;
       return
     }
-
     this.AuthenticationService.signin(this.authForm.value).subscribe({
       next: res => {
-        console.log("Entra en enrutador")
         if (res.employee.profile.name === Profiles.EMPLOYEE) {
-          this.router.navigateByUrl('/employees')
+          this.router.navigateByUrl('/employees/home')
         } else if (res.employee.profile.name === Profiles.MANAGER) {
           this.router.navigateByUrl('/manager')
         } else if (res.employee.profile.name === Profiles.FINANCES) {
           this.router.navigateByUrl('/finances')
         }
       },
-      error: (error) => {
+      error: (error) => { 
         if (error.status === 401) {
           this.authForm.setErrors({ credentials: true })
         } else if (!error.status) {
