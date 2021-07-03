@@ -3,7 +3,7 @@
     <h2 class="h4">Comisiones solicitadas</h2>
   </div>
   <div class="card-body">
-    <div class="btn-container mb-4 mt-2">
+    <div class="btn-container mb-4 mt-3">
       <ng-content></ng-content>
     </div>
     <p class="lead mt-3" *ngIf="commissions.length == 0">
@@ -79,12 +79,11 @@
         </tbody>
       </table>
     </div>
-    <nav
+    <nav class="paginator"
       aria-label="Page navigation example"
-      class="mt-4"
       *ngIf="pagination?.pages > 1"
     >
-      <ul class="pagination justify-content-end pe-4">
+      <ul class="pagination justify-content-end ">
         <li
           class="page-item"
           [ngClass]="pagination.page - 1 <= 0 ? 'disabled' : ''"
