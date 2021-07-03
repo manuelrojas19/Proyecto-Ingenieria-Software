@@ -27,7 +27,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     EmployeesRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    NgxPaginationModule,
   ]
 })
 export class EmployeesModule { }

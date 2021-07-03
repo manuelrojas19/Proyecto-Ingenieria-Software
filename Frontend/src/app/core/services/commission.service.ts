@@ -30,7 +30,7 @@ export class CommissionService {
   constructor(private http: HttpClient) { }
 
   getCommissionsForEmployee(page: number) {
-    return this.http.get<CommissionsResponse>(`${environment.API_URL}/employees/me/commissions?page=${page}&limit=6`);
+    return this.http.get<CommissionsResponse>(`${environment.API_URL}/employees/me/commissions?page=${page}&limit=5`);
   }
 
   getCommissionsByEmployeeId(id: string) {

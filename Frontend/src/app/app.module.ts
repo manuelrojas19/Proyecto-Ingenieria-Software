@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({

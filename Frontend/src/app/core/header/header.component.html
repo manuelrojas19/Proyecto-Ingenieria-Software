@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-wine shadow">
-  <div class="container-fluid" *ngIf="profileName">
-    <span class="navbar-brand">Sistema de comisiones</span>
+  <span class="navbar-brand ms-3">Sistema de comisiones</span>
+  <div class="container-fluid" *ngIf="employee">
     <button
       class="navbar-toggler"
       type="button"
@@ -14,7 +14,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul
-        *ngIf="profileName === 'Empleado'"
+        *ngIf="employee.profile.name === 'Empleado'"
         class="navbar-nav me-auto mb-2 mb-lg-0"
       >
         <li class="nav-item">

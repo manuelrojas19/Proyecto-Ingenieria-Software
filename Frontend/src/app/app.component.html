@@ -1,4 +1,6 @@
-<app-header *ngIf="(signedIn$ | async)?.isAuthenticated"></app-header>
+<app-header
+    [employee]="(signedIn$ | async)?.employee"
+></app-header>
 <main>
   <div class="loading-container text-center" *ngIf="isLoading">
     <div class="spinner-border text-primary" role="status">

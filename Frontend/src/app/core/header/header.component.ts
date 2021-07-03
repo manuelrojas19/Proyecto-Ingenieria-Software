@@ -1,12 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { Employee } from '../models/employee';
 
-interface AuthData {
-  isAuthenticated: boolean;
-  employee: Employee;
-}
 
 @Component({
   selector: 'app-header',
@@ -14,27 +8,14 @@ interface AuthData {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Input() employee: Employee;
 
-  public signedIn$: BehaviorSubject<AuthData>;
-  public profileName: string;
 
-  constructor(private authenticationService: AuthenticationService) {
-    this.signedIn$ = this.authenticationService.signedin$;
+  ngOnChanges(changes: SimpleChanges) {
+   
   }
 
   ngOnInit(): void {
-    this.listenToCheckAuth();
-  }
-
-  listenToCheckAuth(): void {
-    this.authenticationService.checkAuth().subscribe({
-      next: (res) => {
-        this.profileName = res.employee.profile.name;
-      },
-      error: (err) => {
-        this.signedIn$.next({ isAuthenticated: false, employee: null })
-      }
-    });
   }
 
 }

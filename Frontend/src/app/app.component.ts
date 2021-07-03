@@ -24,7 +24,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-
     this.listenToLoading();
     this.listenToCheckAuth();
   }
