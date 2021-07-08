@@ -3,7 +3,7 @@
     <h2 class="h4">Comisiones solicitadas</h2>
   </div>
   <div class="card-body">
-    <div class="btn-container mb-4 mt-3">
+    <div class="btn-container mb-3 mt-2">
       <ng-content></ng-content>
     </div>
     <p class="lead mt-3" *ngIf="commissions.length == 0">
@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let commission of commissions">
+          <tr *ngFor="let commission of commissions ">
             <td>{{ commission.type }}</td>
             <td *ngIf="commissions[0]?.employee">
               {{ commission.employee }}

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ModalComponent } from './modal/modal.component';
-import { FactureIndexComponent } from './facture-index/facture-index.component';
-import { CommissionDataTableComponent } from './commission-data-table/commission-data-table.component';
 import { RouterModule } from '@angular/router';
-import { FactureDataTableComponent } from './facture-data-table/facture-data-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
+import { FactureIndexComponent } from './components/facture-index/facture-index.component';
+import { CommissionDataTableComponent } from './components/commission-data-table/commission-data-table.component';
+import { FactureDataTableComponent } from './components/facture-data-table/facture-data-table.component';
+import { CommissionDetailsComponent } from './components/commission-details/commission-details.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FactureDataTableComponent } from './facture-data-table/facture-data-tab
     FactureIndexComponent,
     CommissionDataTableComponent,
     FactureDataTableComponent,
+    CommissionDetailsComponent,
   ],
   imports: [
     CommonModule, 
@@ -24,6 +26,7 @@ import { FactureDataTableComponent } from './facture-data-table/facture-data-tab
     FactureIndexComponent,
     CommissionDataTableComponent,
     FactureDataTableComponent,
+    CommissionDetailsComponent,
   ]
 })
 export class SharedModule { }

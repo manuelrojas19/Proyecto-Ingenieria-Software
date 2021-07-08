@@ -51,7 +51,7 @@
                   id="email"
                   class="form-control"
                   [ngClass]="
-                    formHasErrors && getControls().email.errors?.required
+                    formHasErrors && controls.email.errors?.required
                       ? 'is-invalid'
                       : ''
                   "
@@ -77,7 +77,7 @@
                   class="form-control"
                   name="password"
                   [ngClass]="
-                    formHasErrors && getControls().password.errors?.required
+                    formHasErrors && controls.password.errors?.required
                       ? 'is-invalid'
                       : ''
                   "

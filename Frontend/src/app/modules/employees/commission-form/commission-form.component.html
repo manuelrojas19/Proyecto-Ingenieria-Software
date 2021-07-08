@@ -1,15 +1,15 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="authForm" class="form row g-3">
   <div class="col-md-12">
-    <div
-      *ngIf="authForm.errors?.invalidDate"
-      class="alert alert-danger"
-      role="alert"
-    >
-     Fechas seleccionadas para la comisión inválidas.
+    <div *ngIf="error?.status === 409" class="alert alert-danger" role="alert">
+      Las fechas seleccionadas estan en conflicto con las fechas de otra
+      comisión.
+    </div>
+    <div *ngIf="error?.status === 422" class="alert alert-danger" role="alert">
+      Fechas seleccionadas para la comisión invalidas.
     </div>
     <label for="typeCommission" class="form-label">Tipo de comisión</label>
     <select
-      formControlName="typeCommission"
+      formControlName="type"
       id="typeCommission"
       class="form-select"
       aria-label="Default select example"
@@ -21,39 +21,35 @@
   <div class="col-md-6 form-group">
     <label for="beginDate" class="form-label">Inicio</label>
     <input
-      formControlName="beginDate"
+      formControlName="startDate"
       [ngClass]="
-        authForm.get('beginDate').errors?.requiredField ? 'is-invalid' : ''
+        formHasErrors && controls.startDate.errors?.required ? 'is-invalid' : ''
       "
       class="form-control"
       type="date"
       id="beginDate"
     />
-    <div class="invalid-feedback">
-      Por favor ingrese una fecha.
-    </div>
+    <div class="invalid-feedback">Por favor ingrese la fecha de inicio.</div>
   </div>
   <div class="col-md-6 form-group">
     <label for="endDate" class="form-label">Fin</label>
     <input
       formControlName="endDate"
       [ngClass]="
-        authForm.get('endDate').errors?.requiredField ? 'is-invalid' : ''
+        formHasErrors && controls.endDate.errors?.required ? 'is-invalid' : ''
       "
       class="form-control"
       type="date"
       id="endDate"
     />
-    <div class="invalid-feedback">
-      Por favor ingrese una fecha.
-    </div>
+    <div class="invalid-feedback">Por favor ingrese la fecha de fin.</div>
   </div>
   <div class="col-md-12 form-group">
     <label for="placeCommission" class="form-label">Lugar de la comisión</label>
     <input
-      formControlName="placeCommission"
+      formControlName="place"
       [ngClass]="
-        authForm.get('placeCommission').errors?.requiredField ? 'is-invalid' : ''
+        formHasErrors && controls.place.errors?.required ? 'is-invalid' : ''
       "
       class="form-control"
       type="text"

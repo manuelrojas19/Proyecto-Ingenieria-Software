@@ -3,6 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Facture } from 'src/app/core/models/facture';
 import { FactureService } from 'src/app/core/services/facture.service';
 
+interface Pagination {
+  total: number,
+  pages: number,
+  page: number,
+  limit: number,
+}
+
 @Component({
   selector: 'app-facture-index',
   templateUrl: './facture-index.component.html',
@@ -10,6 +17,8 @@ import { FactureService } from 'src/app/core/services/facture.service';
 })
 export class FactureIndexComponent implements OnInit {
   factures: Facture[];
+  pagination: Pagination;
+  page: number;
 
   constructor(private factureService: FactureService, private route: ActivatedRoute) { }
 
@@ -18,8 +27,13 @@ export class FactureIndexComponent implements OnInit {
   }
 
   public getFactures(): void {
-    this.factureService.getFactures(this.route.snapshot.params.id).subscribe(factures => {
-      this.factures = factures;
+    this.factureService.employeeGetFacturesByCommission(this.route.snapshot.params.id, this.page).subscribe(res => {
+      this.factures = res.factures;
     });
+  }
+
+  onChangeItem(index: number) {
+    this.page = index;
+    this.getFactures();
   }
 }

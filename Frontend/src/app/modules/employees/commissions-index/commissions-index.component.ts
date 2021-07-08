@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { range } from 'rxjs';
-import { Commission } from '../../../core/models/commission';
-import { CommissionService } from '../../../core/services/commission.service';
+import { Subject } from 'rxjs';
+import { Pagination } from 'src/app/core/interfaces/pagination';
+import { Commission } from 'src/app/core/models/commission';
+import { CommissionService } from 'src/app/core/services/commission.service';
 
-interface Pagination {
-  total: number,
-  pages: number,
-  page: number,
-  limit: number,
-}
 
 @Component({
   selector: 'app-commissions-index',
@@ -20,18 +15,36 @@ export class CommissionsIndexComponent implements OnInit {
   pagination: Pagination;
   page: number;
 
-  constructor(private commissionService: CommissionService) {
-  }
+  eventSuccesfullyCreated: Subject<void> = new Subject<void>();
+  error: Error = null;
+
+  constructor(private commissionService: CommissionService) { }
 
   ngOnInit(): void {
     this.getCommissions();
   }
 
   public getCommissions(): void {
-    this.commissionService.getCommissionsForEmployee(this.page).subscribe(res => {
-      this.commissions = res.commissions;
-      this.pagination = res.meta.pagination;
+    this.commissionService.employeeGetCommissions(this.page).subscribe({
+      next: res => {
+        this.commissions = res.commissions;
+        this.pagination = res.meta.pagination;
+      }
     });
+  }
+
+  public createCommission(commission: Commission): void {
+    this.commissionService.createCommission(commission).subscribe(
+      {
+        next: res => {
+          this.getCommissions();
+          this.eventSuccesfullyCreated.next();
+        },
+        error: error => {
+          this.error = error;
+        }
+      }
+    );
   }
 
   onChangeItem(index: number) {

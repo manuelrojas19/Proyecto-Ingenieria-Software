@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FactureService } from 'src/app/core/services/facture.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { FacturesIndexComponent } from '../factures-index/factures-index.component';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { CommissionInfoComponent } from '../commission-info/commission-info.component';
 
 @Component({
   selector: 'app-facture-form',
@@ -32,7 +32,7 @@ export class FactureFormComponent implements OnInit {
     private modalComponent: ModalComponent,
     private route: ActivatedRoute,
     private factureService: FactureService,
-    private factureIndexController: FacturesIndexComponent) { }
+    private commissionController: CommissionInfoComponent) { }
 
   ngOnInit(): void {
   }
@@ -72,7 +72,7 @@ export class FactureFormComponent implements OnInit {
     this.factureService.createFacture(formData).subscribe({
       next: res => {
         this.modalComponent.onCloseModal();
-        this.factureIndexController.getFactures();
+        this.commissionController.getData();
       },
       error: error => {
         this.authForm.setErrors({ invalidFile: true })

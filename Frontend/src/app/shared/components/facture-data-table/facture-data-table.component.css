@@ -1,0 +1,23 @@
+td {
+  height: 3rem;
+}
+
+span {
+  width: 5.6rem;
+}
+
+.card {
+  height: 35rem;
+}
+
+.table-responsive {
+  height: 22rem;
+  margin-bottom: 1rem;
+}
+
+.msg-info-container {
+  height: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

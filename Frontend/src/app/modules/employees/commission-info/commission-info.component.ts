@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { Pagination } from 'src/app/core/interfaces/pagination';
 import { Commission } from 'src/app/core/models/commission';
+import { Facture } from 'src/app/core/models/facture';
 import { CommissionService } from 'src/app/core/services/commission.service';
+import { FactureService } from 'src/app/core/services/facture.service';
 
 @Component({
   selector: 'app-commission-info',
@@ -10,17 +14,42 @@ import { CommissionService } from 'src/app/core/services/commission.service';
 })
 export class CommissionInfoComponent implements OnInit {
   commission: Commission;
+  notFoundError: boolean = false;
 
-  constructor(private commissionService: CommissionService,  private route: ActivatedRoute) { }
+  factures: Facture[];
+  facturesPagination: Pagination;
+  facturesPage: number = 1;
+
+  constructor(private commissionService: CommissionService,
+    private factureService: FactureService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getCommission();
+    this.getData();
   }
 
-  public getCommission(): void {
-    this.commissionService.getCommissionsByIdAndEmployee(this.route.snapshot.params.id).subscribe(res => {
-      this.commission = res.commission;
-    });
+  getData(): void {
+    this.commissionService.employeeGetCommissionById(this.route.snapshot.params.id).pipe(
+      switchMap(res => {
+        this.commission = res.commission;
+        return this.factureService.employeeGetFacturesByCommission(this.commission.id, this.facturesPage);
+      }),
+    ).subscribe({
+      next: res => {
+        this.facturesPagination = res.meta.pagination;
+        this.factures = res.factures;
+      },
+      error: (error) => {
+        if (error.status === 404) {
+          this.notFoundError = true;
+        }
+      }
+    })
+  }
+
+  onChangeFacturePage(index: number) {
+    this.facturesPage = index;
+    this.getData();
   }
 
 }

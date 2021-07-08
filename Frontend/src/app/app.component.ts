@@ -9,6 +9,7 @@ interface AuthData {
   isAuthenticated: boolean,
   employee: Employee
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +28,6 @@ export class AppComponent {
     this.listenToLoading();
     this.listenToCheckAuth();
   }
-
 
   listenToCheckAuth(): void {
     this.authService.checkAuth().subscribe({

@@ -1,5 +1,5 @@
 <h1 class="h1">Comisiones</h1>
-<div class="mt-3 content-container" *ngIf="commissions">
+<div class="mt-3" *ngIf="commissions">
   <div class="table-data-container mt-4">
     <app-commission-data-table
       [commissions]="commissions"
@@ -16,7 +16,13 @@
     </app-commission-data-table>
   </div>
 </div>
-<app-modal idModal="reqCommissionModal">
+<app-modal
+  [events]="eventSuccesfullyCreated.asObservable()"
+  idModal="reqCommissionModal"
+>
   <h5 modalTitle>Solicitar comisión</h5>
-  <app-commission-form></app-commission-form>
+  <app-commission-form
+    [error]="error"
+    (commissionSubmit)="createCommission($event)"
+  ></app-commission-form>
 </app-modal>

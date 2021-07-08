@@ -30,16 +30,18 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getControls() {
+  get controls() {
     return this.authForm.controls;
   }
 
   onSubmit(): void {
-    this.formHasErrors = false;
     if (this.authForm.invalid) {
       this.formHasErrors = true;
       return
     }
+
+    this.formHasErrors = false;
+
     this.AuthenticationService.signin(this.authForm.value).subscribe({
       next: res => {
         if (res.employee.profile.name === Profiles.EMPLOYEE) {
