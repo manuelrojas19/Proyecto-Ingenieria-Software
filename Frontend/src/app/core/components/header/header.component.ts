@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-import { Employee } from '../models/employee';
+import { Employee } from '../../models/employee';
 
 
 @Component({

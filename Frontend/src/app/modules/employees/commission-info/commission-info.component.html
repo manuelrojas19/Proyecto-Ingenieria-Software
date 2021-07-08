@@ -1,110 +1,48 @@
-<h1 class="display-5">Detalles de la comisión</h1>
-<p *ngIf="commission === null">No se puede acceder al recurso</p>
-<div *ngIf="commission" class="mt-4">
-  <a routerLink="/employees/commissions" type="button" class="btn btn-outline-secondary">
-    Regresar
-  </a>
-  <div class="card mt-4 mb-4">
-    <div class="card-header card-header-main">
-      <h2 class="h5">Información de la comisión</h2>
-    </div>
-    <div class="card-body">
-      <ol class="list-group list-group-flush">
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Tipo de la Comisión</div>
-            {{ commission?.type }}
-          </div>
-        </li>
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Lugar de la comisión</div>
-            {{ commission?.place }}
-          </div>
-        </li>
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Fecha de Inicio de la comisión</div>
-            {{ commission?.startDate | date: "dd-MMM-yyyy":"es" }}
-          </div>
-        </li>
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Fecha de término de la comisión</div>
-            {{ commission?.endDate | date: "dd-MMM-yyyy":"es" }}
-          </div>
-        </li>
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Estado de la solicitud</div>
-            {{
-              commission.managerApproval && commission.financesApproval
-                ? "Comisión aprobada"
-                : commission.managerApproval === false
-                ? "Comisión rechazada por el jefe de área"
-                : commission.financesApproval === false
-                ? "Comisión rechazada por el área de finanzas"
-                : "En proceso de aprobación"
-            }}
-          </div>
-        </li>
-        <li
-          class="
-            list-group-item
-            d-flex
-            justify-content-between
-            align-items-start
-          "
-        >
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">Monto depositado</div>
-            <p *ngIf="commission?.amountDeposited != null">
-              ${{ commission?.amountDeposited | number: "1.2" }} MXN
-            </p>
-            <p *ngIf="commission?.amountDeposited == null">
-              Sin depositos
-            </p>
-          </div>
-        </li>
-      </ol>
+<h1>Detalles de la comisión</h1>
+<a
+  routerLink=".."
+  type="button"
+  class="btn btn-outline-secondary mt-3 mb-4"
+>
+  <i class="fa fa-angle-left"></i> Regresar
+</a>
+<div class="row mt-2">
+  <p  class="text-muted" *ngIf="notFoundError">No se encontro el recurso solicitado.</p>
+  <div class="col-md-12 col-lg-5 mb-5">
+    <div>
+      <app-commission-details
+        *ngIf="commission"
+        [commission]="commission"
+      ></app-commission-details>
     </div>
   </div>
+  <div class="col-md-12 col-lg-7">
+    <app-facture-data-table
+      *ngIf="factures"
+      [factures]="factures"
+      [pagination]="facturesPagination"
+      [commissionApprovalStatus]="
+        commission?.financesApproval && commission?.managerApproval
+      "
+      (selectIndexEvent)="onChangeFacturePage($event)"
+      class="facturesTable"
+    >
+      <button
+        *ngIf="commission?.financesApproval && commission?.managerApproval"
+        type="button"
+        class="btn btn-outline-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#reqFactureModal"
+      >
+        <i class="fa fa-plus"></i> Agregar factura
+      </button>
+    </app-facture-data-table>
+  </div>
 </div>
-<router-outlet
-  *ngIf="commission?.financesApproval && commission.managerApproval"
-></router-outlet>
+<app-modal
+  *ngIf="commission?.financesApproval && commission?.managerApproval"
+  idModal="reqFactureModal"
+>
+  <h5 modalTitle>Agregar factura</h5>
+  <app-facture-form></app-facture-form>
+</app-modal>

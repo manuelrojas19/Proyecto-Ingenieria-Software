@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CommissionService } from 'src/app/core/services/commission.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { CommissionInfoComponent } from '../commission-info/commission-info.component';
 
 @Component({

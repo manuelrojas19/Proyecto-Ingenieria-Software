@@ -4,16 +4,15 @@ import { CommissionInfoComponent } from './commission-info/commission-info.compo
 import { CommissionsIndexComponent } from './commissions-index/commissions-index.component';
 
 import { EmployeesHomeComponent } from './employees-home/employees-home.component';
-import { FacturesIndexComponent } from './factures-index/factures-index.component';
 
 const routes: Routes = [
   { path: 'home', component: EmployeesHomeComponent, },
   { path: 'commissions', component: CommissionsIndexComponent, },
   {
     path: 'commissions/:id', component: CommissionInfoComponent,
-    children: [{
-      path: '', component: FacturesIndexComponent,
-    }]
+    // children: [{
+    //   path: '', component: FacturesIndexComponent,
+    // }]
   }
 ];
 

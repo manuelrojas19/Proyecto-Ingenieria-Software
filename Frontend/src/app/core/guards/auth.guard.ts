@@ -23,11 +23,11 @@ export class AuthGuard implements CanActivate, CanLoad {
             return true;
           }
           if (employee.profile.name === Profiles.EMPLOYEE) {
-            this.router.navigateByUrl('/employees');
+            this.router.navigateByUrl('/employees/home');
           } else if (employee.profile.name === Profiles.MANAGER) {
-            this.router.navigateByUrl('/manager');
+            this.router.navigateByUrl('/manager/home');
           } else if (employee.profile.name === Profiles.FINANCES) {
-            this.router.navigateByUrl('/finances');
+            this.router.navigateByUrl('/finances/home');
           }
           return false;
         }),

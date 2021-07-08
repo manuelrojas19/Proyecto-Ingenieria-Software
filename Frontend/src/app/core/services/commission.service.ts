@@ -1,25 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CommissionResponse } from '../interfaces/commission.response';
+import { CommissionsResponse } from '../interfaces/commissions.response';
 import { Commission } from '../models/commission';
-
-
-
-interface CommissionsResponse {
-  meta: {
-    pagination: {
-      total: number,
-      pages: number,
-      page: number,
-      limit: number,
-    }
-  },
-  commissions: [];
-}
-
-interface CommissionResponse {
-  commission: Commission,
-}
 
 
 @Injectable({
@@ -29,20 +13,25 @@ export class CommissionService {
 
   constructor(private http: HttpClient) { }
 
-  getCommissionsForEmployee(page: number) {
+
+  // Employee Module
+  
+  employeeGetCommissions(page: number) {
     return this.http.get<CommissionsResponse>(`${environment.API_URL}/employees/me/commissions?page=${page}&limit=5`);
   }
 
-  getCommissionsByEmployeeId(id: string) {
-    return this.http.get<Commission[]>(environment.API_URL + '/finances/employees/' + id + '/commission');
-  }
-
-  getCommissionsByIdAndEmployee(id: string) {
-    return this.http.get<CommissionResponse>(environment.API_URL + '/employees/me/commissions/' + id);
+  employeeGetCommissionById(id: number) {
+    return this.http.get<CommissionResponse>(`${environment.API_URL}/employees/me/commissions/${id}`);
   }
 
   createCommission(commission: Commission) {
-    return this.http.post(environment.API_URL + '/commission', commission);
+    return this.http.post(`${environment.API_URL}/employees/me/commissions`, commission);
+  }
+
+
+
+  getCommissionsByEmployeeId(id: string) {
+    return this.http.get<Commission[]>(environment.API_URL + '/finances/employees/' + id + '/commission');
   }
 
   getCommissionsByManager() {

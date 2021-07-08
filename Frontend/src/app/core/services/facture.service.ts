@@ -3,8 +3,16 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Facture } from '../models/facture';
 
-interface getFacturesByCommissionResponse {
+interface FacturesResponse {
   factures: Facture[];
+  meta: {
+    pagination: {
+      total: number,
+      pages: number,
+      page: number,
+      limit: number,
+    },
+  }
 }
 
 @Injectable({
@@ -14,12 +22,12 @@ export class FactureService {
 
   constructor(private http: HttpClient) { }
 
-  getFacturesByCommission(commision: string) {
-    return this.http.get<getFacturesByCommissionResponse>(environment.API_URL + '/employees/me/commissions/' + commision + '/factures');
-  }
+  // employeeGetFacturesByCommission(commision: number, page: number) {
+  //   return this.http.get<Facture[]>(`${environment.API_URL}/${commision}/facture?page=${page}&limit=5`);
+  // }
 
-  getFactures(commision: string) {
-    return this.http.get<Facture[]>(environment.API_URL + '/' + commision + '/facture');
+  employeeGetFacturesByCommission(commision: number, page: number) {
+    return this.http.get<FacturesResponse>(`${environment.API_URL}/employees/me/commissions/${commision}/factures?page=${page}&limit=6`);
   }
 
   getFacturesByEmployee(employee: string) {

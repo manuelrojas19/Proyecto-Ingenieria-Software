@@ -1,12 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Pagination } from 'src/app/core/interfaces/pagination';
 import { Facture } from 'src/app/core/models/facture';
-
-interface Pagination {
-  total: number,
-  pages: number,
-  page: number,
-  limit: number,
-}
 
 const PAG_CELLS_NUMBER = 4;
 
@@ -18,6 +12,7 @@ const PAG_CELLS_NUMBER = 4;
 export class FactureDataTableComponent implements OnInit {
   @Input() factures: Facture[];
   @Input() pagination: Pagination;
+  @Input() commissionApprovalStatus: boolean;
 
   @Output() selectIndexEvent = new EventEmitter<number>();
 

@@ -1,0 +1,69 @@
+<div class="card shadow">
+    <div class="card-header card-header-main text-center">
+      <h2 class="h4">Información de la comisión</h2>
+    </div>
+    <div class="card-body">
+      <ol class="list-group list-group-flush">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Tipo de la Comisión</div>
+            {{ commission?.type }}
+          </div>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Lugar de la comisión</div>
+            {{ commission?.place }}
+          </div>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de Inicio de la comisión</div>
+            {{ commission?.startDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Fecha de término de la comisión</div>
+            {{ commission?.endDate | date: "dd-MMM-yyyy":"es" }}
+          </div>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Estado de la solicitud</div>
+            {{
+              commission.managerApproval && commission.financesApproval
+                ? "Comisión aprobada"
+                : commission.managerApproval === false
+                ? "Comisión rechazada por el jefe de área"
+                : commission.financesApproval === false
+                ? "Comisión rechazada por el área de finanzas"
+                : "En proceso de aprobación"
+            }}
+          </div>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Monto depositado</div>
+            <p *ngIf="commission?.amountDeposited != null">
+              ${{ commission?.amountDeposited | number: "1.2" }} MXN
+            </p>
+            <p *ngIf="commission?.amountDeposited == null">Sin depositos</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+  
