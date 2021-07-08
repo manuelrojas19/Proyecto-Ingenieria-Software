@@ -4,22 +4,40 @@ const {logger} = require('../util/logger.js');
 const commissionController = {};
 
 commissionController.employeeFindCommissions = async (req, res) => {
-  const pagination = {};
-  pagination.limit = parseInt(req.query.limit ? req.query.limit : 10);
-  pagination.offset = parseInt(req.query.offset ? req.query.offset : 0);
+  const queryOptions = {};
+
+  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 6;
+  const page =
+    parseInt(req.query.page) && parseInt(req.query.page) > 0 ?
+      parseInt(req.query.page) :
+      1;
+  logger.info(page);
+  queryOptions.limit = limit;
+  queryOptions.offset = (page - 1) * limit;
 
   try {
     logger.info('Fetching comissions from DB');
     const commissions = await CommissionService.findCommissionsByEmployee(
         req.employee.id,
-        pagination,
+        queryOptions,
     );
     logger.info(
         commissions,
         'Commissions was found succesfully, sending to client',
     );
-    res.status(200).json({commissions: commissions});
+
+    const pagination = {};
+    pagination.total = commissions.count;
+    pagination.pages = Math.ceil(commissions.count / limit);
+    pagination.page = page;
+    pagination.limit = limit;
+
+    res.status(200).json({
+      meta: {pagination: pagination},
+      commissions: commissions.rows,
+    });
   } catch (e) {
+    logger.error(e);
     next(e);
   }
 };
@@ -44,12 +62,7 @@ commissionController.employeeFindCommissionById = async (req, res, next) => {
 
 commissionController.employeeCreateCommission = async (req, res, next) => {
   const params = Object.keys(req.body);
-  const allowParams = [
-    'type',
-    'startDate',
-    'endDate',
-    'place',
-  ];
+  const allowParams = ['type', 'startDate', 'endDate', 'place'];
   logger.info(req.body, 'Commission request body from client');
   const isValid = params.every((update) => allowParams.includes(update));
   if (!isValid) {

@@ -5,7 +5,7 @@ const httpStatusCodes = require('./http_status_codes.js');
 /**
  *  Clase para representar un error operacional de recurso no encontrado
  */
-class NotAuthenticatedError extends BaseError {
+class ValidationError extends BaseError {
   /**
    * Create a point.
    * @param {string} message - Mensaje del error
@@ -15,12 +15,12 @@ class NotAuthenticatedError extends BaseError {
    */
   constructor(
       message,
-      name = errorNames.NOT_AUTHENTICATED,
-      statusCode = httpStatusCodes.UNAUTHORIZED,
+      name = errorNames.VALIDATION_FAILED,
+      statusCode = httpStatusCodes.UNPROCESSABLE,
       isOperational = true,
   ) {
     super(message, name, statusCode, isOperational);
   }
 }
 
-module.exports = NotAuthenticatedError;
+module.exports = ValidationError;
