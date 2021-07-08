@@ -9,13 +9,21 @@ const storage = require('../util/storage.js');
 const factureController = {};
 
 factureController.employeeFindFacturesByCommission = async (req, res, next) => {
-  const pagination = {};
-  pagination.limit = parseInt(req.query.limit ? req.query.limit : 5);
-  pagination.offset = parseInt(req.query.offset ? req.query.offset : 0);
+  const queryOptions = {};
+
+  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 6;
+  const page =
+    parseInt(req.query.page) && parseInt(req.query.page) > 0 ?
+      parseInt(req.query.page) :
+      1;
+  queryOptions.limit = limit;
+  queryOptions.offset = (page - 1) * limit;
 
   const commisionId = req.params.commission;
   try {
-    logger.info('Fetching factures from DB');
+    logger.info(
+        `Fetching factures of commission with id ${commisionId} from DB`,
+    );
     const commission = await CommissionService.findCommissionByIdAndEmployee(
         commisionId,
         req.employee.id,
@@ -23,11 +31,22 @@ factureController.employeeFindFacturesByCommission = async (req, res, next) => {
 
     const factures = await FactureService.findFacturesByCommission(
         commission.id,
-        pagination,
+        queryOptions,
     );
+
+    const pagination = {};
+    pagination.total = factures.count;
+    pagination.pages = Math.ceil(factures.count / limit);
+    pagination.page = page;
+    pagination.limit = limit;
+
     logger.info(factures, 'Factures founded succesfully, sending to client');
-    res.status(200).json({factures: factures});
+    res.status(200).json({
+      meta: {pagination: pagination},
+      factures: factures.rows,
+    });
   } catch (e) {
+    logger.error(e);
     next(e);
   }
 };
@@ -55,7 +74,7 @@ factureController.employeeCreateFacture = async (req, res, next) => {
      * de datos si la comisión no es encontrada o la comisión no pertenece
      * al empleado se lanzara un error, en caso contrario el id de la comisión
      * se agregara los datos de la factura para su almacenamiento.
-    */
+     */
     const commission = await CommissionService.findCommissionByIdAndEmployee(
         commissionId,
         req.employee.id,

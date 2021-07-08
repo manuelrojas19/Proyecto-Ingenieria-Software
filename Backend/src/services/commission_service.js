@@ -1,7 +1,10 @@
 const {Commission, Department, sequelize} = require('../models');
 const {Op} = require('sequelize');
 const NotFoundError = require('../errors/not_found_error.js');
+const ConflictError = require('../errors/conflict_error.js');
+
 const EmployeeService = require('./employee_service.js');
+const ValidationError = require('../errors/validation_error');
 
 const TRASLAPED_DATES_ERROR =
   'Dates for the commission are traslaped with dates in another commission';
@@ -24,7 +27,7 @@ commissionService.findCommissionsByEmployee = async (
     employeeId,
     pagination,
 ) => {
-  return Commission.findAll({
+  const commissions = await Commission.findAndCountAll({
     include: [
       {
         attributes: [],
@@ -34,9 +37,14 @@ commissionService.findCommissionsByEmployee = async (
         },
       },
     ],
+    order: [
+      ['startDate', 'DESC'],
+      ['endDate', 'DESC'],
+    ],
     limit: pagination.limit,
     offset: pagination.offset,
   });
+  return commissions;
 };
 
 commissionService.findCommissionByIdAndEmployee = async (
@@ -160,7 +168,7 @@ commissionService.createCommission = async (commission, employeeId) => {
   const employee = await EmployeeService.findEmployeeById(employeeId);
 
   if (startDate <= today || endDate <= today || endDate < startDate) {
-    throw new Error(INVALID_DATES_ERROR);
+    throw new ValidationError(INVALID_DATES_ERROR);
   }
 
   const traslapedCommissionExist = await Commission.findOne({
@@ -190,7 +198,7 @@ commissionService.createCommission = async (commission, employeeId) => {
   });
 
   if (traslapedCommissionExist) {
-    throw new Error(TRASLAPED_DATES_ERROR);
+    throw new ConflictError(TRASLAPED_DATES_ERROR);
   }
 
   const commissionCreated = await Commission.create(commission);
@@ -218,7 +226,7 @@ commissionService.updateCommissionByManager = async (
     },
   });
   if (!commission) {
-    throw new Error('Commission does not exist');
+    throw new NotFoundError('Commission does not exist');
   }
   commission.isApprovedByManager = isApproved;
   await commission.save();
