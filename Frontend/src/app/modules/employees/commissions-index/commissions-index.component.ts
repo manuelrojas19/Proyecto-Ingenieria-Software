@@ -16,7 +16,7 @@ export class CommissionsIndexComponent implements OnInit {
   page: number;
 
   eventSuccesfullyCreated: Subject<void> = new Subject<void>();
-  error: Error = null;
+  onCreateError: Error = null;
 
   constructor(private commissionService: CommissionService) { }
 
@@ -33,21 +33,21 @@ export class CommissionsIndexComponent implements OnInit {
     });
   }
 
-  public createCommission(commission: Commission): void {
+  public onCreateCommission(commission: Commission): void {
     this.commissionService.createCommission(commission).subscribe(
       {
-        next: res => {
+        next: () => {
           this.getCommissions();
           this.eventSuccesfullyCreated.next();
         },
         error: error => {
-          this.error = error;
+          this.onCreateError = error;
         }
       }
     );
   }
 
-  onChangeItem(index: number) {
+  public onChangeItem(index: number) {
     this.page = index;
     this.getCommissions();
   }

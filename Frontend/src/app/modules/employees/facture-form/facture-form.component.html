@@ -4,13 +4,16 @@
     class="alert alert-danger"
     role="alert"
   >
-    A ocurrido un error, formato de archivo invalido, el archivo enviado debe ser de extensión .xml
+    A ocurrido un error, formato de archivo invalido, el archivo enviado debe
+    ser de extensión .xml
   </div>
   <div class="col-md-6 form-group">
     <label for="date" class="form-label">Fecha</label>
     <input
       formControlName="date"
-      [ngClass]="authForm.get('date').errors?.requiredField ? 'is-invalid' : ''"
+      [ngClass]="
+        formHasErrors && controls.date.errors?.required ? 'is-invalid' : ''
+      "
       class="form-control"
       type="date"
       id="date"
@@ -27,9 +30,9 @@
       <input
         formControlName="amount"
         [ngClass]="
-          authForm.get('amount').errors?.requiredField
-            ? 'is-invalid'
-            : authForm.get('amount').errors?.rangeError
+          formHasErrors &&
+          (controls.amount.errors?.required ||
+            controls.amount.errors?.rangeError)
             ? 'is-invalid'
             : ''
         "
@@ -41,13 +44,13 @@
         id="amount"
       />
       <div
-        *ngIf="authForm.get('amount').errors?.requiredField"
+        *ngIf="controls.amount.errors?.required ? 'is-invalid' : ''"
         class="invalid-feedback"
       >
         Por favor ingrese el monto de la factura.
       </div>
       <div
-        *ngIf="authForm.get('amount').errors?.rangeError"
+        *ngIf="controls.amount.errors?.rangeError ? 'is-invalid' : ''"
         class="invalid-feedback"
       >
         Por favor ingrese un monto valido.
@@ -55,12 +58,8 @@
     </div>
   </div>
   <div class="col-md-12 form-group">
-    <label for="factureDescription" class="form-label">Descripción</label>
-    <select
-      formControlName="factureDescription"
-      class="form-select"
-      id="factureDescription"
-    >
+    <label for="description" class="form-label">Descripción</label>
+    <select formControlName="description" class="form-select" id="description">
       <option value="Gastos de transporte">Gastos de transporte</option>
       <option value="Gastos de alimentación">Gastos de alimentación</option>
       <option value="Gastos de hospedaje">Gastos de hospedaje</option>
@@ -73,7 +72,7 @@
       (change)="onFileChange($event)"
       formControlName="facture"
       [ngClass]="
-        authForm.get('facture').errors?.requiredField ? 'is-invalid' : ''
+        formHasErrors && controls.facture.errors?.required ? 'is-invalid' : ''
       "
       class="form-control"
       type="file"

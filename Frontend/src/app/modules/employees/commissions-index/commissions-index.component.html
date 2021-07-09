@@ -22,7 +22,7 @@
 >
   <h5 modalTitle>Solicitar comisión</h5>
   <app-commission-form
-    [error]="error"
-    (commissionSubmit)="createCommission($event)"
+    [error]="onCreateError"
+    (commissionSubmit)="onCreateCommission($event)"
   ></app-commission-form>
 </app-modal>
