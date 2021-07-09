@@ -1,0 +1,180 @@
+\section{Requerimientos funcionales}
+
+A continuación se describen los requerimientos funcionales asociados al Sistema de Comisiones en base a los actores del sistema:
+
+\subsection{Empleados}
+
+Los empleados interactuan directamente con el sistema para realizar solicitudes de comisiones cuando así lo requieran. Así mismo pueden acceder para consultar el estado actual de sus solicitudes, visualizar los depósitos realizados para la comisión y subir sus comprobantes. 
+
+\begin{itemize}
+	\item \textbf{RF1 Ingresar al sistema como empleado}
+	\begin{itemize}
+		\item El sistema debe permitir a los empleados ingresar como un usuario con un perfil de empleado. Por lo cual podrá acceder a las funcionalidades del sistema destinadas a los usuarios con perfil de empleado. El acceso al sistema se realiza en base a los siguientes datos:
+		\begin{itemize}
+			\item Correo electrónico empresarial previamente proporcionado por la empresa
+			\item Contraseña de acceso al sistema previamente proporcionada por la empresa.
+		\end{itemize}
+	\end{itemize}
+	
+	\item \textbf{RF2 Solicitar comisión}
+	\begin{itemize}
+		\item El sistema debe permitir al empleado realizar solicitudes de comisiones. Las solicitudes de comisiones deberán incluir la siguiente información:
+		\begin{itemize}
+			\item Tipo de comisión (Transporte o Viáticos)
+			\item Fecha de inicio de la comisión.
+			\item Fecha de termino de la comisión.
+			\item Monto solicitado para la comisión.
+			\item Lugar de la comisión.
+		\end{itemize}
+	\end{itemize}
+	
+	\item \textbf{RF2 Visualizar comisiones}
+	\begin{itemize}
+		\item El sistema debe permitir al empleado visualizar información de las solicitudes de comisiones que ha realizado hasta la fecha, esto debe incluir lo siguiente: 
+		\begin{itemize}
+			\item La información mencionada en el RF2.
+			\item Información del estado actual de las solicitudes de comisión (En proceso de aprobación, aprobada, no aprobada).
+		\end{itemize}
+	\end{itemize}
+
+	\item \textbf{RF3 Visualizar información de la comisión activa}
+	\begin{itemize}
+		\item El sistema debe permitir al empleado visualizar de manera resumida la información de su comisión activa mas reciente (Fecha de inicio, fecha de termino), si es que tiene alguna, así como los depósitos recientes realizados a su cuenta por dicha comisión (Fecha de depósito y monto depositado).
+	\end{itemize}
+
+	
+	\item \textbf{RF4 Subir facturas}
+	\begin{itemize}
+		\item El sistema debe permitir al empleado subir facturas para comprobar los gastos realizados para cada comisión aprobada, debe incluirse lo siguiente:
+		\begin{itemize}
+			\item Fecha de emisión de la factura
+			\item Monto de la factura.
+			\item Descripción de la factura
+			\item Archivo electrónico de la factura en formato .xml
+		\end{itemize}
+	\end{itemize}
+
+	\item \textbf{RF5 Visualizar facturas}
+	\begin{itemize}
+		\item El sistema debe permitir al empleado visualizar las facturas que ha subido para cada comisión aprobada.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Jefes de Área}
+
+
+Los jefes de área interactuan directamente con el sistema visualizar información de sus empleados subordinados y las solicitudes de comisión que estos realizan dentro de su departamento. Los jefes de área también deciden la aprobación de las solicitudes de comisiones unicamente dentro de su departamento.
+
+\begin{itemize}
+	\item \textbf{RF6 Ingresar al sistema como jefe de área}
+	\begin{itemize}
+		\item El sistema debe permitir a los empleados ingresar como un usuario con un perfil de jefe de área. Por lo cual podrá acceder a las funcionalidades del sistema destinadas a los usuarios con perfil de jefe de área. El acceso al sistema se realiza en base a los siguientes datos:
+		\begin{itemize}
+			\item Correo electrónico empresarial previamente proporcionado por la empresa
+			\item Contraseña de acceso al sistema previamente proporcionada por la empresa.
+		\end{itemize}
+	\end{itemize}
+
+	\item \textbf{RF7 Visualizar información de los empleados subordinados}
+	\begin{itemize}
+		\item El sistema debe permitir a los jefes de área visualizar la información de los empleados subordinados de su área. Esto incluye:
+		\begin{itemize}
+			\item Nombres.
+			\item Apellidos.
+			\item Correo electrónico.
+			\item Número de teléfono.
+			\item Comisiones solicitadas.
+		\end{itemize}
+	\end{itemize}
+
+	\item \textbf{RF8 Visualizar solicitudes de comisiones}
+	\begin{itemize}
+		\item El sistema debe permitir a los jefes de área visualizar las solicitudes de comisiones realizadas por los empleados subordinados de su área. La información visualizada debe incluir:
+		\begin{itemize}
+			\item Tipo de comisión.
+			\item Duración de la comisión.
+			\item Fecha de Inicio de la comisión.
+			\item Fecha de termino de la comisión.
+			\item Monto solicitado de la comisión.
+			\item Estado actual de la comisión.
+			\item Empleado solicitante.
+		\end{itemize}
+	\end{itemize}
+
+	\item \textbf{RF9 Aprobar solicitudes de comisiones}
+	\begin{itemize}
+		\item El sistema debe permitir a los jefes de área aprobar las solicitudes de comisiones realizadas por los empleados subordinados de su área.
+	\end{itemize}
+
+	\item \textbf{RF10 Visualizar comprobantes}
+	\begin{itemize}
+		\item El sistema debe permitir a los jefes de área visualizar los comprobantes para las comisiones aprobadas dentro de su área.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Administradores del área financiera}
+
+\begin{itemize}
+
+	\item \textbf{RF10 Visualizar información de los departamentos}
+	\begin{itemize}
+		\item El sistema debe permitir a los administradores del área financiera visualizar la información de los departamentos de la empresa. Esto incluye:
+		\begin{itemize}
+			\item Nombre del departamento.
+			\item Presupuesto disponible para viáticos.
+			\item Presupuesto disponible para transporte.
+			\item Jefe de área o departamento (nombre, apellidos, correo electrónico y número de teléfono).
+		\end{itemize}
+	\end{itemize}
+
+
+	\item \textbf{RF11 Visualizar las solicitudes comisiones aprobadas por los jefes de área de cada departamento}
+	\begin{itemize}
+		\item El sistema debe permitir a los administradores del área financiera visualizar información de las solicitudes de comisiones aprobadas previamente por los jefes de área de cada departamento. Esto incluye
+		\begin{itemize}
+			\item Tipo de comisión.
+			\item Duración de la comisión.
+			\item Fecha de Inicio de la comisión.
+			\item Fecha de termino de la comisión.
+			\item Monto solicitado de la comisión.
+			\item Estado actual de la comisión.
+			\item Empleado solicitante.
+		\end{itemize}
+	\end{itemize}
+
+	\item \textbf{RF12 Visualizar información de los empleados por departamento}
+	\begin{itemize}
+		\item El sistema debe permitir a los administradores del área financiera visualizar la información de los empleados por cada departamento de la empresa. Esto incluye:
+		\begin{itemize}
+			\item Nombres.
+			\item Apellidos.
+			\item Correo electrónico.
+			\item Número de teléfono.
+			\item Comisiones solicitadas.
+		\end{itemize}
+	\end{itemize}
+	
+	\item \textbf{RF13 Aprobar solicitudes de comisiones}
+	\begin{itemize}
+		\item El sistema debe permitir a los administradores del área financiera aprobar las solicitudes de comisiones aprobadas previamente por los jefes de área de cada departamento. Para aprobar una solicitud es necesario que el departamento cuente con el presupuesto suficiente. En caso contrario se permitirá al administrador del área financiera realizar los ajustes presupuestales correspondientes.
+	\end{itemize}
+
+	\item \textbf{RF14 Realizar ajustes presupuestales}
+	\begin{itemize}
+		\item El sistema debe permitir a los administradores del área financiera realizar ajustes presupuestales para cada departamento en caso de ser necesario. El ajuste presupuestal se podra realizar unicamente por meses anteriores, no se podrá realizar un ajuste presupuestal tomando recursos de otras áreas o meses posteriores.
+	\end{itemize}	
+
+	\item \textbf{RF15 Generar reportes}
+	\begin{itemize}
+		\item El sistema debe permitir a los administradores del área financiera generar reportes administrativos y financieros, esto incluye: 
+		\begin{itemize}
+			\item Historial de viáticos por empleado.
+			\item Gastos desglosados por empleado.
+			\item Comisiones asignadas por empleado.
+			\item Presupuesto ejercido por área.
+			\item Presupuesto asignado por área.
+		\end{itemize}
+	\end{itemize}	
+	
+	
+\end{itemize}
