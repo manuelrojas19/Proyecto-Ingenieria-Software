@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-wine shadow">
-  <span class="navbar-brand ms-3">Sistema de comisiones</span>
-  <div class="container-fluid" *ngIf="employee">
+  <div class="container-fluid">
+    <span class="navbar-brand">Sistema de comisiones</span>
     <button
+      *ngIf="employee"
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -12,14 +13,14 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div class="collapse navbar-collapse" *ngIf="employee" id="navbarText">
       <ul
         *ngIf="employee.profile.name === 'Empleado'"
         class="navbar-nav me-auto mb-2 mb-lg-0"
       >
         <li class="nav-item">
           <a
-            class="btn btn-outline-secondary color-wine mb-sm-2 mb-lg-0"
+            class="btn btn-outline-secondary color-wine mb-2 mb-lg-0"
             routerLink="/employees/home"
             routerLinkActive="color-wine-active"
             >Inicio</a
