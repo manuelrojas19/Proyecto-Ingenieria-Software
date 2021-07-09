@@ -26,17 +26,17 @@ export class FactureService {
   //   return this.http.get<Facture[]>(`${environment.API_URL}/${commision}/facture?page=${page}&limit=5`);
   // }
 
-  employeeGetFacturesByCommission(commision: number, page: number) {
-    return this.http.get<FacturesResponse>(`${environment.API_URL}/employees/me/commissions/${commision}/factures?page=${page}&limit=6`);
+  employeeGetFacturesByCommission(commission: number, page: number) {
+    return this.http.get<FacturesResponse>(`${environment.API_URL}/employees/me/commissions/${commission}/factures?page=${page}&limit=6`);
+  }
+
+  employeeCreateFacture(commission: number, facture: FormData) {
+    return this.http.post(`${environment.API_URL}/employees/me/commissions/${commission}/factures`, facture);
   }
 
   getFacturesByEmployee(employee: string) {
     return this.http.get<Facture[]>(environment.API_URL + '/finances/' + employee + '/facture');
 
-  }
-
-  createFacture(facture: FormData) {
-    return this.http.post(environment.API_URL + '/facture', facture);
   }
 
   downloadFacture(facture: string) {

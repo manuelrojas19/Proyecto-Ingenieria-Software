@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { FactureService } from 'src/app/core/services/facture.service';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
-import { CommissionInfoComponent } from '../commission-info/commission-info.component';
 
 @Component({
   selector: 'app-facture-form',
@@ -11,12 +8,15 @@ import { CommissionInfoComponent } from '../commission-info/commission-info.comp
   styleUrls: ['./facture-form.component.css']
 })
 export class FactureFormComponent implements OnInit {
+  @Output() factureSubmit = new EventEmitter();
+  @Input() error: HttpErrorResponse;
+  formHasErrors: boolean;
 
   authForm = new FormGroup({
-    date: new FormControl('', [
+    description: new FormControl('Gastos de transporte', [
       Validators.required,
     ]),
-    factureDescription: new FormControl('Gastos de transporte', [
+    date: new FormControl('', [
       Validators.required,
     ]),
     amount: new FormControl('', [
@@ -28,16 +28,16 @@ export class FactureFormComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required])
   });
 
-  constructor(
-    private modalComponent: ModalComponent,
-    private route: ActivatedRoute,
-    private factureService: FactureService,
-    private commissionController: CommissionInfoComponent) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  onFileChange(event) {
+  get controls() {
+    return this.authForm.controls;
+  }
+
+  onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.authForm.patchValue({
@@ -48,36 +48,31 @@ export class FactureFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.authForm.invalid) {
-      if (this.authForm.get('date').value === '')
-        this.authForm.get('date').setErrors({ requiredField: true })
-      if (this.authForm.get('factureDescription').value === '')
-        this.authForm.get('factureDescription').setErrors({ requiredField: true })
-      if (this.authForm.get('amount').value === '')
-        this.authForm.get('amount').setErrors({ requiredField: true })
-      if (this.authForm.get('amount').value > 99999999999 || this.authForm.get('amount').value <= 0)
+      this.formHasErrors = true;
+      if (this.controls.amount.value > 99999999999 || this.controls.amount.value < 0) {
         this.authForm.get('amount').setErrors({ rangeError: true })
-      if (this.authForm.get('facture').value === '')
-        this.authForm.get('facture').setErrors({ requiredField: true })
+      }
       return;
     }
 
+    this.formHasErrors = false;
+
     const formData = new FormData();
-
-    formData.append('facture', this.authForm.get('fileSource').value);
-    formData.append('commissionId', this.route.snapshot.params.id);
-    formData.append('amount', this.authForm.get('amount').value);
-    formData.append('factureDescription', this.authForm.get('factureDescription').value);
+    formData.append('description', this.authForm.get('description').value);
     formData.append('date', this.authForm.get('date').value);
+    formData.append('amount', this.authForm.get('amount').value);
+    formData.append('facture', this.authForm.get('fileSource').value);
 
-    this.factureService.createFacture(formData).subscribe({
-      next: res => {
-        this.modalComponent.onCloseModal();
-        this.commissionController.getData();
-      },
-      error: error => {
-        this.authForm.setErrors({ invalidFile: true })
-      }
-    });
+    this.factureSubmit.emit(formData);
+    // this.factureService.createFacture(formData).subscribe({
+    //   next: res => {
+    //     this.modalComponent.onCloseModal();
+    //     this.commissionController.getData();
+    //   },
+    //   error: error => {
+    //     this.authForm.setErrors({ invalidFile: true })
+    //   }
+    // });
 
   }
 

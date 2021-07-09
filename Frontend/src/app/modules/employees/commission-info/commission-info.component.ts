@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { CommissionResponse } from 'src/app/core/interfaces/commission.response';
 import { Pagination } from 'src/app/core/interfaces/pagination';
 import { Commission } from 'src/app/core/models/commission';
 import { Facture } from 'src/app/core/models/facture';
@@ -19,6 +21,9 @@ export class CommissionInfoComponent implements OnInit {
   factures: Facture[];
   facturesPagination: Pagination;
   facturesPage: number = 1;
+
+  eventSuccesfullyCreated: Subject<void> = new Subject<void>();
+  error: Error = null;
 
   constructor(private commissionService: CommissionService,
     private factureService: FactureService,
@@ -52,4 +57,15 @@ export class CommissionInfoComponent implements OnInit {
     this.getData();
   }
 
+  onCreateFacture(formData: FormData) {
+    this.factureService.employeeCreateFacture(this.commission.id, formData).subscribe({
+      next: () => {
+        this.getData();
+        this.eventSuccesfullyCreated.next();
+      },
+      error: error => {
+        this.error = error;
+      },
+    });
+  }
 }

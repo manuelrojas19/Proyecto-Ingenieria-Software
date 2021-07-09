@@ -1,14 +1,12 @@
 <h1>Detalles de la comisión</h1>
-<a
-  routerLink=".."
-  type="button"
-  class="btn btn-outline-secondary mt-3 mb-4"
->
+<a routerLink=".." type="button" class="btn btn-outline-secondary mt-3 mb-4">
   <i class="fa fa-angle-left"></i> Regresar
 </a>
 <div class="row mt-2">
-  <p  class="text-muted" *ngIf="notFoundError">No se encontro el recurso solicitado.</p>
-  <div class="col-md-12 col-lg-5 mb-5">
+  <p class="text-muted" *ngIf="notFoundError">
+    No se encontro el recurso solicitado.
+  </p>
+  <div class="col-md-12 col-lg-5 mb-5 mb-lg-0">
     <div>
       <app-commission-details
         *ngIf="commission"
@@ -40,9 +38,12 @@
   </div>
 </div>
 <app-modal
+  [events]="eventSuccesfullyCreated.asObservable()"
   *ngIf="commission?.financesApproval && commission?.managerApproval"
   idModal="reqFactureModal"
 >
   <h5 modalTitle>Agregar factura</h5>
-  <app-facture-form></app-facture-form>
+  <app-facture-form
+    (factureSubmit)="onCreateFacture($event)"
+  ></app-facture-form>
 </app-modal>
