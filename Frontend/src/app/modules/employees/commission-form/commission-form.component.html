@@ -47,6 +47,7 @@
   <div class="col-md-12 form-group">
     <label for="placeCommission" class="form-label">Lugar de la comisión</label>
     <input
+      placeholder="Ingrese el lugar de la comisión"
       formControlName="place"
       [ngClass]="
         formHasErrors && controls.place.errors?.required ? 'is-invalid' : ''
