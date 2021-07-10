@@ -6,19 +6,19 @@ Este proyecto es un sistema que pretende permitir la automatización del proceso
 
 ## Desarrollo
 ## Tecnologias utilizadas
-[NodeJs (Backend)](https://nodejs.org/es)
-[Express](https://expressjs.com)
-[MySQL (DB)](https://www.mysql.com)
-[Sequelize (ORM)](https://sequelize.org)
-[Angular (Frontend)](https://angular.io)
-[Bootstrap](https://getbootstrap.com)
+* [NodeJs (Backend)](https://nodejs.org/es)
+* [Express](https://expressjs.com)
+* [MySQL (DB)](https://www.mysql.com)
+* [Sequelize (ORM)](https://sequelize.org)
+* [Angular (Frontend)](https://angular.io)
+* [Bootstrap](https://getbootstrap.com)
 
 ## Despliege
 ### Tecnologias utilizadas
-[Gcloud (Despliege y administración)](https://cloud.google.com)
-[Google App Engine (Despliegue de las aplicaciones)](https://cloud.google.com/appengine)
-[Google Cloud Storage (Almacenamiento de archivos)](https://cloud.google.com/storage)
+* [Gcloud (Despliege y administración)](https://cloud.google.com)
+* [Google App Engine (Despliegue de las aplicaciones)](https://cloud.google.com/appengine)
+* [Google Cloud Storage (Almacenamiento de archivos)](https://cloud.google.com/storage)
 
-Enlace a producción: [Sistema Viaticos](https://sistema-viaticos.uc.r.appspot.com/).
-Usuario de prueba: manuelarr99@gmail.com
-Contraseña: 123456
+* Enlace a producción: [Sistema Viaticos](https://sistema-viaticos.uc.r.appspot.com/).
+* Usuario de prueba: manuelarr99@gmail.com
+* Contraseña: 123456
