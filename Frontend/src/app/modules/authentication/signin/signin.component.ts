@@ -47,9 +47,9 @@ export class SigninComponent implements OnInit {
         if (res.employee.profile.name === Profiles.EMPLOYEE) {
           this.router.navigateByUrl('/employees/home')
         } else if (res.employee.profile.name === Profiles.MANAGER) {
-          this.router.navigateByUrl('/manager')
+          this.router.navigateByUrl('/manager/home')
         } else if (res.employee.profile.name === Profiles.FINANCES) {
-          this.router.navigateByUrl('/finances')
+          this.router.navigateByUrl('/finances/home')
         }
       },
       error: (error) => { 

@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { LoaderInterceptor } from './core/interceptors/loader-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -22,8 +19,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AppRoutingModule,
     AuthenticationModule,
     CoreModule,
-    // RouterModule,
-    // HttpClientModule,
   ],
   providers: [
     {

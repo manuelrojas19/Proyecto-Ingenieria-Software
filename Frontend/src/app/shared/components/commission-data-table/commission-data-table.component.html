@@ -27,10 +27,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let commission of commissions ">
+          <tr *ngFor="let commission of commissions">
             <td>{{ commission.type }}</td>
             <td *ngIf="commissions[0]?.employee">
-              {{ commission.employee }}
+              {{
+                commission.employee[0].lastName +
+                  " " +
+                  commission.employee[0].name
+              }}
             </td>
             <td *ngIf="commissions[0]?.employee?.department">
               {{ commission.department }}
@@ -70,7 +74,7 @@
             <td class="text-center">
               <a
                 class="btn btn-sm btn-outline-primary"
-                routerLink="/employees/commissions/{{ commission.id }}"
+                routerLink="./{{ commission.id }}"
               >
                 <i class="fa fa-file-invoice"></i>
               </a>
@@ -79,11 +83,12 @@
         </tbody>
       </table>
     </div>
-    <nav class="paginator"
+    <nav
+      class="paginator"
       aria-label="Page navigation example"
       *ngIf="pagination?.pages > 1"
     >
-      <ul class="pagination justify-content-end ">
+      <ul class="pagination justify-content-end">
         <li
           class="page-item"
           [ngClass]="pagination.page - 1 <= 0 ? 'disabled' : ''"
