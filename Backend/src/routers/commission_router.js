@@ -32,7 +32,7 @@ router.get(
     '/managers/me/commissions',
     auth,
     permit('Jefe de Area'),
-    CommissionController.findCommissionsByManager,
+    CommissionController.managerFindCommissions,
 );
 
 router.get(

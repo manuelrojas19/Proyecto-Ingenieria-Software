@@ -75,18 +75,26 @@ commissionService.findCommissionByIdAndEmployee = async (
   return commission;
 };
 
-commissionService.findCommissionsByManager = async (manager) => {
-  return Commission.findAll({
+commissionService.managerFindCommissions = async (manager, queryOptions) => {
+  const {count, rows} = await Commission.findAndCountAll({
     include: [
       {
         association: 'employee',
-        include: ['profile', 'department'],
+        attributes: ['id', 'name', 'lastName'],
         where: {
           departmentId: manager.department.id,
         },
       },
     ],
+    order: [
+      ['startDate', 'DESC'],
+      ['endDate', 'DESC'],
+    ],
+    limit: queryOptions.limit,
+    offset: queryOptions.offset,
   });
+  const commissions = rows;
+  return {commissions, count};
 };
 
 commissionService.findCommissionsByDepartment = async (departmentName) => {

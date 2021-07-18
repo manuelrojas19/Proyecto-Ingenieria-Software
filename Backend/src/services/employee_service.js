@@ -65,7 +65,7 @@ exports.findEmployeeById = async (id) => {
       },
       {
         association: 'department',
-        attributes: ['name'],
+        attributes: ['id', 'name'],
       },
     ],
   });

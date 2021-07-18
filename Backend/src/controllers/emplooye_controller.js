@@ -1,7 +1,7 @@
 const {EmployeeService} = require('../services/index.js');
 
 exports.me = async (req, res) => {
-  res.status(200).json(req.employee);
+  res.status(200).json({employee: req.employee});
 };
 
 exports.findEmplooyeById = async (req, res) => {
