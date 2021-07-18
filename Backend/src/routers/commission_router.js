@@ -29,21 +29,21 @@ router.get(
 // Manager
 
 router.get(
-    '/manager/commissions',
+    '/managers/me/commissions',
     auth,
     permit('Jefe de Area'),
     CommissionController.findCommissionsByManager,
 );
 
 router.get(
-    '/manager/commissions/:id',
+    '/managers/me/commissions/:id',
     auth,
     permit('Jefe de Area', 'Finanzas'),
     CommissionController.findCommissionByIdAndManager,
 );
 
 router.patch(
-    '/manager/commissions/:id/approve',
+    '/managers/me/commissions/:id/approve',
     auth,
     permit('Jefe de Area'),
     CommissionController.updateCommissionByManager,
@@ -52,35 +52,35 @@ router.patch(
 // Finances
 
 router.get(
-    '/finance/departments/:department/commissions/:id',
+    '/departments/:department/commissions/:id',
     auth,
     permit('Finanzas'),
     CommissionController.findCommissionsByDepartment,
 );
 
 router.get(
-    '/finance/employees/:employee/commissions',
+    '/employees/:employee/commissions',
     auth,
     permit('Finanzas'),
     CommissionController.findCommissionsByEmployeeId,
 );
 
 router.get(
-    '/finance/commissions/:id',
+    '/commissions/:id',
     auth,
     permit('Finanzas'),
     CommissionController.findCommissionById,
 );
 
 router.patch(
-    '/finance/commissions/:id/approve',
+    '/commissions/:id/approve',
     auth,
     permit('Finanzas'),
     CommissionController.updateCommissionByFinances,
 );
 
 router.patch(
-    '/finance/commission/:id/deposit',
+    '/commission/:id/deposit',
     auth,
     permit('Finanzas'),
     CommissionController.depositToCommision,
