@@ -85,12 +85,19 @@ commissionController.findCommissionsByEmployeeId = async (req, res) => {
   }
 };
 
-commissionController.findCommissionsByManager = async (req, res) => {
+commissionController.managerFindCommissions = async (req, res) => {
+  const pagination = new Pagination(req.query.limit, req.query.page);
   try {
-    const commissions = await CommissionService.findCommissionsByManager(
-        req.employee,
-    );
-    res.status(200).json(commissions);
+    const {commissions, count} =
+      await CommissionService.managerFindCommissions(
+          req.employee,
+          pagination.queryOptions(),
+      );
+    const paginationResponse = pagination.paginationResponse(count);
+    res.status(200).json({
+      meta: {pagination: paginationResponse},
+      commissions: commissions,
+    });
   } catch (e) {
     res.status(400).json({error: e.message});
   }
