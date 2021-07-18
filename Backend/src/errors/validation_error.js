@@ -3,7 +3,7 @@ const errorNames = require('./error_names.js');
 const httpStatusCodes = require('./http_status_codes.js');
 
 /**
- *  Clase para representar un error operacional de recurso no encontrado
+ *  Clase para representar un error operacional de validación
  */
 class ValidationError extends BaseError {
   /**

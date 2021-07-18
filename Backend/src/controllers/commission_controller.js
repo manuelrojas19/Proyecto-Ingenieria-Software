@@ -1,40 +1,28 @@
 const {CommissionService, EmployeeService} = require('../services/index.js');
 const {logger} = require('../util/logger.js');
+const Pagination = require('../util/pagination.js');
 
 const commissionController = {};
 
 commissionController.employeeFindCommissions = async (req, res) => {
-  const queryOptions = {};
-
-  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 6;
-  const page =
-    parseInt(req.query.page) && parseInt(req.query.page) > 0 ?
-      parseInt(req.query.page) :
-      1;
-  logger.info(page);
-  queryOptions.limit = limit;
-  queryOptions.offset = (page - 1) * limit;
+  const pagination = new Pagination(req.query.limit, req.query.page);
 
   try {
     logger.info('Fetching comissions from DB');
-    const commissions = await CommissionService.findCommissionsByEmployee(
-        req.employee.id,
-        queryOptions,
-    );
+    const {commissions, count} =
+      await CommissionService.findCommissionsByEmployee(
+          req.employee.id,
+          pagination.queryOptions(),
+      );
     logger.info(
         commissions,
         'Commissions was found succesfully, sending to client',
     );
 
-    const pagination = {};
-    pagination.total = commissions.count;
-    pagination.pages = Math.ceil(commissions.count / limit);
-    pagination.page = page;
-    pagination.limit = limit;
-
+    const paginationResponse = pagination.paginationResponse(count);
     res.status(200).json({
-      meta: {pagination: pagination},
-      commissions: commissions.rows,
+      meta: {pagination: paginationResponse},
+      commissions: commissions,
     });
   } catch (e) {
     logger.error(e);

@@ -19,15 +19,16 @@ const commissionService = {};
  * the employee's ID
  *
  * @param  {number} employeeId The id of employee owner of the commissions.
- * @param  {Pagination} pagination The pagination object.
+ * @param  {Pagination.queryOptions} queryOptions The queryOptions
+ * object from pagination object.
  * @return {Commissions} The employee commissions
  *
  */
 commissionService.findCommissionsByEmployee = async (
     employeeId,
-    pagination,
+    queryOptions,
 ) => {
-  const commissions = await Commission.findAndCountAll({
+  const {count, rows} = await Commission.findAndCountAll({
     include: [
       {
         attributes: [],
@@ -41,10 +42,11 @@ commissionService.findCommissionsByEmployee = async (
       ['startDate', 'DESC'],
       ['endDate', 'DESC'],
     ],
-    limit: pagination.limit,
-    offset: pagination.offset,
+    limit: queryOptions.limit,
+    offset: queryOptions.offset,
   });
-  return commissions;
+  const commissions = rows;
+  return {commissions, count};
 };
 
 commissionService.findCommissionByIdAndEmployee = async (

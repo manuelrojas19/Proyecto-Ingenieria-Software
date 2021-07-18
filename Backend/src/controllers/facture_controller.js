@@ -4,20 +4,13 @@ const {
   CommissionService,
 } = require('../services/index.js');
 const {logger} = require('../util/logger.js');
+const Pagination = require('../util/pagination.js');
 const storage = require('../util/storage.js');
 
 const factureController = {};
 
 factureController.employeeFindFacturesByCommission = async (req, res, next) => {
-  const queryOptions = {};
-
-  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 6;
-  const page =
-    parseInt(req.query.page) && parseInt(req.query.page) > 0 ?
-      parseInt(req.query.page) :
-      1;
-  queryOptions.limit = limit;
-  queryOptions.offset = (page - 1) * limit;
+  const pagination = new Pagination(req.query.limit, req.query.page);
 
   const commisionId = req.params.commission;
   try {
@@ -31,18 +24,15 @@ factureController.employeeFindFacturesByCommission = async (req, res, next) => {
 
     const factures = await FactureService.findFacturesByCommission(
         commission.id,
-        queryOptions,
+        pagination.queryOptions(),
     );
 
-    const pagination = {};
-    pagination.total = factures.count;
-    pagination.pages = Math.ceil(factures.count / limit);
-    pagination.page = page;
-    pagination.limit = limit;
-
     logger.info(factures, 'Factures founded succesfully, sending to client');
+
+    const paginationResponse = pagination.paginationResponse(factures.count);
+
     res.status(200).json({
-      meta: {pagination: pagination},
+      meta: {pagination: paginationResponse},
       factures: factures.rows,
     });
   } catch (e) {

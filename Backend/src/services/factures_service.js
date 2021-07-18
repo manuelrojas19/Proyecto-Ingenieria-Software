@@ -6,7 +6,7 @@ exports.createFacture = async (facture) => {
   return Facture.create(facture);
 };
 
-exports.findFacturesByCommission = async (commissionId, pagination) => {
+exports.findFacturesByCommission = async (commissionId, queryOptions) => {
   return Facture.findAndCountAll({
     where: {
       commissionId: commissionId,
@@ -14,8 +14,8 @@ exports.findFacturesByCommission = async (commissionId, pagination) => {
     order: [
       ['date', 'DESC'],
     ],
-    limit: pagination.limit,
-    offset: pagination.offset,
+    limit: queryOptions.limit,
+    offset: queryOptions.offset,
   });
 };
 
