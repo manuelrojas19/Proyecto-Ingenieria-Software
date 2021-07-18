@@ -29,15 +29,16 @@ export class CommissionService {
   }
 
 
+  // Manager Module
+
+  getCommissionsByManager(page: number) {
+    return this.http.get<CommissionsResponse>(`${environment.API_URL}/managers/me/commissions?page=${page}&limit=5`);
+  }
+
 
   getCommissionsByEmployeeId(id: string) {
     return this.http.get<Commission[]>(environment.API_URL + '/finances/employees/' + id + '/commission');
   }
-
-  getCommissionsByManager() {
-    return this.http.get<Commission[]>(environment.API_URL + '/manager/commission');
-  }
-
 
   getCommission(id: string) {
     return this.http.get<Commission>(environment.API_URL + '/manager/commission/' + id);

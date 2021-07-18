@@ -17,8 +17,8 @@ export class ManagerHomeComponent implements OnInit {
   }
 
   public getManagerInfo(): void {
-    this.employeeService.getEmployeeInfo().subscribe(employee => {
-      this.manager = employee;
+    this.employeeService.getEmployeeInfo().subscribe(res => {
+      this.manager = res.employee;
     })
   }
 }

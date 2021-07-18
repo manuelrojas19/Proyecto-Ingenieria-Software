@@ -19,8 +19,8 @@ export class EmployeesIndexComponent implements OnInit {
   }
 
   public getManagerInfo(): void {
-    this.employeeService.getEmployeeInfo().subscribe(manager => {
-      this.manager = manager;
+    this.employeeService.getEmployeeInfo().subscribe(res => {
+      this.manager = res.employee;
       this.getEmployees();
     })
   }

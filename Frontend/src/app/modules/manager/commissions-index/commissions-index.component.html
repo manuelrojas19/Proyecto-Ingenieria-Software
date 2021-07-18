@@ -1,4 +1,4 @@
-<div *ngIf="manager">
+<!-- <div *ngIf="manager">
   <h1 class="display-5">Solicitudes de comisiones</h1>
   <div class="mt-4">
     <div class="card mt-4 mb-4">
@@ -79,5 +79,17 @@
         </div>
       </div>
     </div>
+  </div>
+</div> -->
+
+<h1 class="h1">Comisiones</h1>
+<div class="mt-3" *ngIf="commissions">
+  <div class="table-data-container mt-4">
+    <app-commission-data-table
+      [commissions]="commissions"
+      [pagination]="pagination"
+      (selectIndexEvent)="onChangeItem($event)"
+    >
+    </app-commission-data-table>
   </div>
 </div>

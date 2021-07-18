@@ -8,7 +8,7 @@ import { ReportsByEmployeeComponent } from './reports-by-employee/reports-by-emp
 
 
 const routes: Routes = [
-  { path: '', component: ManagerHomeComponent },
+  { path: 'home', component: ManagerHomeComponent },
   {
     path: 'commissions', component: CommissionsIndexComponent,
   },

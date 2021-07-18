@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Pagination } from 'src/app/core/interfaces/pagination';
 import { Commission } from 'src/app/core/models/commission';
-import { Employee } from 'src/app/core/models/employee';
 import { CommissionService } from 'src/app/core/services/commission.service';
-import { EmployeeService } from 'src/app/core/services/employee.service';
 
 @Component({
   selector: 'app-commissions-index',
@@ -11,27 +10,27 @@ import { EmployeeService } from 'src/app/core/services/employee.service';
 })
 export class CommissionsIndexComponent implements OnInit {
   commissions: Commission[];
-  manager: Employee;
+  pagination: Pagination;
+  page: number;
 
-  constructor(private commissionService: CommissionService,
-    private employeeService: EmployeeService) {
+  constructor(private commissionService: CommissionService) {
   }
 
   ngOnInit(): void {
     this.getCommissions();
-    this.getManagerInfo();
   }
 
   public getCommissions(): void {
-    this.commissionService.getCommissionsByManager().subscribe(commisions => {
-      this.commissions = commisions;
+    this.commissionService.getCommissionsByManager(this.page).subscribe(res => {
+      this.commissions = res.commissions;
+      this.pagination = res.meta.pagination;
     });
   }
 
-  public getManagerInfo(): void {
-    this.employeeService.getEmployeeInfo().subscribe(employee => {
-      this.manager = employee;
-    })
+  public onChangeItem(index: number) {
+    this.page = index;
+    this.getCommissions();
   }
-  
+
+
 }
