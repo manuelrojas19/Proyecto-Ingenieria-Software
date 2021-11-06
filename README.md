@@ -2,7 +2,7 @@
 
 ## Descripción del proyecto
 
-Este proyecto es un sistema que pretende permitir la automatización del proceso de solicitud, aprobación y manejo de las comisiones de una empresa y así mismo la subida y manejo de comprobantes de gastos de comisiones. Se permite a los empleados realizar las solicitudes de comisiones ya sean de viaticos o transporte, estas posteriormente pasaran por un flujo de aprobación que consta de dos partes, aprobación por el jefe de área y aprobación por parte del área de finanzas. Una ves la comisión sea aprobada se permite la subida de facturas para la comprabación de gastos.
+Este proyecto es un sistema que pretende permitir la automatización del proceso de solicitud, aprobación y manejo de las comisiones de una empresa y así mismo la subida y manejo de comprobantes de gastos de comisiones. Se permite a los empleados realizar las solicitudes de comisiones ya sean de viaticos o transporte, estas posteriormente pasaran por un flujo de aprobación que consta de dos partes, aprobación por el jefe de área y aprobación por parte del área de finanzas. Una ves la comisión sea aprobada se permite la subida de facturas para la comprobación de gastos.
 
 ## Desarrollo
 ## Tecnologias utilizadas
